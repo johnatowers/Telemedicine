@@ -1,0 +1,73 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {}
+  },
+  "projects": {
+    "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+        "projectName": "Telemedicine.API",
+        "projectPath": "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+        "packagesPath": "/Users/guitarplay162/.nuget/packages/",
+        "outputPath": "/Users/guitarplay162/Telemedicine/Telemedicine.API/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/guitarplay162/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
