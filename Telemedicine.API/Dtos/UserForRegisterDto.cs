@@ -11,7 +11,7 @@ namespace Telemedicine.API.Dtos
         [StringLength(20, MinimumLength = 4, ErrorMessage = "You must specify password between 4 and 20 characteres")]
         public string Password { get; set; }
 
-        [Required]
+        //[Required]
         // When registering a patient (not doctor), we'll enter default value 0
         public string DeaId { get; set; }
     }

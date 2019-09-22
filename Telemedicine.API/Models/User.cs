@@ -13,6 +13,7 @@ namespace Telemedicine.API.Models
         // When registering a patient (not doctor), we'll enter default value 0
         public string DeaId { get; set; }
 
-        public int isDoctor { get; set; }
+        // 0 = patient, 1 = doctor, 2 = admin
+        public int role { get; set; }
     }
 }

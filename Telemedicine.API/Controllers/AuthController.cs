@@ -32,9 +32,15 @@ namespace Telemedicine.API.Controllers
 
             if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
-            
-            if (await _repo.DoctorExists(userForRegisterDto.DeaId))
-                return BadRequest("The specific DEA ID has already been registered");
+        
+            // Maybe add to a separate doctorRegister method? Or add back for doctor registering
+            /* if (userForRegisterDto.DeaId == null)
+                userForRegisterDto.DeaId = "0"; // If there is no DEA Id, assign default 0
+            else
+                if (await _repo.DoctorExists(userForRegisterDto.DeaId))
+                    return BadRequest("The specific DEA ID has already been registered"); */
+            // For now we'll assume its a patient with no DEA Id and assign it to 0
+            userForRegisterDto.DeaId = "0";
             
             var userToCreate = new User
             {
