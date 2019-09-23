@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Telemedicine.API.Data;
+using AutoMapper;
 
 namespace Telemedicine.API
 {
@@ -34,7 +35,9 @@ namespace Telemedicine.API
             (Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
+            services.AddAutoMapper(typeof(TelemedRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ITelemedRepository, TelemedRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

@@ -9,6 +9,7 @@ namespace Telemedicine.API.Data
     // queries database via entity framework
     public class AuthRepository : IAuthRepository
     {
+         
         private readonly DataContext _context;
         public AuthRepository(DataContext context)
         {
@@ -22,13 +23,13 @@ namespace Telemedicine.API.Data
              
              user.PasswordHash = passwordHash;
              user.PasswordSalt = passwordSalt;
-             user.role = 0; // registering is automatically a patient 
+             user.Role = Role.User; // registering is automatically a patient 
              user.DeaId = deaId;
 
             //TODO: this is most likely where we will query database of DEA IDs to check this ID is valid
             // We can create a method similar to VerifyPasswordHash and UserExists
             // For now, I'll just make sure it does not equal 0
-            /* if (deaId.Length > 1 && !deaId.Equals("0"))
+             /*if (deaId.Length > 1 && !deaId.Equals("0"))
                 user.isDoctor = 1;
             else 
                 user.isDoctor = 0; */
@@ -97,6 +98,6 @@ namespace Telemedicine.API.Data
                 return true;
             
             return false;
-         }
+         } 
     }
 }

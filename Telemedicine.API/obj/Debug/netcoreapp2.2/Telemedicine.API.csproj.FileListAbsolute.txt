@@ -12,3 +12,17 @@
 /Users/guitarplay162/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.RazorTargetAssemblyInfo.cache
 /Users/guitarplay162/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.dll
 /Users/guitarplay162/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.pdb
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.deps.json
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.runtimeconfig.json
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.runtimeconfig.dev.json
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.dll
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.pdb
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.csprojAssemblyReference.cache
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.csproj.CoreCompileInputs.cache
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.RazorAssemblyInfo.cache
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.RazorAssemblyInfo.cs
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.AssemblyInfoInputs.cache
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.AssemblyInfo.cs
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.RazorTargetAssemblyInfo.cache
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.dll
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.pdb

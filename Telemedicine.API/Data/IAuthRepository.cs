@@ -5,7 +5,7 @@
 {
     public interface IAuthRepository
     {
-         // registering user
+          // registering user
          Task<User> Register(User user, string password, string deaId);
 
          // logging in to api
@@ -15,7 +15,7 @@
          Task<bool> UserExists(string username);
 
         // check if doctor has already registered with a specific DEA Id
-        Task<bool> DoctorExists(string deaId);
+        Task<bool> DoctorExists(string deaId); 
 
     }
 } 

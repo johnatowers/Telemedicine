@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Telemedicine.API.Data;
 
 namespace Telemedicine.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190923191736_AddTableUserPatient")]
+    partial class AddTableUserPatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,27 @@ namespace Telemedicine.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("Country");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<DateTime>("DateofBirth");
-
                     b.Property<string>("DeaId");
 
-                    b.Property<string>("Gender");
+                    b.Property<byte[]>("PasswordHash");
 
-                    b.Property<DateTime>("LastActive");
+                    b.Property<byte[]>("PasswordSalt");
+
+                    b.Property<string>("Username");
+
+                    b.Property<int>("role");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.UserPatient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DeaId");
 
                     b.Property<byte[]>("PasswordHash");
 
@@ -43,13 +51,11 @@ namespace Telemedicine.API.Migrations
 
                     b.Property<string>("Role");
 
-                    b.Property<string>("State");
-
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserPatients");
                 });
 
             modelBuilder.Entity("Telemedicine.API.Models.Value", b =>
