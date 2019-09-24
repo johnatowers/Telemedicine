@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {}
+    "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {}
   },
   "projects": {
-    "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {
+    "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+        "projectUniqueName": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
         "projectName": "Telemedicine.API",
-        "projectPath": "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
-        "packagesPath": "/Users/guitarplay162/.nuget/packages/",
-        "outputPath": "/Users/guitarplay162/Telemedicine/Telemedicine.API/obj/",
+        "projectPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+        "packagesPath": "/Users/macy/.nuget/packages/",
+        "outputPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/guitarplay162/.nuget/NuGet/NuGet.Config"
+          "/Users/macy/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"

@@ -12,3 +12,5 @@
 /Users/guitarplay162/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.RazorTargetAssemblyInfo.cache
 /Users/guitarplay162/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.dll
 /Users/guitarplay162/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.pdb
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.dll
+/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.pdb
