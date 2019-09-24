@@ -55,6 +55,8 @@ namespace Telemedicine.API.Controllers
          [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+            //throw new Exception("Computer says no!");
+
             // Check that user has username and password in database
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 

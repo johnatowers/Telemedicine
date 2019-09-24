@@ -29,10 +29,6 @@ namespace Telemedicine.API.Data
             //TODO: this is most likely where we will query database of DEA IDs to check this ID is valid
             // We can create a method similar to VerifyPasswordHash and UserExists
             // For now, I'll just make sure it does not equal 0
-             /*if (deaId.Length > 1 && !deaId.Equals("0"))
-                user.isDoctor = 1;
-            else 
-                user.isDoctor = 0; */
 
              await _context.Users.AddAsync(user);
              await _context.SaveChangesAsync();
