@@ -2,28 +2,22 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Telemedicine.API.Models;
+using Microsoft.AspNetCore.Identity;
+
 namespace Telemedicine.API.Data
 {
     public class Seed
     {
-        public static void SeedUsers(DataContext context)
+        public static void SeedUsers(UserManager<User> userManager)
         {
-            if (!context.Users.Any())
+            if (!userManager.Users.Any())
             {
                 var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
                 var users = JsonConvert.DeserializeObject<List<User>>(userData);
                 foreach (var user in users)
                 {
-                    byte[] passwordhash, passwordsalt;
-                    CreatePasswordHash("password", out passwordhash, out passwordsalt);
-
-                    user.PasswordHash = passwordhash;
-                    user.PasswordSalt = passwordsalt;
-                    user.Username = user.Username.ToLower();
-                    context.Users.Add(user);
+                    userManager.CreateAsync(user, "password").Wait();
                 }
-
-                context.SaveChanges();
             }
         }
 

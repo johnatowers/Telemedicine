@@ -1,9 +1,10 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+
 namespace Telemedicine.API.Models
 {
-    public class Role
+    public class Role : IdentityRole<int>
     {
-        public const string Admin = "Admin";
-        public const string User = "User";
-        public const string Doctor = "Doctor";
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

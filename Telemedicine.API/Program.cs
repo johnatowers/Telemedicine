@@ -5,6 +5,9 @@ using System;
 using Telemedicine.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
+using Telemedicine.API.Models;
+
 namespace Telemedicine.API
 {
     public class Program
@@ -17,8 +20,9 @@ namespace Telemedicine.API
                 var services = scope.ServiceProvider;
                 try {
                     var context = services.GetRequiredService<DataContext>();
+                    var userManager = services.GetRequiredService<UserManager<User>>();
                     context.Database.Migrate();
-                    Seed.SeedUsers(context);
+                    Seed.SeedUsers(userManager);
 
                 } catch (Exception ex)
                 {

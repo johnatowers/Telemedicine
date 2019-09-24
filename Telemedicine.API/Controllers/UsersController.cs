@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 namespace Telemedicine.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -29,7 +28,7 @@ namespace Telemedicine.API.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.getUser(id);

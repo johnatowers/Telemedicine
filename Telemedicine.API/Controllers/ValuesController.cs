@@ -9,7 +9,6 @@ using Telemedicine.API.Data;
 
 namespace Telemedicine.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase

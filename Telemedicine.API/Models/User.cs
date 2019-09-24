@@ -1,15 +1,10 @@
 using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 namespace Telemedicine.API.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-
-        public string Username { get; set; }
-
-        public byte[] PasswordHash { get; set; }
-
-        public byte[] PasswordSalt { get; set; }
 
         public string Role { get; set; }
 
@@ -32,5 +27,7 @@ namespace Telemedicine.API.Models
         public string State { get; set; }
 
         public string Country { get; set; }
+
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }
