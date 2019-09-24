@@ -23,9 +23,9 @@ namespace Telemedicine.API.Controllers
         {
             _repo = repo;
             _config = config;
-        }
+        } 
 
-        [HttpPost("register")]
+       [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
@@ -34,11 +34,11 @@ namespace Telemedicine.API.Controllers
                 return BadRequest("Username already exists");
         
             // Maybe add to a separate doctorRegister method? Or add back for doctor registering
-            /* if (userForRegisterDto.DeaId == null)
+             if (userForRegisterDto.DeaId == null)
                 userForRegisterDto.DeaId = "0"; // If there is no DEA Id, assign default 0
             else
                 if (await _repo.DoctorExists(userForRegisterDto.DeaId))
-                    return BadRequest("The specific DEA ID has already been registered"); */
+                    return BadRequest("The specific DEA ID has already been registered"); 
             // For now we'll assume its a patient with no DEA Id and assign it to 0
             userForRegisterDto.DeaId = "0";
             
@@ -51,8 +51,8 @@ namespace Telemedicine.API.Controllers
 
             return StatusCode(201);
         }
-
-        [HttpPost("login")]
+ 
+         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             //throw new Exception("Computer says no!");
@@ -91,6 +91,6 @@ namespace Telemedicine.API.Controllers
             return Ok(new {
                 token = tokenHandler.WriteToken(token)
             });
-        }
+        } 
     }
 }
