@@ -1,2 +1,2 @@
 # Telemedicine
-Section 22 Installations: video #178 (section 17)
+Video 211: not adding MySql and SqlServer Annotations to migration file
