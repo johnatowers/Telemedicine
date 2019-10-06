@@ -11,5 +11,4 @@ export class PatientChartComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
