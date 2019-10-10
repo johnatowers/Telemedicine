@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
 
 namespace Telemedicine.API.Controllers
 {
@@ -17,12 +18,13 @@ namespace Telemedicine.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
-
+        private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         } 
 
        [HttpPost("register")]
@@ -34,22 +36,22 @@ namespace Telemedicine.API.Controllers
                 return BadRequest("Username already exists");
         
             // Maybe add to a separate doctorRegister method? Or add back for doctor registering
-             if (userForRegisterDto.DeaId == null)
-                userForRegisterDto.DeaId = "0"; // If there is no DEA Id, assign default 0
-            else
-                if (await _repo.DoctorExists(userForRegisterDto.DeaId))
-                    return BadRequest("The specific DEA ID has already been registered"); 
+             //if (userForRegisterDto.DeaId == null)
+             //   userForRegisterDto.DeaId = "0"; // If there is no DEA Id, assign default 0
+            //else
+            //    if (await _repo.DoctorExists(userForRegisterDto.DeaId))
+            //        return BadRequest("The specific DEA ID has already been registered"); 
             // For now we'll assume its a patient with no DEA Id and assign it to 0
-            userForRegisterDto.DeaId = "0";
+            //userForRegisterDto.DeaId = "0";
             
-            var userToCreate = new User
-            {
-                Username = userForRegisterDto.Username
-            };
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password, userForRegisterDto.DeaId);
 
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+
+            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, 
+            userToReturn);
         }
  
          [HttpPost("login")]
