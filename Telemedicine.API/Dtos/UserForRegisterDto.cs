@@ -4,6 +4,7 @@ namespace Telemedicine.API.Dtos
 {
     public class UserForRegisterDto
     {
+        //test
         [Required]
         public string Username { get; set; }
 
