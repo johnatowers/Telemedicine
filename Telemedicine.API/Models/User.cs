@@ -13,10 +13,15 @@ namespace Telemedicine.API.Models
 
         public string Role { get; set; }
 
-        // When registering a patient (not doctor), we'll enter default value 0
-        public string DeaId { get; set; }
+        public string firstName { get; set; }
 
-         // Section 9 properties
+        public string middleName { get; set; }
+
+        public string lastName { get; set; }
+
+        public string suffix {get; set; }
+
+        // Section 9 properties
         public string Gender { get; set; }
 
         public DateTime DateofBirth { get; set; }
@@ -32,5 +37,23 @@ namespace Telemedicine.API.Models
         public string State { get; set; }
 
         public string Country { get; set; }
+
+        // When registering a user of type patient or admin, we'll enter default value null
+        public string DeaId { get; set; }
+
+        // When registering a user of type patient or admin, we'll enter default value null
+        public string TypeOfDoctor { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string Notes { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string healthConditions { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string Allergies { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string Medications { get; set; }
     }
 }

@@ -12,10 +12,18 @@ namespace Telemedicine.API.Dtos
         [StringLength(20, MinimumLength = 4, ErrorMessage = "You must specify password between 4 and 20 characteres")]
         public string Password { get; set; }
 
-        // When registering a patient (not doctor), we'll enter default value 0
-        public string DeaId { get; set; }
-
         public string Role { get; set; }
+
+        [Required]
+        public string firstName { get; set; }
+
+        [Required]
+        public string middleName { get; set; }
+
+        [Required]
+        public string lastName { get; set; }
+
+        public string suffix {get; set; }
 
         [Required]
         public string Gender { get; set; }
@@ -41,12 +49,21 @@ namespace Telemedicine.API.Dtos
 
         public DateTime LastActive {get; set;}
 
+        // When registering a user of type patient or admin, we'll enter default value null
+        public string DeaId { get; set; }
+
+        // When registering a user of type patient or admin, we'll enter default value null
+        public string TypeOfDoctor { get; set; }
+
         public UserForRegisterDto()
         {
             Created = DateTime.Now;
             LastActive = DateTime.Now;
-            DeaId = "0";
+            suffix = null;
+            DeaId = null;
             Role = "User";
+            TypeOfDoctor = null;
+
         }        
     }
 }
