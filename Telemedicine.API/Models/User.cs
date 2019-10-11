@@ -1,15 +1,10 @@
 using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 namespace Telemedicine.API.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
-
-        public string Username { get; set; }
-
-        public byte[] PasswordHash { get; set; }
-
-        public byte[] PasswordSalt { get; set; }
 
         public string Role { get; set; }
 
@@ -55,5 +50,6 @@ namespace Telemedicine.API.Models
 
         // When registering a user of type doctor or admin, we'll enter default value null
         public string Medications { get; set; }
+        public virtual UserRole UserRole { get; set; }
     }
 }

@@ -9,70 +9,88 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace Telemedicine.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _repo;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
-        {
-            _repo = repo;
-            _config = config;
-            _mapper = mapper;
-        } 
 
-       [HttpPost("register")]
+        private readonly IConfiguration _config;
+        public AuthController(IConfiguration config,
+        UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
+        {
+            _mapper = mapper;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _config = config;
+        }
+
+        [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-
-            if (await _repo.UserExists(userForRegisterDto.Username))
-                return BadRequest("Username already exists");
-        
-            // Maybe add to a separate doctorRegister method? Or add back for doctor registering
-             //if (userForRegisterDto.DeaId == null)
-             //   userForRegisterDto.DeaId = "0"; // If there is no DEA Id, assign default 0
-            //else
-            //    if (await _repo.DoctorExists(userForRegisterDto.DeaId))
-            //        return BadRequest("The specific DEA ID has already been registered"); 
-            // For now we'll assume its a patient with no DEA Id and assign it to 0
-            //userForRegisterDto.DeaId = "0";
-            
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password, userForRegisterDto.DeaId);
+            var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
 
-            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+            var userToReturn = _mapper.Map<UserForDetailedDto>(userToCreate);
 
-            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, 
-            userToReturn);
+            if (result.Succeeded)
+            {
+                return CreatedAtRoute("GetUser", 
+                new { controller = "Users", 
+                id = userToCreate.Id}, userToReturn);
+            }
+
+            return BadRequest(result.Errors);
         }
- 
-         [HttpPost("login")]
+
+        [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             //throw new Exception("Computer says no!");
 
-            // Check that user has username and password in database
-            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+            var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
 
-            // Check if a user has been found
-            if (userFromRepo == null)
-                // we don't want to let them know the username or password is correct for security
-                return Unauthorized(); 
-            
-            // claims are user's id and user's username
-            var claims = new[]
+            var results = await _signInManager.CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
+
+            if (results.Succeeded)
             {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+                var appUser = _mapper.Map<UserForListDto>(user);
+
+                return Ok(new
+                {
+                    token = GenerateJwtToken(user),
+                    user = appUser
+                });
+            }
+            return Unauthorized();
+
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            // claims are user's id and user's username
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
+
+            //var role = await _userManager.GetRoleAsync(user);
+            //foreach (var role in roles) {
+            //    claims.Add(new Claim(ClaimTypes.Role, role));
+            //}
+            claims.Add(new Claim(ClaimTypes.Role, user.UserRole.ToString()));
 
             // Key to sign our token
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
@@ -87,12 +105,11 @@ namespace Telemedicine.API.Controllers
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
+
             // Contains JWT token to return to client
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
-                token = tokenHandler.WriteToken(token)
-            });
-        } 
+            return tokenHandler.WriteToken(token);
+        }
     }
 }

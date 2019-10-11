@@ -10,7 +10,6 @@ using System;
 
 namespace Telemedicine.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
