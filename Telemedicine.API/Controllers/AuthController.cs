@@ -40,7 +40,11 @@ namespace Telemedicine.API.Controllers
         {
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
+
             var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
+
+            var addRoleResult = _userManager.AddToRoleAsync(userToCreate, "Patient");
+
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(userToCreate);
 

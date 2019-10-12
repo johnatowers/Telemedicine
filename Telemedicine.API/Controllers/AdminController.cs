@@ -32,14 +32,6 @@ namespace Telemedicine.API.Controllers
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                //Role = (
-                    
-                        //from userRole in user.UserRole
-                        //join role in _context.Roles
-                        //on userRole.RoleId
-                        //equals role.Id
-                        //select role.Name
-                //        )
                 Role = user.UserRole.Role.ToString()
                 
             })

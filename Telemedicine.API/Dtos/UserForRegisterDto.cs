@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Telemedicine.API.Models;
 
 namespace Telemedicine.API.Dtos
 {
@@ -53,6 +54,7 @@ namespace Telemedicine.API.Dtos
 
         // When registering a user of type patient or admin, we'll enter default value null
         public string TypeOfDoctor { get; set; }
+
 
         public UserForRegisterDto()
         {
