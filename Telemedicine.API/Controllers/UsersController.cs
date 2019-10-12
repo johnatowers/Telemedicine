@@ -7,9 +7,11 @@ using Telemedicine.API.Dtos;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System;
+using Telemedicine.API.Helpers;
 
 namespace Telemedicine.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))] // anytime these methods are called, Last Action is updated
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

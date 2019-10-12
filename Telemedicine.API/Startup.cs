@@ -56,6 +56,7 @@ namespace Telemedicine.API
             builder.AddRoleValidator<RoleValidator<Role>>();
             builder.AddRoleManager<RoleManager<Role>>();
             builder.AddSignInManager<SignInManager<User>>();
+        
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
@@ -90,7 +91,7 @@ namespace Telemedicine.API
             services.AddCors();
             services.AddAutoMapper(typeof(TelemedRepository).Assembly);
             services.AddScoped<ITelemedRepository, TelemedRepository>();
-            
+            services.AddScoped<LogUserActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
