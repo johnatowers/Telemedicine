@@ -13,8 +13,6 @@ namespace Telemedicine.API.Dtos
         [StringLength(20, MinimumLength = 4, ErrorMessage = "You must specify password between 4 and 20 characteres")]
         public string Password { get; set; }
 
-        public string Role { get; set; }
-
         [Required]
         public string firstName { get; set; }
 
@@ -62,7 +60,6 @@ namespace Telemedicine.API.Dtos
             LastActive = DateTime.Now;
             suffix = null;
             DeaId = null;
-            Role = "User";
             TypeOfDoctor = null;
 
         }        

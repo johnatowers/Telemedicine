@@ -5,9 +5,6 @@ namespace Telemedicine.API.Models
 {
     public class User : IdentityUser<int>
     {
-
-        public string Role { get; set; }
-
         public string firstName { get; set; }
 
         public string middleName { get; set; }

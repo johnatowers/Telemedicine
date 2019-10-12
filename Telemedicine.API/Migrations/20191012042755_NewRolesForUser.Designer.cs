@@ -9,8 +9,8 @@ using Telemedicine.API.Data;
 namespace Telemedicine.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191012033749_IdentityRolesToUser")]
-    partial class IdentityRolesToUser
+    [Migration("20191012042755_NewRolesForUser")]
+    partial class NewRolesForUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,8 +161,6 @@ namespace Telemedicine.API.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("Role");
 
                     b.Property<string>("SecurityStamp");
 

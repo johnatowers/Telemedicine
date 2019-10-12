@@ -4,7 +4,10 @@ namespace Telemedicine.API.Dtos
     /*
             id: number;
     username: string;
-    role: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    suffix: string;
     age: string;
     gender: string;
     created: Date;

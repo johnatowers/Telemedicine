@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Telemedicine.API.Migrations
 {
-    public partial class IdentityRolesToUser : Migration
+    public partial class NewRolesForUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,6 @@ namespace Telemedicine.API.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Role = table.Column<string>(nullable: true),
                     firstName = table.Column<string>(nullable: true),
                     middleName = table.Column<string>(nullable: true),
                     lastName = table.Column<string>(nullable: true),

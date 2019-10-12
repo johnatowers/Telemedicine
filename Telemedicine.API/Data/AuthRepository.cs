@@ -21,7 +21,6 @@ namespace Telemedicine.API.Data
              
              //user.PasswordHash = passwordHash;
              //user.PasswordSalt = passwordSalt;
-             user.Role = "User"; // registering is automatically a patient 
              user.DeaId = deaId;
 
             //TODO: this is most likely where we will query database of DEA IDs to check this ID is valid
