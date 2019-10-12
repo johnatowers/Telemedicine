@@ -9,8 +9,8 @@ using Telemedicine.API.Data;
 namespace Telemedicine.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191010231809_MergeIdentityIntoDB")]
-    partial class MergeIdentityIntoDB
+    [Migration("20191012033749_IdentityRolesToUser")]
+    partial class IdentityRolesToUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -207,6 +207,9 @@ namespace Telemedicine.API.Migrations
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("AspNetUserRoles");
                 });
 
@@ -262,8 +265,8 @@ namespace Telemedicine.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Telemedicine.API.Models.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
+                        .WithOne("UserRole")
+                        .HasForeignKey("Telemedicine.API.Models.UserRole", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

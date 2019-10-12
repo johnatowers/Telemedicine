@@ -18,20 +18,37 @@ namespace Telemedicine.API.Data
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
         builder.Entity<UserRole>(userRole =>
         {
             userRole.HasKey(ur => new {ur.UserId, ur.RoleId});
 
             userRole.HasOne(ur => ur.Role)
-            .WithOne(r => r.UserRole)
-            .HasForeignKey<UserRole>(ur => ur.RoleId)
-            .IsRequired();
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
 
-            userRole.HasOne(ur => ur.User)
+
+            userRole.HasOne<User>(ur => ur.User)
             .WithOne(r => r.UserRole)
             .HasForeignKey<UserRole>(ur => ur.UserId)
             .IsRequired();
         });
+
+        //builder.Entity<UserRole>(userRole =>
+        //{
+        //    userRole.HasKey(ur => new {ur.UserId, ur.RoleId});
+
+        //    userRole.HasOne(ur => ur.Role)
+        //    .WithOne(r => r.UserRole)
+        //    .HasForeignKey<UserRole>(ur => ur.RoleId)
+        //    .IsRequired();
+
+        //    userRole.HasOne(ur => ur.User)
+        //    .WithOne(r => r.UserRole)
+        //    .HasForeignKey<UserRole>(ur => ur.UserId)
+        //    .IsRequired();
+        //});
     }
     }
 

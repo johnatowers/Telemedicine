@@ -5,6 +5,6 @@ namespace Telemedicine.API.Models
 {
     public class Role : IdentityRole<int>
     {
-        public UserRole UserRole { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

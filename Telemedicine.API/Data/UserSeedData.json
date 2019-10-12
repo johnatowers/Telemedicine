@@ -1,6 +1,9 @@
 [
     {
         "Username": "Aurora",
+        "FirstName": "Aurora",
+        "MiddleName": "Ginny",
+        "LastName": "Brom",
         "Gender": "female",
         "DateOfBirth": "1965-10-06",
         "Password": "password",
@@ -14,6 +17,9 @@
       },
       {
         "Username": "Anna",
+        "FirstName": "Anna",
+        "MiddleName": "Taylor",
+        "LastName": "Window",
         "Gender": "female",
         "DateOfBirth": "1986-09-20",
         "Password": "password",
@@ -27,6 +33,9 @@
       },
       {
         "Username": "Maricela",
+        "FirstName": "Maricela",
+        "MiddleName": "Lee",
+        "LastName": "Lamp",
         "Gender": "female",
         "DateOfBirth": "1961-12-10",
         "Password": "password",
@@ -40,6 +49,9 @@
       },
       {
         "Username": "Lucille",
+        "FirstName": "Lucille",
+        "MiddleName": "Edna",
+        "LastName": "Ball",
         "Gender": "female",
         "DateOfBirth": "1974-02-06",
         "Password": "password",
@@ -53,6 +65,9 @@
       },
       {
         "Username": "Felicia",
+        "FirstName": "Felicia",
+        "MiddleName": "Charlie",
+        "LastName": "Day",
         "Gender": "female",
         "DateOfBirth": "1956-08-27",
         "Password": "password",
@@ -66,6 +81,9 @@
       }, 
     {
         "Username": "Grimes",
+        "FirstName": "Grimes",
+        "MiddleName": "Stanley",
+        "LastName": "Brechtenshacht",
         "Gender": "male",
         "DateOfBirth": "1985-06-20",
         "Password": "password",
@@ -79,6 +97,9 @@
       },
       {
         "Username": "Dunn",
+        "FirstName": "Dunn",
+        "MiddleName": "Riley",
+        "LastName": "Curtier",
         "Gender": "male",
         "DateOfBirth": "1993-08-07",
         "Password": "password",
@@ -92,6 +113,9 @@
       },
       {
         "Username": "Duran",
+        "FirstName": "Duran",
+        "MiddleName": "Rod",
+        "LastName": "Presto",
         "Gender": "male",
         "DateOfBirth": "1997-03-09",
         "Password": "password",
@@ -105,6 +129,9 @@
       },
       {
         "Username": "Branch",
+        "FirstName": "Branch",
+        "MiddleName": "Tiger",
+        "LastName": "Olafante",
         "Gender": "male",
         "DateOfBirth": "1959-02-15",
         "Password": "password",
@@ -118,6 +145,9 @@
       },
       {
         "Username": "Mcintyre",
+        "FirstName": "Mcintyre",
+        "MiddleName": "James",
+        "LastName": "O'Hara",
         "Gender": "male",
         "DateOfBirth": "1953-03-05",
         "Password": "password",

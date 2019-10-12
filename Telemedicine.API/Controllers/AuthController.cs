@@ -65,11 +65,12 @@ namespace Telemedicine.API.Controllers
 
             if (results.Succeeded)
             {
+
                 var appUser = _mapper.Map<UserForListDto>(user);
 
                 return Ok(new
                 {
-                    token = GenerateJwtToken(user),
+                    token = GenerateJwtToken(user).Result,
                     user = appUser
                 });
             }
@@ -77,7 +78,7 @@ namespace Telemedicine.API.Controllers
 
         }
 
-        private string GenerateJwtToken(User user)
+        private async Task<string> GenerateJwtToken(User user)
         {
             // claims are user's id and user's username
             var claims = new List<Claim>
@@ -86,11 +87,11 @@ namespace Telemedicine.API.Controllers
                 new Claim(ClaimTypes.Name, user.UserName)
             };
 
-            //var role = await _userManager.GetRoleAsync(user);
-            //foreach (var role in roles) {
-            //    claims.Add(new Claim(ClaimTypes.Role, role));
-            //}
-            claims.Add(new Claim(ClaimTypes.Role, user.UserRole.ToString()));
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles) {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+            //claims.Add(new Claim(ClaimTypes.Role, role)); //user.UserRole.ToString()));
 
             // Key to sign our token
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
