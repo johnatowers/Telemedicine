@@ -3,7 +3,7 @@
 This branch includes sections 1-13 and 21 completed.
 -----
 One library has been added, the "timeAgo" which presents the Last Active time in a user readable way. to install, go to the terminal in your project and cd to the Telemedicine-SPA/ directory and run this command:
-npm install time-ago-pipe --save
+-npm install time-ago-pipe --save
 and you should be good. if not he shows how its added in video 134 (section 13) so you can reference that
 -----
 # User Role Information
