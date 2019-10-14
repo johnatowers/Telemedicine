@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telemedicine.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Telemedicine.API.Helpers; 
+using System.Linq; 
+using System; 
 
 namespace Telemedicine.API.Data
 {
@@ -22,6 +25,17 @@ namespace Telemedicine.API.Data
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
+        }
+
+        //video 111 
+        public async Task<Photo> GetMainPhotoForUser(int userId){
+            return await _context.Documents.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain); 
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _context.Documents.FirstOrDefaultAsync(p => p.id == id);
+            return photo;  
         }
 
         public async Task<User> getUser(int id)

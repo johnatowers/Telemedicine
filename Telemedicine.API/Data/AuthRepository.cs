@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
  using System.Threading.Tasks;
  using Telemedicine.API.Models;
+ using System.Linq; 
+ using System; 
 
 namespace Telemedicine.API.Data
 {
@@ -49,7 +51,7 @@ namespace Telemedicine.API.Data
          // logging in to api
          public async Task<User> Login(string username, string password) 
          {
-             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+             var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(x => x.Username == username);
 
              if (user == null)
                 return null;
@@ -95,5 +97,11 @@ namespace Telemedicine.API.Data
             
             return false;
          } 
+
+         /*public async Task<Photo> GetPhoto(int id){
+             var photo = await _context.Photo.FirstOrDefaultAsync(p => p.Id == id);
+
+             return photo; 
+         } */
     }
 }

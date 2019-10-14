@@ -17,5 +17,7 @@
         // check if doctor has already registered with a specific DEA Id
         Task<bool> DoctorExists(string deaId); 
 
+        //Task <Photo> GetPhoto(int id); 
+
     }
 } 

@@ -1,28 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {}
+    "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\Telemedicine.API.csproj": {}
   },
   "projects": {
-    "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {
+    "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\Telemedicine.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+        "projectUniqueName": "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\Telemedicine.API.csproj",
         "projectName": "Telemedicine.API",
-        "projectPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
-        "packagesPath": "/Users/macy/.nuget/packages/",
-        "outputPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/",
+        "projectPath": "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\Telemedicine.API.csproj",
+        "packagesPath": "C:\\Users\\visha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/macy/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\visha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,6 +44,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.8.0, )"
             },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",

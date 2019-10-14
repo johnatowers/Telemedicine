@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 namespace Telemedicine.API.Models
 {
     public class User
@@ -32,5 +34,9 @@ namespace Telemedicine.API.Models
         public string State { get; set; }
 
         public string Country { get; set; }
+
+        public ICollection<Photo> Documents {get; set;}
+        
+
     }
 }
