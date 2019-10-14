@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using AutoMapper; 
 
 namespace Telemedicine.API.Controllers
 {
@@ -19,8 +20,11 @@ namespace Telemedicine.API.Controllers
         private readonly IAuthRepository _repo;
 
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+
+        private readonly IMapper _mapper; 
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper )
         {
+            _mapper = mapper; 
             _repo = repo;
             _config = config;
         } 
@@ -87,6 +91,9 @@ namespace Telemedicine.API.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             // Contains JWT token to return to client
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            //114
+            var user = _mapper.Map<UserForListDto>(userFromRepo); 
 
             return Ok(new {
                 token = tokenHandler.WriteToken(token)

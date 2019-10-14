@@ -5,6 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "type": "DotNetAutoAttach",
+            "request": "launch",
+            "name": ".NET Core Watch",
+            "args": [],
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+
+
+    
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
