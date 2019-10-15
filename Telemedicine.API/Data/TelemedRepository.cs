@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telemedicine.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Telemedicine.API.Helpers;
 
 namespace Telemedicine.API.Data
 {
@@ -30,10 +31,10 @@ namespace Telemedicine.API.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = await _context.Users.ToListAsync();
-            return users;
+            var users = _context.Users;
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<bool> SaveAll()

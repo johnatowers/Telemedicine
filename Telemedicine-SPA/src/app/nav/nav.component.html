@@ -23,7 +23,7 @@
   
       <div *ngIf="loggedIn()" class="dropdown mr-4" dropdown>
           <a class="dropdown-toggle text-light"dropdownToggle>
-            Welome {{authService.decodedToken.unique_name | titlecase}}
+            Welcome {{authService.decodedToken.unique_name | titlecase}}
           </a>
         
           <div class="dropdown-menu mt-3" *dropdownMenu>
@@ -34,6 +34,7 @@
           </div>
         </div>
   
+        <div *ngIf="!loggedIn()" class="container"></div>
       <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
         <input class="form-control mr-sm-2" type="text" name="username" 
           placeholder="Username" required [(ngModel)]="model.username">
