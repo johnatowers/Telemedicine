@@ -9,8 +9,8 @@ using Telemedicine.API.Data;
 namespace Telemedicine.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191010202031_AddDocumentsCollection")]
-    partial class AddDocumentsCollection
+    [Migration("20191015115206_FixPublicIdInPhoto")]
+    partial class FixPublicIdInPhoto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,7 @@ namespace Telemedicine.API.Migrations
 
                     b.Property<bool>("IsMain");
 
-                    b.Property<string>("PubilicId");
+                    b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
 

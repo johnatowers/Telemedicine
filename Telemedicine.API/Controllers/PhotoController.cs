@@ -73,7 +73,7 @@ namespace Telemedicine.API.Controllers
 
             var userFromRepo = await _repo.getUser(userId);
 
-            var file = PhotoForCreationDto.File; 
+            var file = photoForCreationDto.File; 
 
             var uploadResult = new ImageUploadResult(); 
 

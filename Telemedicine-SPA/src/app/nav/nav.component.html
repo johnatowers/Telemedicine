@@ -19,11 +19,11 @@
       </ul>
 
       <div *ngIf="loggedIn()" class="dropdown mr-4" dropdown>
-        <span class ="mr-1">
+        <!-- <span class ="mr-1"> 
           <img src ="{{authService.currentUser.photoUrl}}" alt="">
-        </span>
+        </span> -->
           <a class="dropdown-toggle text-light"dropdownToggle>
-            Welome {{authService.decodedToken.unique_name | titlecase}}
+            Welome {{authService.decodedToken?.unique_name | titlecase}}
           </a>
 
           <div class="dropdown-menu mt-3" *dropdownMenu>

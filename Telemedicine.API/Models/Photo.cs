@@ -15,7 +15,7 @@ namespace Telemedicine.API.Models
 
         public bool IsMain {get; set;}
 
-        public string PubilicId {get; set;}
+        public string PublicId {get; set;}
 
         public User User {get; set;}
 

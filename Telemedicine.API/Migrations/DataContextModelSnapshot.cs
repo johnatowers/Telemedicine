@@ -27,7 +27,7 @@ namespace Telemedicine.API.Migrations
 
                     b.Property<bool>("IsMain");
 
-                    b.Property<string>("PubilicId");
+                    b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
 
