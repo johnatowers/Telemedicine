@@ -16,6 +16,9 @@
         <li class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-appointments']">Appointments</a>
         </li>
+        <li *appHasRole="['Admin']" class="nav-item ml-2 mr-2" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+        </li>
       </ul>
 
       <div *ngIf="loggedIn()" class="dropdown mr-4" dropdown>

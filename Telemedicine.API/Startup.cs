@@ -20,6 +20,10 @@ using Microsoft.IdentityModel.Tokens;
 using Telemedicine.API.Data;
 using AutoMapper;
 using Telemedicine.API.Helpers;
+using Microsoft.AspNetCore.Identity;
+using Telemedicine.API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Telemedicine.API
 {
@@ -43,6 +47,25 @@ namespace Telemedicine.API
             services.AddAutoMapper(typeof(TelemedRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ITelemedRepository, TelemedRepository>();
+            // Turn off password specifications before production so we 
+            // can easily test seed data
+            IdentityBuilder builder = services.AddIdentityCore<User>(opt => 
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength = 4;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+            });
+
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            // creates user store so we can add and create users
+            // creates tables in database that supports identity system
+            builder.AddEntityFrameworkStores<DataContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
+        
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -54,6 +77,29 @@ namespace Telemedicine.API
                         ValidateAudience = false
                     };
                 });
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                // Kept here for help with adding something similar later
+                //options.AddPolicy("PhotoRole", policy => policy.RequireRole("Admin"));
+            });
+
+            services.AddDbContext<DataContext>(x => x.UseSqlite
+            (Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc(options => 
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+
+                // Every user now has to authenticate to every method in our app
+                options.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddCors();
+            services.AddAutoMapper(typeof(TelemedRepository).Assembly);
+            services.AddScoped<ITelemedRepository, TelemedRepository>();
+            services.AddScoped<LogUserActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

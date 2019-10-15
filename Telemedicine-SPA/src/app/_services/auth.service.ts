@@ -32,12 +32,25 @@ export class AuthService {
     );
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model);
+  register(user: User) {
+    return this.http.post(this.baseUrl + 'register', user);
   }
 
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  // if user belongs to one of the roles we return true
+  roleMatch(allowedRoles): boolean {
+      let isMatch = false;
+      const userRole = this.decodedToken.role as string;
+      allowedRoles.forEach(element => {
+        if (userRole === element) {
+          isMatch = true;
+          return;
+        }
+      });
+      return isMatch;
   }
 }

@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Telemedicine.API.Data
 {
-    //TODO: Implement when a doctor registers, includes a DEA ID that will set isDoctor to 1
-
-    // queries database via entity framework
+    // This class is no longer implemented anywhere
     public class AuthRepository : IAuthRepository
     {
          
@@ -23,9 +21,8 @@ namespace Telemedicine.API.Data
              byte[] passwordHash, passwordSalt;
              CreatePasswordHash(password, out passwordHash, out passwordSalt);
              
-             user.PasswordHash = passwordHash;
-             user.PasswordSalt = passwordSalt;
-             user.Role = Role.User; // registering is automatically a patient 
+             //user.PasswordHash = passwordHash;
+             //user.PasswordSalt = passwordSalt;
              user.DeaId = deaId;
 
             //TODO: this is most likely where we will query database of DEA IDs to check this ID is valid
@@ -51,13 +48,13 @@ namespace Telemedicine.API.Data
          // logging in to api
          public async Task<User> Login(string username, string password) 
          {
-             var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(x => x.Username == username);
+             var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(x => x.UserName == username);
 
              if (user == null)
                 return null;
 
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                return null;
+            //if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            //    return null;
 
             return user;
          }
@@ -77,7 +74,7 @@ namespace Telemedicine.API.Data
          // check if user exists or if a user already registered with a DEA ID
          public async Task<bool> UserExists(string username) 
          {
-             if (await _context.Users.AnyAsync(x => x.Username == username))
+             if (await _context.Users.AnyAsync(x => x.UserName == username))
                 return true;
 
             return false;

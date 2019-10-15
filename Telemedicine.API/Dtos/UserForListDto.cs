@@ -5,9 +5,15 @@ namespace Telemedicine.API.Dtos
     {
         public int Id { get; set; }
 
-        public string Username { get; set; }
+        public string firstName { get; set; }
 
-        public string Role { get; set; }
+        public string middleName { get; set; }
+
+        public string lastName { get; set; }
+
+        public string suffix {get; set; }
+
+        public string Username { get; set; }
 
         // When registering a patient (not doctor), we'll enter default value 0
         //public string DeaId { get; set; }

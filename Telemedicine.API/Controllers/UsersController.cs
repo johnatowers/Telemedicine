@@ -7,10 +7,11 @@ using Telemedicine.API.Dtos;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System;
+using Telemedicine.API.Helpers;
 
 namespace Telemedicine.API.Controllers
 {
-    [Authorize]
+    [ServiceFilter(typeof(LogUserActivity))] // anytime these methods are called, Last Action is updated
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -31,7 +32,7 @@ namespace Telemedicine.API.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.getUser(id);

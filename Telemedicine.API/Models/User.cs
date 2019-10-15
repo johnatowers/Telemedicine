@@ -1,24 +1,19 @@
 using System;
 using System.Collections.Generic;
-
+using Microsoft.AspNetCore.Identity;
 namespace Telemedicine.API.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
+        public string firstName { get; set; }
 
-        public string Username { get; set; }
+        public string middleName { get; set; }
 
-        public byte[] PasswordHash { get; set; }
+        public string lastName { get; set; }
 
-        public byte[] PasswordSalt { get; set; }
+        public string suffix {get; set; }
 
-        public string Role { get; set; }
-
-        // When registering a patient (not doctor), we'll enter default value 0
-        public string DeaId { get; set; }
-
-         // Section 9 properties
+        // Section 9 properties
         public string Gender { get; set; }
 
         public DateTime DateofBirth { get; set; }
@@ -38,5 +33,23 @@ namespace Telemedicine.API.Models
         public ICollection<Photo> Documents {get; set;}
         
 
+        // When registering a user of type patient or admin, we'll enter default value null
+        public string DeaId { get; set; }
+
+        // When registering a user of type patient or admin, we'll enter default value null
+        public string TypeOfDoctor { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string Notes { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string healthConditions { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string Allergies { get; set; }
+
+        // When registering a user of type doctor or admin, we'll enter default value null
+        public string Medications { get; set; }
+        public virtual UserRole UserRole { get; set; }
     }
 }

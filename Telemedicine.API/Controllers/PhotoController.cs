@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;  
 using Telemedicine.API.Dtos; 
 using System.Threading.Tasks;  
-using CloudinaryDotNet; 
+using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.Security.Claims; 
 using Telemedicine.API.Models; 
