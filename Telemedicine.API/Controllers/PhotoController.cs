@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Telemedicine.API.Models; 
 using System.Linq; 
 using System; 
+using System.Collections.Generic;
 
 //using Microsoft.AspNetCore.ApiControler; 
 //using Microsoft.AspNetCore.Mvc.IActionResult; 
@@ -73,7 +74,7 @@ namespace Telemedicine.API.Controllers
 
             var userFromRepo = await _repo.getUser(userId);
 
-            var file = PhotoForCreationDto.File; 
+            var file = photoForCreationDto.File; 
 
             var uploadResult = new ImageUploadResult(); 
 
