@@ -93,7 +93,7 @@ namespace Telemedicine.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             //114
-            var user = _mapper.Map<UserForListDto>(userFromRepo); 
+            //var user = _mapper.Map<UserForListDto>(userFromRepo); 
 
             return Ok(new {
                 token = tokenHandler.WriteToken(token)

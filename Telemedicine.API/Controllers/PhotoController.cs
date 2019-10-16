@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Telemedicine.API.Models; 
 using System.Linq; 
 using System; 
+using System.Collections.Generic;
 
 //using Microsoft.AspNetCore.ApiControler; 
 //using Microsoft.AspNetCore.Mvc.IActionResult; 
@@ -97,8 +98,8 @@ namespace Telemedicine.API.Controllers
 
             var photo = _mapper.Map<Photo>(photoForCreationDto); 
 
-            if (!userFromRepo.Documents.Any(u => u.IsMain))
-                photo.IsMain = true; 
+            // if (!userFromRepo.Documents.Any(u => u.IsMain))
+            //     photo.IsMain = true; 
         
             userFromRepo.Documents.Add(photo); 
 
@@ -114,32 +115,67 @@ namespace Telemedicine.API.Controllers
 
         }
 
-        //video 111
-        [HttpPost("{id}/setMain")]
-        public async Task<IActionResult> SetMainPhoto(int userId, int id){
-
-             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized(); 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePhoto(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            return Unauthorized(); 
             
             var user = await _repo.getUser(userId); 
 
             if (!user.Documents.Any(p => p.id == id))
                 return Unauthorized();
 
-            var photoFromRepo = await _repo.GetPhoto(id); 
+            var photoFromRepo = await _repo.GetPhoto(id);
 
-            if (photoFromRepo.IsMain)
-                return BadRequest("This is already the main photo"); 
-            
-            var currentMainPhoto = await _repo.GetMainPhotoForUser(userId);
-            currentMainPhoto.IsMain = false; 
+            if(photoFromRepo.PublicId != null) {
+                var deleteParams = new DeletionParams(photoFromRepo.PublicId);
 
-            photoFromRepo.IsMain = true; 
+                // checks that response and result comes back ok
+                var result = _cloudinary.Destroy(deleteParams);
 
-            if(await _repo.SaveAll())
-                return NoContent(); 
+                if (result.Result == "ok") {
+                    _repo.Delete(photoFromRepo);
+                }
+            } 
 
-            return BadRequest("Could not set photo to main");
+            if (photoFromRepo.PublicId == null) {
+                _repo.Delete(photoFromRepo);
+            }
+
+            if (await _repo.SaveAll()) {
+                return Ok();
+            }
+
+            return BadRequest("Failed to delete the photo");
         }
+
+        // video 111 - not using main photos
+        // [HttpPost("{id}/setMain")]
+        // public async Task<IActionResult> SetMainPhoto(int userId, int id){
+
+        //      if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+        //         return Unauthorized(); 
+            
+        //     var user = await _repo.getUser(userId); 
+
+        //     if (!user.Documents.Any(p => p.id == id))
+        //         return Unauthorized();
+
+        //     var photoFromRepo = await _repo.GetPhoto(id); 
+
+        //     if (photoFromRepo.IsMain)
+        //         return BadRequest("This is already the main photo"); 
+            
+        //     var currentMainPhoto = await _repo.GetMainPhotoForUser(userId);
+        //     currentMainPhoto.IsMain = false; 
+
+        //     photoFromRepo.IsMain = true; 
+
+        //     if(await _repo.SaveAll())
+        //         return NoContent(); 
+
+        //     return BadRequest("Could not set photo to main");
+        // }
     }
 }

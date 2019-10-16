@@ -28,9 +28,9 @@ namespace Telemedicine.API.Data
         }
 
         //video 111 
-        public async Task<Photo> GetMainPhotoForUser(int userId){
-            return await _context.Documents.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain); 
-        }
+        // public async Task<Photo> GetMainPhotoForUser(int userId){
+        //     return await _context.Documents.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain); 
+        // }
 
         public async Task<Photo> GetPhoto(int id)
         {

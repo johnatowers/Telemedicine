@@ -22,6 +22,6 @@ namespace Telemedicine.API.Data
          Task <Photo> GetPhoto(int id); 
 
         //video 111
-         Task <Photo> GetMainPhotoForUser(int userId); 
+        //  Task <Photo> GetMainPhotoForUser(int userId); 
     }
 }

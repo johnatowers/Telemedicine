@@ -61,8 +61,7 @@
               </form>
             </tab>
             <tab heading="Edit Health Information">
-               <app-photo-editor [photos]="user.photos"
-                (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
+               <app-photo-editor [documents]="user.documents"></app-photo-editor>
             </tab>
           </tabset>
         </div>

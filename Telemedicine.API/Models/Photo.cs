@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace Telemedicine.API.Models
 {
+    //
     public class Photo
     {
         public int id {get; set;}
@@ -12,8 +13,6 @@ namespace Telemedicine.API.Models
         public string Description {get; set;}
 
         public DateTime DateAdded {get; set;}
-
-        public bool IsMain {get; set;}
 
         public string PublicId {get; set;}
 

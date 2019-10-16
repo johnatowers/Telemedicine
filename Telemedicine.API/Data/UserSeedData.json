@@ -23,7 +23,14 @@
         "Address": "102 Horace Court",
         "City": "Breinigsville",
         "Country": "Australia",
-        "State": " Illinois"
+        "State": " Illinois",
+        "Documents": [
+          { 
+            "url": "https://randomuser.me/api/portraits/women/3.jpg",
+            "isMain": true,
+            "description": "Non deserunt labore sunt ex laboris et adipisicing ullamco officia minim."
+          }
+        ]
       },
       {
         "Username": "Maricela",

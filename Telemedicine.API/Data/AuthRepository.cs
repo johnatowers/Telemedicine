@@ -51,7 +51,7 @@ namespace Telemedicine.API.Data
          // logging in to api
          public async Task<User> Login(string username, string password) 
          {
-             var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(x => x.Username == username);
+             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
              if (user == null)
                 return null;
