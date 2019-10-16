@@ -11,7 +11,7 @@ namespace Telemedicine.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base (options){}
         
         public DbSet<Value> Values { get; set; }
-
+        public DbSet<Document> Documents {get; set;}
 
         //public DbSet<User> Users { get; set; }
 
@@ -49,6 +49,7 @@ namespace Telemedicine.API.Data
         //    .HasForeignKey<UserRole>(ur => ur.UserId)
         //    .IsRequired();
         //});
+
     }
     }
 
