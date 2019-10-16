@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Telemedicine.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Telemedicine.API.Helpers; 
+using System.Linq; 
+using System; 
 
 namespace Telemedicine.API.Data
 {
@@ -24,16 +27,27 @@ namespace Telemedicine.API.Data
             _context.Remove(entity);
         }
 
+        //video 111 
+        // public async Task<Photo> GetMainPhotoForUser(int userId){
+        //     return await _context.Documents.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain); 
+        // }
+
+        public async Task<Document> GetDocument(int id)
+        {
+            var photo = await _context.Documents.FirstOrDefaultAsync(p => p.id == id);
+            return photo;  
+        }
+
         public async Task<User> getUser(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = await _context.Users.ToListAsync();
-            return users;
+            var users = _context.Users;
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<bool> SaveAll()

@@ -43,27 +43,27 @@
             <tab heading="Edit Profile">
               <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
                 <h4>Health Conditions</h4>
-                <textarea name="conditions" rows="6" class="form-control" 
+                <textarea name="conditions" rows="6" class="form-control"
                   [(ngModel)]="user.username"></textarea>
                 <h4>Allergies</h4>
-                <textarea name="allergies" rows="6" class="form-control" 
+                <textarea name="allergies" rows="6" class="form-control"
                   [(ngModel)]="user.username"></textarea>
                 <h4>Medications</h4>
-                <textarea name="allergies" rows="6" class="form-control" 
+                <textarea name="allergies" rows="6" class="form-control"
                   [(ngModel)]="user.username"></textarea>
-                <h4>Location Details:</h4>   
+                <h4>Location Details:</h4>
                 <div class="form-inline">
                   <label for="city">City</label>
                   <input class="form-control" type="text" name="city" [(ngModel)]="user.city">
-                  <label for="city">Country</label>
+                  <label for="country">Country</label>
                   <input class="form-control" type="text" name="country" [(ngModel)]="user.country">
-                </div>  
+                </div>
               </form>
             </tab>
             <tab heading="Edit Health Information">
-              <!-- <p>Photos edit will go here</p> -->
+               <app-document-editor [documents]="user.documents"></app-document-editor>
             </tab>
-          </tabset>  
+          </tabset>
         </div>
       </div>
     </div>

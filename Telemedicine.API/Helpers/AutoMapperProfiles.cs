@@ -16,6 +16,9 @@ namespace Telemedicine.API.Helpers
             opt.MapFrom(src => src.DateofBirth.CalculateAge()));
             CreateMap<UserForUpdateDto, User>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<Document, DocumentForReturnDto>(); 
+            CreateMap<DocumentForCreationDto, Document>();
+            CreateMap<Document, DocumentForDetailedDto>();
         }
     }
 }

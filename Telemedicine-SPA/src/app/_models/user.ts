@@ -1,4 +1,4 @@
-import { Photo } from './Photo';
+import { Document } from './Document';
 
 
 // TODO: This should match DTO's and DB scheme for the user table
@@ -10,7 +10,7 @@ export interface User {
     gender: string;
     created: Date;
     lastActive: Date;
-    photoUrl: string;
+    documentUrl: string;
     address: string;
     healthConditions: string;
     allergies: string;
@@ -20,5 +20,5 @@ export interface User {
     interests?: string;
     introduction?: string;
     lookingFor?: string;
-    photos?: Photo[];
+    documents?: Document[];
 }

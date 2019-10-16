@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
  using System.Threading.Tasks;
  using Telemedicine.API.Models;
+ using System.Linq; 
+ using System; 
 
 namespace Telemedicine.API.Data
 {
@@ -92,5 +94,11 @@ namespace Telemedicine.API.Data
             
             return false;
          } 
+
+         /*public async Task<Photo> GetPhoto(int id){
+             var photo = await _context.Photo.FirstOrDefaultAsync(p => p.Id == id);
+
+             return photo; 
+         } */
     }
 }

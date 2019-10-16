@@ -48,5 +48,8 @@ namespace Telemedicine.API.Models
         // When registering a user of type doctor or admin, we'll enter default value null
         public string Medications { get; set; }
         public virtual UserRole UserRole { get; set; }
+        public ICollection<Document> Documents {get; set;}
+        
+
     }
 }

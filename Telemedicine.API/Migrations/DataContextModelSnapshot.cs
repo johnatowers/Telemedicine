@@ -84,6 +84,28 @@ namespace Telemedicine.API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("PublicId");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Documents");
+                });
+
             modelBuilder.Entity("Telemedicine.API.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -249,6 +271,14 @@ namespace Telemedicine.API.Migrations
                 {
                     b.HasOne("Telemedicine.API.Models.User")
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
+                {
+                    b.HasOne("Telemedicine.API.Models.User", "User")
+                        .WithMany("Documents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
