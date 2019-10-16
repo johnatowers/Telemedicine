@@ -32,7 +32,7 @@ namespace Telemedicine.API.Data
         //     return await _context.Documents.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain); 
         // }
 
-        public async Task<Photo> GetPhoto(int id)
+        public async Task<Document> GetDocument(int id)
         {
             var photo = await _context.Documents.FirstOrDefaultAsync(p => p.id == id);
             return photo;  

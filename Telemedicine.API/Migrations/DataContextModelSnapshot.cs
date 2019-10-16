@@ -16,7 +16,7 @@ namespace Telemedicine.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
-            modelBuilder.Entity("Telemedicine.API.Models.Photo", b =>
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -86,7 +86,7 @@ namespace Telemedicine.API.Migrations
                     b.ToTable("Values");
                 });
 
-            modelBuilder.Entity("Telemedicine.API.Models.Photo", b =>
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
                 {
                     b.HasOne("Telemedicine.API.Models.User", "User")
                         .WithMany("Documents")

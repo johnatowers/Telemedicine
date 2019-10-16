@@ -4,7 +4,7 @@ using System.Linq;
 namespace Telemedicine.API.Models
 {
     //
-    public class Photo
+    public class Document
     {
         public int id {get; set;}
 

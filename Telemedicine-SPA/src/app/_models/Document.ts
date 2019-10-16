@@ -1,4 +1,4 @@
-export interface Photo {
+export interface Document {
     id: number;
     url: string;
     description: string;

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Telemedicine.API.Migrations
 {
-    public partial class InitialDBWithOutMainPhoto : Migration
+    public partial class ChangeAllPhotosToDocuments : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

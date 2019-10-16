@@ -31,6 +31,6 @@ namespace Telemedicine.API.Dtos
 
         public string Country { get; set; }
 
-        public ICollection<PhotosForDetailedDto> Documents { get; set; }
+        public ICollection<DocumentForDetailedDto> Documents { get; set; }
     }
 }

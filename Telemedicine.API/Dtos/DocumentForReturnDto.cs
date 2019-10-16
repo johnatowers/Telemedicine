@@ -2,7 +2,7 @@ using System;
 
 namespace Telemedicine.API.Dtos
 {
-    public class PhotosForReturnDto
+    public class DocumentForReturnDto
     {
         public int Id { get; set; }
 

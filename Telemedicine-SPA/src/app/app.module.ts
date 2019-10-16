@@ -29,7 +29,7 @@ import { PatientDoctorsResolver } from './_resolvers/patient-doctors.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
-import { PhotoEditorComponent} from './members/photo-editor/photo-editor.component';
+import { DocumentEditorComponent} from './members/document-editor/document-editor.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -55,7 +55,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      DocumentEditorComponent
    ],
    imports: [
       BrowserModule,
@@ -68,7 +68,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       FileUploadModule,
       JwtModule.forRoot({
          config: {
-            //tokenGetter: tokenGetter,
+            // tokenGetter: tokenGetter,
             tokenGetter,
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']

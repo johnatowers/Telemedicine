@@ -35,7 +35,7 @@ namespace Telemedicine.API.Models
 
         public string Country { get; set; }
 
-        public ICollection<Photo> Documents {get; set;}
+        public ICollection<Document> Documents {get; set;}
         
 
     }

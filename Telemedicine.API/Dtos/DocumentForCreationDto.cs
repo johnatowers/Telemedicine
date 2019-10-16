@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Telemedicine.API.Dtos
 {
-    public class PhotoForCreationDto
+    public class DocumentForCreationDto
     {
         public string Url {get; set;}
 
@@ -15,7 +15,7 @@ namespace Telemedicine.API.Dtos
 
         public string PublicId {get; set;}
 
-        public PhotoForCreationDto(){
+        public DocumentForCreationDto(){
             DateAdded = DateTime.Now; 
         }
     }

@@ -1,17 +1,17 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Photo} from '../../_models/Photo';
+import { Document} from '../../_models/Document';
 import {FileUploader} from 'ng2-file-upload';
 import {environment} from '../../../environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 @Component({
-  selector: 'app-photo-editor',
-  templateUrl: './photo-editor.component.html',
-  styleUrls: ['./photo-editor.component.css']
+  selector: 'app-document-editor',
+  templateUrl: './document-editor.component.html',
+  styleUrls: ['./document-editor.component.css']
 })
-export class PhotoEditorComponent implements OnInit {
-  @Input() documents: Photo[];
+export class DocumentEditorComponent implements OnInit {
+  @Input() documents: Document[];
   // @Output() getMemberPhotoChange = new EventEmitter<string>();
 
   uploader: FileUploader;
@@ -31,7 +31,7 @@ export class PhotoEditorComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'users/' + this.authService.decodedToken.nameid + '/photos',
+      url: this.baseUrl + 'users/' + this.authService.decodedToken.nameid + '/documents',
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -42,10 +42,9 @@ export class PhotoEditorComponent implements OnInit {
 
     this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
 
-    // Add this when photos are shown on UI above uploader
     this.uploader.onSuccessItem = (item, response, status, headers) => {
         if (response) {
-          const res: Photo = JSON.parse(response);
+          const res: Document = JSON.parse(response);
           const document = {
             id: res.id,
             url: res.url,
@@ -58,9 +57,9 @@ export class PhotoEditorComponent implements OnInit {
       };
    }
 
-  deletePhoto(id: number) {
+  deleteDocument(id: number) {
     this.alertify.confirm('Are you sure you want to delete this document?', () => {
-      this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
+      this.userService.deleteDocument(this.authService.decodedToken.nameid, id).subscribe(() => {
         this.documents.splice(this.documents.findIndex(p => p.id === id), 1);
         this.alertify.success('Document has been deleted');
       }, error => {

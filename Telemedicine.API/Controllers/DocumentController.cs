@@ -21,9 +21,9 @@ using System.Collections.Generic;
 namespace Telemedicine.API.Controllers
 {
     [Authorize]
-    [Route("api/users/{userId}/photos")]
+    [Route("api/users/{userId}/documents")]
     [ApiController]
-    public class PhotoController: ControllerBase 
+    public class DocumentController: ControllerBase 
     {
         private readonly ITelemedRepository _repo; 
 
@@ -33,7 +33,7 @@ namespace Telemedicine.API.Controllers
 
         private Cloudinary _cloudinary;
 
-        public PhotoController(ITelemedRepository repo, IMapper mapper,
+        public DocumentController(ITelemedRepository repo, IMapper mapper,
          IOptions<CloudinarySettings> cloudinaryConfig )
         {
             _cloudinaryConfig = cloudinaryConfig; 
@@ -51,21 +51,21 @@ namespace Telemedicine.API.Controllers
 
         }
 
-        [HttpGet("{id}", Name = "GetPhoto")]
+        [HttpGet("{id}", Name = "GetDocument")]
 
-        public async Task<IActionResult> GetPhoto(int id)
+        public async Task<IActionResult> GetDocument(int id)
         {
-            var photoFromRepo = await _repo.GetPhoto(id);
+            var documentFromRepo = await _repo.GetDocument(id);
 
-            var photo = _mapper.Map<PhotosForReturnDto>(photoFromRepo);
+            var document = _mapper.Map<DocumentForReturnDto>(documentFromRepo);
 
-            return Ok(photo); 
+            return Ok(document); 
         }
-        private readonly PhotoForCreationDto PhotoForCreationDto;
+        private readonly DocumentForCreationDto DocumentForCreationDto;
 
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser(int userId,
-            [FromForm] PhotoForCreationDto photoForCreationDto)
+        public async Task<IActionResult> AddDocumentForUser(int userId,
+            [FromForm] DocumentForCreationDto docForCreationDto)
         {
            // [FromForm]PhotoForCreationDto = PhotoForCreationDto)
 
@@ -74,7 +74,7 @@ namespace Telemedicine.API.Controllers
 
             var userFromRepo = await _repo.getUser(userId);
 
-            var file = photoForCreationDto.File; 
+            var file = docForCreationDto.File; 
 
             var uploadResult = new ImageUploadResult(); 
 
@@ -93,22 +93,22 @@ namespace Telemedicine.API.Controllers
                 }
             }
 
-            photoForCreationDto.Url = uploadResult.Uri.ToString(); 
-            photoForCreationDto.PublicId = uploadResult.PublicId; 
+            docForCreationDto.Url = uploadResult.Uri.ToString(); 
+            docForCreationDto.PublicId = uploadResult.PublicId; 
 
-            var photo = _mapper.Map<Photo>(photoForCreationDto); 
+            var document = _mapper.Map<Document>(docForCreationDto); 
 
             // if (!userFromRepo.Documents.Any(u => u.IsMain))
             //     photo.IsMain = true; 
         
-            userFromRepo.Documents.Add(photo); 
+            userFromRepo.Documents.Add(document); 
 
             //var photoToReturn = _mapper.Map<PhotosForReturnDto>(photo);
 
             if (await _repo.SaveAll())
             {
-                var photoToReturn = _mapper.Map<PhotosForReturnDto>(photo);
-                return CreatedAtRoute("GetPhoto", new {id = photo.id}, photoToReturn ); 
+                var docToReturn = _mapper.Map<DocumentForReturnDto>(document);
+                return CreatedAtRoute("GetDocument", new {id = document.id}, docToReturn ); 
             }
 
             return BadRequest("Could not add the photo");
@@ -116,7 +116,7 @@ namespace Telemedicine.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePhoto(int userId, int id)
+        public async Task<IActionResult> DeleteDocument(int userId, int id)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             return Unauthorized(); 
@@ -126,21 +126,21 @@ namespace Telemedicine.API.Controllers
             if (!user.Documents.Any(p => p.id == id))
                 return Unauthorized();
 
-            var photoFromRepo = await _repo.GetPhoto(id);
+            var docFromRepo = await _repo.GetDocument(id);
 
-            if(photoFromRepo.PublicId != null) {
-                var deleteParams = new DeletionParams(photoFromRepo.PublicId);
+            if(docFromRepo.PublicId != null) {
+                var deleteParams = new DeletionParams(docFromRepo.PublicId);
 
                 // checks that response and result comes back ok
                 var result = _cloudinary.Destroy(deleteParams);
 
                 if (result.Result == "ok") {
-                    _repo.Delete(photoFromRepo);
+                    _repo.Delete(docFromRepo);
                 }
             } 
 
-            if (photoFromRepo.PublicId == null) {
-                _repo.Delete(photoFromRepo);
+            if (docFromRepo.PublicId == null) {
+                _repo.Delete(docFromRepo);
             }
 
             if (await _repo.SaveAll()) {
