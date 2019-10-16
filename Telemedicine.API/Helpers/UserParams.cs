@@ -2,6 +2,7 @@ namespace Telemedicine.API.Helpers
 {
     public class UserParams
     {
+        public int UserId { get; set; }
         private const int MaxPageSize = 50;
         public int PageNumber { get; set; } = 1;
         private int pageSize = 10;
@@ -11,5 +12,7 @@ namespace Telemedicine.API.Helpers
             set { pageSize = (value > MaxPageSize) ? MaxPageSize : value ;}
         }
         
+        public bool Doctors { get; set; } = false;
+        public bool Patients { get; set; } = false;
     }
 }

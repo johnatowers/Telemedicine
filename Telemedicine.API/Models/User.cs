@@ -49,6 +49,8 @@ namespace Telemedicine.API.Models
         public string Medications { get; set; }
         public virtual UserRole UserRole { get; set; }
         public ICollection<Document> Documents {get; set;}
+        public ICollection<Relationship> Patient { get; set; }
+        public ICollection<Relationship> Doctor { get; set; }
         
 
     }

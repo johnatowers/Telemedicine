@@ -22,5 +22,7 @@ namespace Telemedicine.API.Data
 
         //video 111
         //  Task <Photo> GetMainPhotoForUser(int userId); 
+
+        Task<Relationship> GetRelationship(int userId, int recipientId);
     }
 }

@@ -11,9 +11,11 @@ namespace Telemedicine.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base (options){}
         
         public DbSet<Value> Values { get; set; }
-        public DbSet<Document> Documents {get; set;}
+        public DbSet<Document> Documents { get; set;}
 
         //public DbSet<User> Users { get; set; }
+
+        public DbSet<Relationship> Relationships { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -49,6 +51,21 @@ namespace Telemedicine.API.Data
         //    .HasForeignKey<UserRole>(ur => ur.UserId)
         //    .IsRequired();
         //});
+
+        builder.Entity<Relationship>()
+            .HasKey(k => new { k.PatientId, k.DoctorId});
+
+        builder.Entity<Relationship>()
+            .HasOne(u => u.Doctor)
+            .WithMany(u => u.Patient)
+            .HasForeignKey(u => u.DoctorId)
+            .OnDelete(DeleteBehavior.Restrict);
+            
+        builder.Entity<Relationship>()
+            .HasOne(u => u.Patient)
+            .WithMany(u => u.Doctor)
+            .HasForeignKey(u => u.PatientId)
+            .OnDelete(DeleteBehavior.Restrict);
 
     }
     }

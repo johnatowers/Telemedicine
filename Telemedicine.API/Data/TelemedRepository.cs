@@ -38,6 +38,12 @@ namespace Telemedicine.API.Data
             return photo;  
         }
 
+        public async Task<Relationship> GetRelationship(int userId, int recipientId)
+        {
+            return await _context.Relationships.FirstOrDefaultAsync(u => 
+            u.PatientId == userId && u.DoctorId == recipientId);
+        }
+
         public async Task<User> getUser(int id)
         {
             var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(u => u.Id == id);
@@ -46,8 +52,38 @@ namespace Telemedicine.API.Data
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = _context.Users;
+            var users = _context.Users.AsQueryable();
+
+            if (userParams.Patients)
+            {
+                var userPatients = await GetUserRelationships(userParams.UserId, userParams.Patients);
+                users = users.Where(u => userPatients.Contains(u.Id));
+            }
+            
+            if (userParams.Doctors)
+            {
+                var userDoctors = await GetUserRelationships(userParams.UserId, userParams.Doctors);
+                users = users.Where(u => userDoctors.Contains(u.Id));
+
+            }
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+        }
+
+        private async Task<IEnumerable<int>> GetUserRelationships(int id, bool partners)
+        {
+            var user = await _context.Users
+            .Include(x => x.Patient)
+            .Include(x => x.Doctor)
+            .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (partners)
+            {
+                return user.Patient.Where(u => u.DoctorId == id).Select(i => i.PatientId);
+            }
+            else 
+            {
+                return user.Doctor.Where(u => u.PatientId == id).Select(i => i.DoctorId);
+            }
         }
 
         public async Task<bool> SaveAll()

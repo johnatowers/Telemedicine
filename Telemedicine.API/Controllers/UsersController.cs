@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System;
 using Telemedicine.API.Helpers;
+using Telemedicine.API.Models;
 
 namespace Telemedicine.API.Controllers
 {
@@ -55,6 +56,34 @@ namespace Telemedicine.API.Controllers
                 return NoContent();
 
             throw new Exception($"Update user {id} failed on save");       
+        }
+
+        [HttpPost("{id}/relationship/{recipientId}")]
+        public async Task<IActionResult> CreateRelationship(int id, int recipientId)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var relationship = await _repo.GetRelationship(id, recipientId);
+
+            if (relationship != null)
+                return BadRequest("You already have a relationship with this user");
+
+            if (await _repo.getUser(recipientId) == null)
+                return NotFound();
+
+            relationship = new Relationship
+            {
+                PatientId = id,
+                DoctorId = recipientId
+            };
+
+            _repo.Add<Relationship>(relationship);
+
+            if (await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to create relationship");
         }
     }
 }

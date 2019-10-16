@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {}
   },
   "projects": {
@@ -13,36 +12,17 @@
         "projectPath": "/Users/guitarplay162/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
         "packagesPath": "/Users/guitarplay162/.nuget/packages/",
         "outputPath": "/Users/guitarplay162/Telemedicine/Telemedicine.API/obj/",
-=======
-    "C:\\Users\\greg giles\\SeniorProject\\Telemedicine-1\\Telemedicine.API\\Telemedicine.API.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\greg giles\\SeniorProject\\Telemedicine-1\\Telemedicine.API\\Telemedicine.API.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\greg giles\\SeniorProject\\Telemedicine-1\\Telemedicine.API\\Telemedicine.API.csproj",
-        "projectName": "Telemedicine.API",
-        "projectPath": "C:\\Users\\greg giles\\SeniorProject\\Telemedicine-1\\Telemedicine.API\\Telemedicine.API.csproj",
-        "packagesPath": "C:\\Users\\greg giles\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\greg giles\\SeniorProject\\Telemedicine-1\\Telemedicine.API\\obj\\",
->>>>>>> 9d81b2113780e3a5c5999891a0cba2ae8d3d2d56
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
           "/Users/guitarplay162/.nuget/NuGet/NuGet.Config"
-=======
-          "C:\\Users\\greg giles\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> 9d81b2113780e3a5c5999891a0cba2ae8d3d2d56
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
