@@ -57,13 +57,13 @@
                   <input class="form-control" type="text" name="city" [(ngModel)]="user.city">
                   <label for="country">Country</label>
                   <input class="form-control" type="text" name="country" [(ngModel)]="user.country">
-                </div>  
+                </div>
               </form>
             </tab>
             <tab heading="Edit Health Information">
-              <!-- <p>Photos edit will go here</p> -->
+               <app-document-editor [documents]="user.documents"></app-document-editor>
             </tab>
-          </tabset>  
+          </tabset>
         </div>
       </div>
     </div>

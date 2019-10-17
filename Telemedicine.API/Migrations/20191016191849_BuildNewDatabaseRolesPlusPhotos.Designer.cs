@@ -9,8 +9,8 @@ using Telemedicine.API.Data;
 namespace Telemedicine.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191012042755_NewRolesForUser")]
-    partial class NewRolesForUser
+    [Migration("20191016191849_BuildNewDatabaseRolesPlusPhotos")]
+    partial class BuildNewDatabaseRolesPlusPhotos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,28 @@ namespace Telemedicine.API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("PublicId");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("Telemedicine.API.Models.Role", b =>
@@ -251,6 +273,14 @@ namespace Telemedicine.API.Migrations
                 {
                     b.HasOne("Telemedicine.API.Models.User")
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
+                {
+                    b.HasOne("Telemedicine.API.Models.User", "User")
+                        .WithMany("Documents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

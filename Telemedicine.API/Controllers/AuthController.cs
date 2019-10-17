@@ -24,14 +24,15 @@ namespace Telemedicine.API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
-
+        private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
         public AuthController(IConfiguration config,
-        UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
+        UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IAuthRepository repo)
         {
             _mapper = mapper;
             _signInManager = signInManager;
             _userManager = userManager;
+            _repo = repo;
             _config = config;
         }
 

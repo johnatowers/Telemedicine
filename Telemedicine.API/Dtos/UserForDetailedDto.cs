@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 namespace Telemedicine.API.Dtos
 {
     public class UserForDetailedDto
@@ -34,5 +36,7 @@ namespace Telemedicine.API.Dtos
         public string State { get; set; }
 
         public string Country { get; set; }
+
+        public ICollection<DocumentForDetailedDto> Documents { get; set; }
     }
 }
