@@ -12,7 +12,13 @@
         "Address": "302 Goodwin Place",
         "City": "Centerville",
         "Country": "Liechtenstein",
-        "State": " Delaware"
+        "State": " Delaware",
+        "Documents": [
+          { 
+            "url": "http://res.cloudinary.com/dzdwzge1z/image/upload/v1571331288/q2l94lyzfjuwlpadx70w.png",
+            "description": "Non deserunt labore sunt ex laboris et adipisicing ullamco officia minim."
+          }
+        ]
       },
       {
         "Username": "Anna",
@@ -30,8 +36,7 @@
         "State": " Illinois",
         "Documents": [
           { 
-            "url": "https://randomuser.me/api/portraits/women/3.jpg",
-            "isMain": true,
+            "url": "http://res.cloudinary.com/dzdwzge1z/image/upload/v1571331288/q2l94lyzfjuwlpadx70w.png",
             "description": "Non deserunt labore sunt ex laboris et adipisicing ullamco officia minim."
           }
         ]
