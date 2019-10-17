@@ -5,7 +5,7 @@
       </div>
       <div class="col-sm-8">
         <div *ngIf="editForm.dirty" class="alert alert-info">
-          <p><strong>Information</strong> You have made changes. Any unsaved changes will be lost!</p>
+          <strong>Information</strong> You have made changes. Any unsaved changes will be lost!
         </div>
       </div>
     </div>
@@ -43,14 +43,14 @@
             <tab heading="Edit Profile">
               <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
                 <h4>Health Conditions</h4>
-                <textarea name="conditions" rows="6" class="form-control" 
-                  [(ngModel)]="user.username"></textarea>
+                <textarea name="healthConditions" rows="6" class="form-control" 
+                  [(ngModel)]="user.healthConditions"></textarea>
                 <h4>Allergies</h4>
                 <textarea name="allergies" rows="6" class="form-control" 
-                  [(ngModel)]="user.username"></textarea>
+                  [(ngModel)]="user.allergies"></textarea>
                 <h4>Medications</h4>
-                <textarea name="allergies" rows="6" class="form-control" 
-                  [(ngModel)]="user.username"></textarea>
+                <textarea name="medications" rows="6" class="form-control" 
+                  [(ngModel)]="user.medications"></textarea>
                 <h4>Location Details:</h4>   
                 <div class="form-inline">
                   <label for="city">City</label>
