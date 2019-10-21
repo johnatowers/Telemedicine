@@ -38,6 +38,14 @@ namespace Telemedicine.API.Data
             return photo;  
         }
 
+        public async Task<Select> GetSelect(int userId, int recipientId)
+        {
+            // Where userId matches the SelectorId and recipientId matches SelecteeId
+            // If False it returns null, if True it will return the 'select' 
+            return await _context.Relationships.FirstOrDefaultAsync( u =>
+            u.SelectorId == userId && u.SelecteeId == recipientId);
+        }
+
         public async Task<User> getUser(int id)
         {
             var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(u => u.Id == id);
@@ -46,8 +54,33 @@ namespace Telemedicine.API.Data
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = _context.Users;
+            var users = _context.Users.AsQueryable();
+
+            if (userParams.Selectors) {
+                var userSelectors = await GetUserRelationships(userParams.UserId, userParams.Selectors);
+                users = users.Where(u => userSelectors.Contains(u.Id));
+            }
+            if (userParams.Selectees) {
+                var userSelectees = await GetUserRelationships(userParams.UserId, userParams.Selectors);
+                users = users.Where(u => userSelectees.Contains(u.Id));
+            }
+
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+        }
+
+        private async Task<IEnumerable<int>> GetUserRelationships(int id, bool selectors) {
+            var user = await _context.Users
+            .Include(x => x.Selectors)
+            .Include(x => x.Selectees)
+            .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (selectors)
+            {
+                return user.Selectors.Where(u => u.SelecteeId == id).Select(i => i.SelectorId);
+            }
+            else {
+                return user.Selectees.Where(u => u.SelectorId == id).Select(i => i.SelecteeId);
+            }
         }
 
         public async Task<bool> SaveAll()

@@ -42,6 +42,10 @@ export class UserService {
     return this.http.delete(this.baseUrl + 'users/' + userId + '/documents/' + id);
   }
 
+  sendSelect(id: number, recipientId: number) {
+    return this.http.post(this.baseUrl + 'users/' + id + '/select/' + recipientId, {});
+  }
+
   // setMainPhoto(userId: number, id: number){
   //   return this.http.post(this.baseUrl + 'users/' + userId + '/photos' + id + '/setMain', {} );
   // }

@@ -13,11 +13,28 @@ namespace Telemedicine.API.Data
         public DbSet<Value> Values { get; set; }
         public DbSet<Document> Documents {get; set;}
 
+        public DbSet<Select> Relationships {get; set;}
+
         //public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<Select>()
+        .HasKey(k => new {k.SelectorId, k.SelecteeId});
+
+        builder.Entity<Select>()
+        .HasOne(u => u.Selectee)
+        .WithMany(u => u.Selectors)
+        .HasForeignKey(u => u.SelecteeId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Select>()
+        .HasOne(u => u.Selector)
+        .WithMany(u => u.Selectees)
+        .HasForeignKey(u => u.SelectorId)
+        .OnDelete(DeleteBehavior.Restrict);
 
         builder.Entity<UserRole>(userRole =>
         {
@@ -35,20 +52,6 @@ namespace Telemedicine.API.Data
             .IsRequired();
         });
 
-        //builder.Entity<UserRole>(userRole =>
-        //{
-        //    userRole.HasKey(ur => new {ur.UserId, ur.RoleId});
-
-        //    userRole.HasOne(ur => ur.Role)
-        //    .WithOne(r => r.UserRole)
-        //    .HasForeignKey<UserRole>(ur => ur.RoleId)
-        //    .IsRequired();
-
-        //    userRole.HasOne(ur => ur.User)
-        //    .WithOne(r => r.UserRole)
-        //    .HasForeignKey<UserRole>(ur => ur.UserId)
-        //    .IsRequired();
-        //});
 
     }
     }

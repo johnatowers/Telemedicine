@@ -20,6 +20,9 @@ namespace Telemedicine.API.Data
 
          Task <Document> GetDocument(int id); 
 
+        // Use to check if a select already exists
+         Task<Select> GetSelect(int userId, int recipientId);
+
         //video 111
         //  Task <Photo> GetMainPhotoForUser(int userId); 
     }
