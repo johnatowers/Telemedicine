@@ -1,5 +1,5 @@
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,9 @@ import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule } fr
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -20,6 +22,7 @@ import { ErrorInterceptor, ErrorInterceptorProvider } from './_services/error.in
 import { PatientChartComponent } from './patient-chart/patient-chart.component';
 import { PatientMessagesComponent } from './patient-messages/patient-messages.component';
 import { PatientAppointmentsComponent } from './patient-appointments/patient-appointments.component';
+import { CalendarHeaderComponent } from './patient-appointments/patient-appointment-utils/calendar-header.component';
 import { PatientDoctorsComponent } from './members/patient-doctors/patient-doctors.component';
 import { appRoutes } from './routes';
 import { MemberCardComponent } from './members/member-card/member-card.component';
@@ -56,6 +59,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       PatientChartComponent,
       PatientMessagesComponent,
       PatientAppointmentsComponent,
+      CalendarHeaderComponent,
       PatientDoctorsComponent,
       MemberCardComponent,
       MemberDetailComponent,
@@ -85,7 +89,11 @@ export class CustomHammerConfig extends HammerGestureConfig  {
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      })
+      }),
+      CalendarModule.forRoot({
+         provide: DateAdapter,
+         useFactory: adapterFactory
+       })
    ],
    providers: [
       AuthService,
@@ -95,7 +103,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       UserService,
       MemberDetailResolver,
       PatientDoctorsResolver,
-      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig},
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
       MemberEditResolver,
       PreventUnsavedChanges
    ],
