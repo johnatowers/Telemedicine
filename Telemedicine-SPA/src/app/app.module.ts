@@ -35,6 +35,10 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { DocumentEditorComponent} from './members/document-editor/document-editor.component';
+import { PatientSelectorsResolver } from './_resolvers/PatientSelectors.resolver';
+import { PatientSelecteesResolver } from './_resolvers/patientselectees.resolver';
+import { PatientSelectorsComponent } from './members/patient-selectors/patient-selectors.component';
+import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -63,7 +67,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       AdminPanelComponent,
       HasRoleDirective,
       TimeAgoPipe,
-      DocumentEditorComponent
+      DocumentEditorComponent,
+      PatientSelectorsComponent,
+      PatientSelecteesComponent
    ],
    imports: [
       BrowserModule,
@@ -97,7 +103,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       PatientDoctorsResolver,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig},
       MemberEditResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      PatientSelectorsResolver,
+      PatientSelecteesResolver
    ],
    bootstrap: [
       AppComponent

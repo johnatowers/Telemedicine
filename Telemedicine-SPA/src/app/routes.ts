@@ -12,6 +12,10 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { PatientSelectorsComponent } from './members/patient-selectors/patient-selectors.component';
+import { PatientSelectorsResolver } from './_resolvers/PatientSelectors.resolver';
+import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
+import { PatientSelecteesResolver } from './_resolvers/patientselectees.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -28,7 +32,9 @@ export const appRoutes: Routes = [
                 resolve: { user: MemberDetailResolver}},
             { path: 'member/edit', component: MemberEditComponent,
                 resolve: { user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
-            {path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin']}}
+            {path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin']}},
+            {path: 'patient-selectors', component: PatientSelectorsComponent, resolve: {users: PatientSelectorsResolver}},
+            {path: 'patient-selectees', component: PatientSelecteesComponent, resolve: {users: PatientSelecteesResolver}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'},
