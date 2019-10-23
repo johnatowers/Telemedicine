@@ -58,6 +58,25 @@ export class PatientAppointmentsComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
+  /*
+    Calendar Events are represented as JSON obejcts.
+    Here is the template:
+
+      start: subDays(startOfDay(new Date()), 1),
+      end: addDays(new Date(), 1),
+      title: 'A 3 day event',
+      color: colors.red,
+      actions: this.actions,
+      allDay: true,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true
+      },
+      draggable: true
+
+
+  */
+
   events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
@@ -100,6 +119,8 @@ export class PatientAppointmentsComponent implements OnInit {
   ];
 
   activeDayIsOpen = true;
+
+  ngOnInit() {}
 
   constructor(private modal: NgbModal) {}
 
@@ -167,9 +188,6 @@ export class PatientAppointmentsComponent implements OnInit {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
-  }
-
-  ngOnInit() {
   }
 
 }
