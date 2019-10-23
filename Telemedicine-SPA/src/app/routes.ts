@@ -15,7 +15,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { PatientSelectorsComponent } from './members/patient-selectors/patient-selectors.component';
 import { PatientSelectorsResolver } from './_resolvers/PatientSelectors.resolver';
 import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
-import { PatientSelecteesResolver } from './_resolvers/patientselectees.resolver';
+import { PatientSelecteesResolver } from './_resolvers/PatientSelectees.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
