@@ -35,6 +35,9 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { DocumentEditorComponent} from './members/document-editor/document-editor.component';
+import { CalendarHeaderComponent } from './patient-appointments/patient-appointments-util/patient-appointments-util.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -53,6 +56,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       NavComponent,
       HomeComponent,
       RegisterComponent,
+      CalendarHeaderComponent,
       PatientChartComponent,
       PatientMessagesComponent,
       PatientAppointmentsComponent,
@@ -85,7 +89,11 @@ export class CustomHammerConfig extends HammerGestureConfig  {
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      })
+      }),
+      CalendarModule.forRoot({
+         provide: DateAdapter,
+         useFactory: adapterFactory
+       })
    ],
    providers: [
       AuthService,

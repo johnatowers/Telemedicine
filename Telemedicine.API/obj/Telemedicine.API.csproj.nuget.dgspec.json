@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {}
+    "/Users/coogankoerts/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {}
   },
   "projects": {
-    "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {
+    "/Users/coogankoerts/Telemedicine/Telemedicine.API/Telemedicine.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+        "projectUniqueName": "/Users/coogankoerts/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
         "projectName": "Telemedicine.API",
-        "projectPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
-        "packagesPath": "/Users/macy/.nuget/packages/",
-        "outputPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/",
+        "projectPath": "/Users/coogankoerts/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+        "packagesPath": "/Users/coogankoerts/.nuget/packages/",
+        "outputPath": "/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/macy/.nuget/NuGet/NuGet.Config"
+          "/Users/coogankoerts/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -70,10 +70,16 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
