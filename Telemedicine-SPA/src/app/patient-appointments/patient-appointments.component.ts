@@ -80,7 +80,7 @@ export class PatientAppointmentsComponent implements OnInit {
       },
       draggable: true
     }];
-    
+
   // {
   //   start: subDays(startOfDay(new Date()), 1),
   //   end: addDays(new Date(), 1),
@@ -191,7 +191,7 @@ export class PatientAppointmentsComponent implements OnInit {
       this.user = data['user'];
     });
 
-    console.log("THis is: " + this.user);
+    console.log('This is: ' + this.user);
   }
 
 }
