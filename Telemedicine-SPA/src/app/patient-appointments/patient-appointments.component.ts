@@ -3,6 +3,10 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { User } from '../_models/user';
+import { UserService } from '../_services/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 
 const colors: any = {
   red: {
@@ -35,7 +39,10 @@ export class PatientAppointmentsComponent implements OnInit {
 
   viewDate: Date = new Date();
 
-  // This will eb the part that connects to the DB
+  user: User;
+
+
+  // This will be the part that connects to the DB
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -59,8 +66,21 @@ export class PatientAppointmentsComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [];
-
+  // let event of events
+  events: CalendarEvent[] = [{
+      start: subDays(startOfDay(new Date()), 1),
+      end: addDays(new Date(), 1),
+      title: 'a 3 day Event',
+      color: colors.red,
+      actions: this.actions,
+      allDay: true,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true
+      },
+      draggable: true
+    }];
+    
   // {
   //   start: subDays(startOfDay(new Date()), 1),
   //   end: addDays(new Date(), 1),
@@ -102,8 +122,6 @@ export class PatientAppointmentsComponent implements OnInit {
 
   activeDayIsOpen = true;
 
-  constructor(private modal: NgbModal) {}
-
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -118,11 +136,7 @@ export class PatientAppointmentsComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map(iEvent => {
       if (iEvent === event) {
         return {
@@ -170,7 +184,14 @@ export class PatientAppointmentsComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
+  constructor(private modal: NgbModal, private userService: UserService, private route: ActivatedRoute) {}
+
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+    });
+
+    console.log("THis is: " + this.user);
   }
 
 }

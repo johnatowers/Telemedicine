@@ -12,6 +12,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -22,8 +23,10 @@ export const appRoutes: Routes = [
         children: [
             { path: 'patient-chart', component: PatientChartComponent},
             { path: 'patient-messages', component: PatientMessagesComponent},
-            { path: 'patient-appointments', component: PatientAppointmentsComponent},
-            { path: 'patient-doctors', component: PatientDoctorsComponent, resolve: { users: PatientDoctorsResolver}},
+            { path: 'patient-appointments', component: PatientAppointmentsComponent,
+                resolve: { user: PatientAppointmentsResolver}},
+            { path: 'patient-doctors', component: PatientDoctorsComponent,
+                resolve: { users: PatientDoctorsResolver}},
             { path: 'members/:id', component: MemberDetailComponent,
                 resolve: { user: MemberDetailResolver}},
             { path: 'member/edit', component: MemberEditComponent,

@@ -7,7 +7,7 @@ import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule } fr
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -38,6 +38,7 @@ import { DocumentEditorComponent} from './members/document-editor/document-edito
 import { CalendarHeaderComponent } from './patient-appointments/patient-appointments-util/patient-appointments-util.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -102,6 +103,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       AuthGuard,
       UserService,
       MemberDetailResolver,
+      PatientAppointmentsResolver,
       PatientDoctorsResolver,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig},
       MemberEditResolver,
