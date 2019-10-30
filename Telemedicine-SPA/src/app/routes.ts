@@ -24,7 +24,8 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'patient-chart', component: PatientChartComponent},
+            { path: 'patient-chart', component: PatientChartComponent,
+                resolve: { user: MemberEditResolver}},
             { path: 'patient-messages', component: PatientMessagesComponent},
             { path: 'patient-appointments', component: PatientAppointmentsComponent},
             { path: 'patient-doctors', component: PatientDoctorsComponent, resolve: { users: PatientDoctorsResolver}},

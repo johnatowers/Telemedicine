@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../_models/user';
+import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/_models/user';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,6 +15,8 @@ export class PatientChartComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data['user'];
+      // tslint:disable-next-line: no-debugger
+      // debugger;
     });
   }
 }
