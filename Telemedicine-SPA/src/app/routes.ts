@@ -16,6 +16,7 @@ import { PatientSelectorsComponent } from './members/patient-selectors/patient-s
 import { PatientSelectorsResolver } from './_resolvers/PatientSelectors.resolver';
 import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
 import { PatientSelecteesResolver } from './_resolvers/PatientSelectees.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -26,7 +27,7 @@ export const appRoutes: Routes = [
         children: [
             { path: 'patient-chart', component: PatientChartComponent,
                 resolve: { user: MemberEditResolver}},
-            { path: 'patient-messages', component: PatientMessagesComponent},
+            { path: 'patient-messages', component: PatientMessagesComponent, resolve: {messages: MessagesResolver}},
             { path: 'patient-appointments', component: PatientAppointmentsComponent},
             { path: 'patient-doctors', component: PatientDoctorsComponent, resolve: { users: PatientDoctorsResolver}},
             { path: 'members/:id', component: MemberDetailComponent,

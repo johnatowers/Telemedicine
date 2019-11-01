@@ -1,9 +1,13 @@
 <div class="container mt-4">
+    <div>
+        <h1>{{user?.firstName}} {{user?.lastName}}</h1>
+    </div>
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
         <!-- Again, i commented out the image because it looks ugly without a photo. -->
         <!-- <img class="card-img-top img-thumbnail" src="{{user?.photoUrl}}" alt="{{user.username}}"> -->
+        
         <div class="card-body">
           <div>
             <strong>Location:</strong>
@@ -24,7 +28,7 @@
           <div class="card-footer">
             <div class="btn-group d-flex">
               <button class="btn btn-primary w-100">Request</button>
-              <button class="btn btn-success w-100">Message</button>
+              <button class="btn btn-success w-100" (click)="selectTab(3)">Message</button>
             </div>
           </div>
         </div>
@@ -32,8 +36,8 @@
     </div>
     <div class="col-sm-8">
       <div class="tab-panel">
-        <tabset class="member-tabset">
-          <tab heading="About {{user?.role}}">
+        <tabset class="member-tabset" #memberTabs>
+          <tab heading="About">
             <h4>Description</h4>
             <p>{{user?.introduction}}</p>
             <h4>Looking For</h4>
@@ -49,7 +53,7 @@
             <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
           </tab>
           <tab heading="Messages">
-            <h4>Messages will go here</h4>
+            <app-member-messages [recipientId]="user.id"></app-member-messages>
           </tab>
         </tabset>  
       </div>

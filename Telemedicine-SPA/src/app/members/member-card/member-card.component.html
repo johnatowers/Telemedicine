@@ -6,7 +6,7 @@
       <li class="list-inline-item"><button class="btn btn-primary" 
           [routerLink]="['/members/', user.id]"><i class="fa fa-user-md"></i></button></li>
       <li class="list-inline-item"><button class="btn btn-primary" (click)="sendSelect(user.id)"><i class="fa fa-user-plus"></i></button></li>
-      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
+      <li class="list-inline-item"><button class="btn btn-primary" [routerLink]="['/members/', user.id]" [queryParams]="{tab: 3}" ><i class="fa fa-envelope"></i></button></li>
     </ul>
   </div>
   <div class="card-body-p-1">

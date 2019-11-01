@@ -39,6 +39,8 @@ import { PatientSelectorsResolver } from './_resolvers/PatientSelectors.resolver
 import { PatientSelecteesResolver } from './_resolvers/PatientSelectees.resolver';
 import { PatientSelectorsComponent } from './members/patient-selectors/patient-selectors.component';
 import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -69,7 +71,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       TimeAgoPipe,
       DocumentEditorComponent,
       PatientSelectorsComponent,
-      PatientSelecteesComponent
+      PatientSelecteesComponent,
+      MemberMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -105,7 +108,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberEditResolver,
       PreventUnsavedChanges,
       PatientSelectorsResolver,
-      PatientSelecteesResolver
+      PatientSelecteesResolver,
+      MessagesResolver
    ],
    bootstrap: [
       AppComponent
