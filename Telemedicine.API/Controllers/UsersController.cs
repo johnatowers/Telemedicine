@@ -80,16 +80,16 @@ namespace Telemedicine.API.Controllers
             var checkIfPatientFirstSelect = await _repo.GetSelect(recipientId, id);
             var SelectorUser = await _repo.getUser(id);
             var SelecteeUser = await _repo.getUser(recipientId);
-            // // Check if a patient is trying to select a patient
-            // if (SelectorUser.UserRole.RoleId == 1 && SelecteeUser.UserRole.RoleId == 1)
-            //     return BadRequest("You can't select another patient");
+            // Check if a patient is trying to select a patient
+            if (SelectorUser.UserRole.RoleId.Equals(1) && SelecteeUser.UserRole.RoleId.Equals(1))
+                return BadRequest("You can't select another patient");
 
-            // // Check if a doctor is trying to select a patient
-            // if (SelectorUser.UserRole.RoleId == 3 && SelecteeUser.UserRole.RoleId == 1)
-            //     // Check if patient has selected the doctor first
-            //     // If patient has not selected the doctor, then the doctor cannot select the patient
-            //     if (checkIfPatientFirstSelect == null)
-            //         return BadRequest("You can't select a patient first");
+            // Check if a doctor is trying to select a patient
+            if (SelectorUser.UserRole.RoleId.Equals(3) && SelecteeUser.UserRole.RoleId.Equals(1))
+                // Check if patient has selected the doctor first
+                // If patient has not selected the doctor, then the doctor cannot select the patient
+                if (checkIfPatientFirstSelect == null)
+                    return BadRequest("You can't select a patient first");
 
             select = new Select
             {

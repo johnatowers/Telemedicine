@@ -48,7 +48,7 @@ namespace Telemedicine.API.Data
 
         public async Task<User> getUser(int id)
         {
-            var user = await _context.Users.Include(p => p.Documents).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Include(p => p.Documents).Include(p => p.UserRole).FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
 

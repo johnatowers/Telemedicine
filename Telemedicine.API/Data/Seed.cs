@@ -29,10 +29,20 @@ namespace Telemedicine.API.Data
                     roleManager.CreateAsync(role).Wait();
                 }
 
+                int i = 0;
                 foreach (var user in users)
                 {
-                    userManager.CreateAsync(user, "password").Wait();
-                    userManager.AddToRoleAsync(user, "Patient");
+                    if (i < 10)
+                    {
+                        userManager.CreateAsync(user, "password").Wait();
+                        userManager.AddToRoleAsync(user, "Patient");
+                    }
+                    else if (i >= 10 && i < 16) {
+                        userManager.CreateAsync(user, "password").Wait();
+                        userManager.AddToRoleAsync(user, "Doctor");
+                    }
+                    i++;
+                    
                 }
 
                 // create admin user
