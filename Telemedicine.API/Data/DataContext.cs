@@ -15,6 +15,8 @@ namespace Telemedicine.API.Data
 
         public DbSet<Select> Relationships {get; set;}
 
+        public DbSet<Message> Messages { get; set; }
+
         //public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -52,6 +54,15 @@ namespace Telemedicine.API.Data
             .IsRequired();
         });
 
+        builder.Entity<Message>()
+        .HasOne(u => u.Sender)
+        .WithMany(m => m.MessagesSent)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Message>()
+        .HasOne(u => u.Recipient)
+        .WithMany(m => m.MessagesReceived)
+        .OnDelete(DeleteBehavior.Restrict);
 
     }
     }
