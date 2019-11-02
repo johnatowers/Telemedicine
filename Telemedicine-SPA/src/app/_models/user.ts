@@ -8,6 +8,7 @@ export interface User {
     role: string;
     age: string;
     gender: string;
+    dateOfBirth: Date;
     created: Date;
     lastActive: Date;
     documentUrl: string;

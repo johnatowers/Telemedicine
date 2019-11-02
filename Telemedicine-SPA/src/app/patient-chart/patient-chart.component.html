@@ -1,4 +1,7 @@
 <div class="container mt-4">
+    <div>
+        <h2>My Chart</h2>
+    </div>
     <div class="row">
       <div class="col-sm-4">
         <div class="card">
@@ -6,17 +9,21 @@
           <!-- <img class="card-img-top img-thumbnail" src="{{user?.photoUrl}}" alt="{{user.username}}"> -->
           <div class="card-body">
             <div>
-              <strong>Location:</strong>
-              <p>{{user?.city}}, {{user?.country}}</p>
+              <strong>Address:</strong>
+              <p> {{user?.address}} {{user?.city}}, {{user?.country}}</p>
             </div>
-            <div>
+            <!-- <div>
+                <strong>Date of Birth:</strong>
+                <p>{{user?.dateOfBirth}}</p>
+              </div>-->
+            <div> 
               <strong>Age:</strong>
               <p>{{user?.age}}</p>
             </div>
-            <div>
+            <!-- <div>
               <strong>Last Actice:</strong>
               <p> {{user?.lastActive | timeAgo}}</p>
-            </div>
+            </div> -->
             <div>
               <strong>Member Since:</strong>
               <p> {{user?.created | date: 'mediumDate'}}</p>
@@ -41,18 +48,23 @@
                 <p>{{user?.medications}}</p>
               </div>
             </tab>
-            <tab heading="Interests">
+            <!-- <tab heading="Interests">
               <h4>Interests</h4>
               <p>{{user?.interests}}</p>
-            </tab>
+            </tab> -->
             <tab heading="Reports">
-              <h4>Reports will go here</h4>
-              <!-- Photo gallery code added here but commented out since now photos are present -->
-              <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+                  <div class ="col-sm-2" *ngFor="let doc of user.documents">
+                    <a [href]="doc.url">
+                        <img [src]="doc.url" class="img-thumbnail p-1" alt="">
+                   </a>
+                   <div class = "text-center">
+                      <p>Click document to enlarge</p>   
+                   </div>
+                  </div>
             </tab>
-            <tab heading="Messages">
+            <!-- <tab heading="Messages">
               <h4>Messages will go here</h4>
-            </tab>
+            </tab> -->
           </tabset>  
         </div>
       </div>
