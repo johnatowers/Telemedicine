@@ -14,6 +14,7 @@ import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 export class PatientDoctorsComponent implements OnInit {
   users: User[];
   pagination: Pagination;
+  selectsParam: string;
 
   constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
@@ -22,6 +23,8 @@ export class PatientDoctorsComponent implements OnInit {
       this.users = data['users'].result;
       this.pagination = data['users'].pagination;
     });
+
+    this.selectsParam = 'All';
   }
 
   pageChanged(event: any): void {
@@ -30,7 +33,8 @@ export class PatientDoctorsComponent implements OnInit {
   }
 
    loadUsers() {
-     this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage).subscribe((res: PaginatedResult<User[]>) => {
+     this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.selectsParam)
+     .subscribe((res: PaginatedResult<User[]>) => {
        this.users = res.result;
        this.pagination = res.pagination;
      }, error => {

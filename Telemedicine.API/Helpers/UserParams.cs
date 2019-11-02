@@ -16,6 +16,8 @@ namespace Telemedicine.API.Helpers
         public bool Selectees { get; set; } = false;
 
         public bool Selectors { get; set; } = false;
+
+        public bool DoctorRoleOnly { get; set; } = false;
         
     }
 }

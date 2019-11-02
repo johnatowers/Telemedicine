@@ -32,7 +32,7 @@ export class UserService {
     }
 
     if (selectsParam === 'All') {
-      params = params.append('', '');
+       params = params.append('doctorRoleOnly', 'true');
     }
 
     return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params}).pipe(map(response => {

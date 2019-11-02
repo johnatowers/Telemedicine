@@ -64,6 +64,10 @@ namespace Telemedicine.API.Data
                 var userSelectees = await GetUserRelationships(userParams.UserId, userParams.Selectors);
                 users = users.Where(u => userSelectees.Contains(u.Id));
             }
+            // returns only doctors
+            if (userParams.DoctorRoleOnly) {
+                 users = users.Where(u => u.UserRole.RoleId == 3);
+            }
 
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
