@@ -103,13 +103,14 @@ namespace Telemedicine.API.Data
             // find inbox or outbox messages
             switch (messageParams.MessageContainer) {
                 case "Inbox":
-                    messages = messages.Where(u => u.RecipientId == messageParams.UserId);
+                    messages = messages.Where(u => u.RecipientId == messageParams.UserId && u.RecipientDeleted == false);
                     break;
                 case "Outbox":
-                    messages = messages.Where(u => u.SenderId == messageParams.UserId);
+                    messages = messages.Where(u => u.SenderId == messageParams.UserId && u.SenderDeleted == false);
                     break;
                 default:
-                    messages = messages.Where(u => u.RecipientId == messageParams.UserId && u.IsRead == false);
+                    messages = messages.Where(u => u.RecipientId == messageParams.UserId && u.IsRead == false
+                        && u.RecipientDeleted == false);
                     break;
             }
 
@@ -122,8 +123,10 @@ namespace Telemedicine.API.Data
             // Get complete conversation between 2 users
             var messages = await _context.Messages.Include(u => u.Sender) //.ThenInclude(p => p.Photos)
             .Include(u => u.Recipient) //.ThenInclude(p => p.Photos)
-            .Where(m => m.RecipientId == userId && m.SenderId == recipientId 
-                || m.RecipientId == recipientId && m.SenderId == userId)
+            .Where(m => m.RecipientId == userId && m.RecipientDeleted == false 
+                && m.SenderId == recipientId 
+                || m.RecipientId == recipientId && m.SenderId == userId 
+                && m.SenderDeleted == false)
                 .OrderBy(m => m.MessageSent)
                 .ToListAsync();
             

@@ -36,6 +36,19 @@ export class PatientMessagesComponent implements OnInit {
         this.alertify.error(error);
       });
   }
+
+  deleteMessage(id: number) {
+    this.alertify.confirm('Are you sure you want to delete this message?', () => {
+      this.userService.deleteMessage(id, this.authService.decodedToken.nameid).subscribe(() => {
+        this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
+        // find index of the message in the messages array that matches the id we're passing in, and we delete it
+        this.alertify.success('Message has been deleted');
+      }, error => {
+        this.alertify.error('Failed ot delete this message');
+      });
+    });
+  }
+
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.loadMessages();
