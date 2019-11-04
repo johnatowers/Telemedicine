@@ -8,33 +8,41 @@
           <!-- Again, i commented out the image because it looks ugly without a photo. -->
           <!-- <img class="card-img-top img-thumbnail" src="{{user?.photoUrl}}" alt="{{user.username}}"> -->
           <div class="card-body">
-            <div>
-              <strong>Address:</strong>
-              <p> {{user?.address}} {{user?.city}}, {{user?.country}}</p>
-            </div>
-            <!-- <div>
-                <strong>Date of Birth:</strong>
-                <p>{{user?.dateOfBirth}}</p>
-              </div>-->
-            <div> 
-              <strong>Age:</strong>
-              <p>{{user?.age}}</p>
-            </div>
-            <!-- <div>
-              <strong>Last Actice:</strong>
-              <p> {{user?.lastActive | timeAgo}}</p>
-            </div> -->
-            <div>
-              <strong>Member Since:</strong>
-              <p> {{user?.created | date: 'mediumDate'}}</p>
-            </div>
+              <div>
+                  <strong>Full Name:</strong>
+                  <p>{{user?.firstName}} {{user?.middleName}} {{user?.lastName}} {{user?.suffix}}</p>
+                </div>
+                <div>
+                  <strong>Location:</strong>
+                  <p>{{user?.city}}, {{user?.country}}</p>
+                </div>
+                <div>
+                    <strong>Gender:</strong>
+                    <p>{{user?.gender}}</p>
+                  </div>
+                <div>
+                    <strong>Date of Birth:</strong>
+                    <p>{{user?.dateOfBirth | date: 'mediumDate'}}</p>
+                </div>
+                <div>
+                  <strong>Age:</strong>
+                  <p>{{user?.age}}</p>
+                </div>
+                <!-- <div>
+                  <strong>Last Active:</strong>
+                  <p> {{user?.lastActive | timeAgo}}</p>
+                </div> -->
+                <div>
+                  <strong>Member Since:</strong>
+                  <p> {{user?.created | date: 'mediumDate'}}</p>
+                </div>
           </div>
         </div>
       </div>
       <div class="col-sm-8">
         <div class="tab-panel">
           <tabset class="member-tabset">
-            <tab heading="About {{user?.role}}">
+            <tab heading="Health Information">
               <div>
                 <h4>Health Conditions</h4>
                 <p>{{user?.healthConditions}}</p>
