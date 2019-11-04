@@ -18,7 +18,7 @@
             <p>{{user?.age}}</p>
           </div>
           <div>
-            <strong>Last Actice:</strong>
+            <strong>Last Active:</strong>
             <p> {{user?.lastActive | timeAgo}}</p>
           </div>
           <div>
@@ -38,17 +38,32 @@
       <div class="tab-panel">
         <tabset class="member-tabset" #memberTabs>
           <tab heading="About">
-            <h4>Description</h4>
-            <p>{{user?.introduction}}</p>
-            <h4>Looking For</h4>
-            <p>{{user?.lookingFor}}</p>
+              <div>
+                  <h4>Health Conditions</h4>
+                  <p>{{user?.healthConditions}}</p>
+                </div>
+                <div>
+                  <h4>Allergies</h4>
+                  <p>{{user?.allergies}}</p>
+                </div>
+                <div>
+                  <h4>Medications</h4>
+                  <p>{{user?.medications}}</p>
+                </div>
           </tab>
           <!-- <tab heading="Interests">
             <h4>Interests</h4>
             <p>{{user?.interests}}</p>
           </tab> -->
           <tab heading="Reports">
-            <h4>Reports will go here</h4>
+              <div class ="col-sm-2" *ngFor="let doc of user.documents">
+                  <a [href]="doc.url">
+                      <img [src]="doc.url" class="img-thumbnail p-1" alt="">
+                 </a>
+                 <div class = "text-center">
+                    <p>Click document to enlarge</p>   
+                 </div>
+                </div>
             <!-- Photo gallery code added here but commented out since now photos are present -->
             <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
           </tab>
