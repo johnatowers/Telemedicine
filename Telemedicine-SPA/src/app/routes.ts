@@ -17,6 +17,10 @@ import { PatientSelectorsResolver } from './_resolvers/PatientSelectors.resolver
 import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
 import { PatientSelecteesResolver } from './_resolvers/PatientSelectees.resolver';
 import { MessagesResolver } from './_resolvers/messages.resolver';
+import { DoctorPatientsComponent } from './members/doctor-patients/doctor-patients.component';
+import { DoctorSelectorsComponent } from './members/doctor-selectors/doctor-selectors.component';
+import { DoctorSelecteesComponent } from './members/doctor-selectees/doctor-selectees.component';
+import { NavComponent } from './nav/nav.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -36,7 +40,11 @@ export const appRoutes: Routes = [
                 resolve: { user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
             {path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin']}},
             {path: 'patient-selectors', component: PatientSelectorsComponent, resolve: {users: PatientSelectorsResolver}},
-            {path: 'patient-selectees', component: PatientSelecteesComponent, resolve: {users: PatientSelecteesResolver}}
+            {path: 'patient-selectees', component: PatientSelecteesComponent, resolve: {users: PatientSelecteesResolver}},
+            {path: 'doctor-patients', component: DoctorPatientsComponent, resolve: {users: PatientDoctorsResolver}},
+            {path: 'doctor-selectors', component: DoctorSelectorsComponent, resolve: {users: PatientSelectorsResolver}},
+            {path: 'doctor-selectees', component: DoctorSelecteesComponent, resolve: {users: PatientSelecteesResolver}},
+            {path: 'nav', component: NavComponent, resolve: {user: MemberEditResolver}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'},

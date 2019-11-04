@@ -45,7 +45,7 @@ export class PatientDoctorsComponent implements OnInit {
   // This method is custom and lets us filter out entries on the user table without
   // creating emtpy divs on a page. Change x.gender to a different field to change filter.
   // NOTE: this worked fine before video 91.
-  filterItemsOfType(type: string) {
-    return this.users.filter(x => x.gender === type);
-  }
+  // filterItemsOfType(type: string) {
+  //   return this.users.filter(x => x.gender === type);
+  // }
 }

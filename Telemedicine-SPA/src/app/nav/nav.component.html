@@ -4,11 +4,15 @@
       <a class="navbar-brand ml-4 mr-2" [routerLink]="['/home']">Telemedicine</a>
 
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item ml-2 mr-2" routerLinkActive="active">
+        
+        <li *appHasRole="['Patient']" class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-chart']">My Chart</a>
         </li>
-        <li class="nav-item ml-2 mr-2" routerLinkActive="active">
+        <li *appHasRole="['Patient']" class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-selectees']">My Doctors</a>
+        </li>
+        <li *appHasRole="['Doctor']" class="nav-item ml-2 mr-2" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/doctor-selectors']">My Patients</a>
         </li>
         <li class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-messages']">Messages</a>

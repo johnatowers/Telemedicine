@@ -41,6 +41,9 @@ import { PatientSelectorsComponent } from './members/patient-selectors/patient-s
 import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { DoctorPatientsComponent } from './members/doctor-patients/doctor-patients.component';
+import { DoctorSelecteesComponent } from './members/doctor-selectees/doctor-selectees.component';
+import { DoctorSelectorsComponent } from './members/doctor-selectors/doctor-selectors.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -72,7 +75,10 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       DocumentEditorComponent,
       PatientSelectorsComponent,
       PatientSelecteesComponent,
-      MemberMessagesComponent
+      MemberMessagesComponent,
+      DoctorPatientsComponent,
+      DoctorSelecteesComponent,
+      DoctorSelectorsComponent
    ],
    imports: [
       BrowserModule,
