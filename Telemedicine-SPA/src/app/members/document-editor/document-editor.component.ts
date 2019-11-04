@@ -5,6 +5,8 @@ import {environment} from '../../../environments/environment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { User } from 'src/app/_models/user';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-document-editor',
   templateUrl: './document-editor.component.html',
@@ -12,6 +14,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 })
 export class DocumentEditorComponent implements OnInit {
   @Input() documents: Document[];
+  user: User;
   // @Output() getMemberPhotoChange = new EventEmitter<string>();
 
   uploader: FileUploader;
@@ -19,9 +22,13 @@ export class DocumentEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   // currentMain: Photo;
 
-  constructor(private authService: AuthService, private userService: UserService, private alertify: AlertifyService  ) { }
+  constructor(private authService: AuthService, private userService: UserService, private alertify: AlertifyService,
+              private route: ActivatedRoute ) { }
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+    });
     this.initializeUploader();
   }
 
@@ -31,7 +38,8 @@ export class DocumentEditorComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'users/' + this.authService.decodedToken.nameid + '/documents',
+      // url: this.baseUrl + 'users/' + this.authService.decodedToken.nameid + '/documents',
+      url: this.baseUrl + 'users/' + this.user.id + '/documents',
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -39,6 +47,10 @@ export class DocumentEditorComponent implements OnInit {
       autoUpload: false,
       maxFileSize: 20 * 1024 * 1024
     });
+
+    this.uploader.onErrorItem = (item, response, status, headers) => {
+      this.alertify.error(response);
+    };
 
     this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
 

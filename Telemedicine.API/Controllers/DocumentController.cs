@@ -65,8 +65,18 @@ namespace Telemedicine.API.Controllers
            // [FromForm]PhotoForCreationDto = PhotoForCreationDto)
 
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+            {
+                int DocumentUploadeeId = userId;
+                int DocumentUploaderId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                var checkIfUploaderSelectedUploadee = await _repo.GetSelect(DocumentUploaderId, DocumentUploadeeId);
+                var checkIfUploadeeSelectedUploader = await _repo.GetSelect(DocumentUploadeeId, DocumentUploaderId);
+                if (checkIfUploadeeSelectedUploader != null && checkIfUploaderSelectedUploadee == null)
+                    return BadRequest("You cannot upload photos until you accept user's request");
+                else if (checkIfUploadeeSelectedUploader == null && checkIfUploaderSelectedUploadee == null)
+                    return Unauthorized();
 
+            }
+            
             var userFromRepo = await _repo.getUser(userId);
 
             var file = docForCreationDto.File; 

@@ -18,8 +18,5 @@ export interface User {
     medications: string;
     city: string;
     country: string;
-    interests?: string;
-    introduction?: string;
-    lookingFor?: string;
     documents?: Document[];
 }
