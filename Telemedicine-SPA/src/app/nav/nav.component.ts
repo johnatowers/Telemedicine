@@ -25,7 +25,13 @@ export class NavComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     }, () => {
-      this.router.navigate(['/patient-chart']);
+      if (this.authService.decodedToken.role === 'Patient') {
+        this.router.navigate(['/patient-chart']);
+      } else if (this.authService.decodedToken.role === 'Doctor') {
+        this.router.navigate(['/doctor-selectors']);
+      } else if (this.authService.decodedToken.role === 'Admin') {
+        this.router.navigate(['/admin']);
+      }
     });
   }
 
