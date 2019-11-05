@@ -68,17 +68,36 @@ export class PatientAppointmentsComponent implements OnInit {
 
   // let event of events
   events: CalendarEvent[] = [{
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'a 3 day Event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
+    start: subDays(startOfDay(new Date()), 1),
+    end: addDays(new Date(), 1),
+    title: 'Begin 3 Day Fast For Blood Work',
+    color: colors.red,
+    actions: this.actions,
+    allDay: true,
+    resizable: {
+      beforeStart: true,
+      afterEnd: true
+    },
+    draggable: true
+  },
+  {
+    start: subDays(endOfMonth(new Date()), 3),
+    end: addDays(endOfMonth(new Date()), 3),
+    title: 'Check with Doctor if any side effects present',
+    color: colors.blue,
+    allDay: true
+  },
+  {
+    start: addHours(startOfDay(new Date()), 2),
+    end: new Date(),
+    title: 'Neurologist Appointment',
+    color: colors.yellow,
+    actions: this.actions,
+    resizable: {
+      beforeStart: true,
+      afterEnd: true
+    },
+    draggable: true
     }];
 
   // {
