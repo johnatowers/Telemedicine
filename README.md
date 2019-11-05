@@ -27,6 +27,7 @@ You'll notice that the database looks different after adding the roles. Every ta
 - Week view of appts on my chart
 - Member card component (make name bigger, configure buttons, bring page selection to the bottom)
 - Once in relationship with doctor/patient, make plus button disappear 
+- Add more of a variety of color rather than all light blue
 
 
 
