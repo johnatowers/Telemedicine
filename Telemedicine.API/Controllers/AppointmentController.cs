@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -50,7 +51,7 @@ namespace Telemedicine.API.Controllers
                 return Unauthorized();
             }
 
-            var apptRecipient;
+            var apptRecipient = (User)null;
             if (apptCreator.UserRole.RoleId.Equals(1)) {
                 apptForCreation.PatientId = userId;
 
@@ -77,11 +78,32 @@ namespace Telemedicine.API.Controllers
             _repo.Add(appointment);
             
             if (await _repo.SaveAll()) {
-                //var messageToReturn = _mapper.Map<MessageToReturnDto>(message);
-                return CreatedAtRoute("GetAppointment", new {id = appointment.Id}, appointment); //, messageToReturn);
+                var apptToReturn = _mapper.Map<AppointmentForCreationDto>(appointment);
+                return CreatedAtRoute("GetAppointment", new {id = appointment.Id}, apptToReturn); //, messageToReturn);
             }
             throw new Exception("Creating the appointment failed on save");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAppointmentsForUser(int userId, [FromQuery]UserParams userParams)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            userParams.UserId = userId;
+
+            var apptsFromRepo = await _repo.GetAppointmentsForUser(userParams);
+
+            var appts = _mapper.Map<IEnumerable<AppointmentToReturnDto>>(apptsFromRepo);
+
+            Response.AddPagination(apptsFromRepo.CurrentPage, apptsFromRepo.PageSize, 
+            apptsFromRepo.TotalCount, apptsFromRepo.TotalPages);
+
+            return Ok(appts);
+        }
+
         
     }
 }

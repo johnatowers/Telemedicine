@@ -32,7 +32,7 @@ namespace Telemedicine.API.Data
 
         Task<Appointment> GetAppointment(int id);
 
-         Task<PagedList<Appointment>> GetAppointmentsForUser();
+         Task<PagedList<Appointment>> GetAppointmentsForUser(UserParams userParams);
 
         //video 111
         //  Task <Photo> GetMainPhotoForUser(int userId); 
