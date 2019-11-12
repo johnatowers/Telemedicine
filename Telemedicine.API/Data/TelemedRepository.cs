@@ -136,5 +136,15 @@ namespace Telemedicine.API.Data
             
             return messages;
         }
+
+        public async Task<Appointment> GetAppointment(int id)
+        {
+            return await _context.Appointments.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public Task<PagedList<Appointment>> GetAppointmentsForUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

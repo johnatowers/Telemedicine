@@ -17,6 +17,8 @@ namespace Telemedicine.API.Data
 
         public DbSet<Message> Messages { get; set; }
 
+        public DbSet<Appointment> Appointments { get; set; }
+
         //public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -64,6 +66,15 @@ namespace Telemedicine.API.Data
         .WithMany(m => m.MessagesReceived)
         .OnDelete(DeleteBehavior.Restrict);
 
+        builder.Entity<Appointment>()
+        .HasOne(u => u.Patient)
+        .WithMany(a => a.PatientAppointments)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Appointment>()
+        .HasOne(u => u.Doctor)
+        .WithMany(a => a.DoctorAppointments)
+        .OnDelete(DeleteBehavior.Restrict);
     }
     }
 

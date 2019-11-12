@@ -30,6 +30,10 @@ namespace Telemedicine.API.Data
 
          Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
 
+        Task<Appointment> GetAppointment(int id);
+
+         Task<PagedList<Appointment>> GetAppointmentsForUser();
+
         //video 111
         //  Task <Photo> GetMainPhotoForUser(int userId); 
     }
