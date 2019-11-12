@@ -28,10 +28,10 @@
                   <strong>Age:</strong>
                   <p>{{user?.age}}</p>
                 </div>
-                <!-- <div>
+                <div>
                   <strong>Last Active:</strong>
                   <p> {{user?.lastActive | timeAgo}}</p>
-                </div> -->
+                </div>
                 <div>
                   <strong>Member Since:</strong>
                   <p> {{user?.created | date: 'mediumDate'}}</p>
@@ -70,11 +70,13 @@
                    </div>
                   </div> -->
              <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-
             </tab>
             <!-- <tab heading="Messages">
               <h4>Messages will go here</h4>
             </tab> -->
+            <tab heading="Upcoming Appointments">
+              //TODO
+            </tab>
           </tabset>  
         </div>
       </div>
