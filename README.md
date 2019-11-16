@@ -30,6 +30,9 @@ You'll notice that the database looks different after adding the roles. Every ta
 Video 211: not adding MySql Annotations to migration file (only SqlServer annotations added). MySql may be added if we publish the website
 
 
+# Production Database Info
 
+nuget packages to install: Microsoft.EntityFrameworkCore.SqlServer (2.2.6) & Pomelo.EntityFrameworkCore.SqlServer (2.2.6)
+Extension : SQL Server (mssql) 1.7.1 with ~5.5M downloads
 
 

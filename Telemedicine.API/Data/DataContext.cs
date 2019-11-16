@@ -17,7 +17,7 @@ namespace Telemedicine.API.Data
 
         public DbSet<Message> Messages { get; set; }
 
-        //public DbSet<User> Users { get; set; }
+        public new DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
