@@ -1,0 +1,17 @@
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/appsettings.Development.json
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/appsettings.json
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/Data/UserSeedData.json
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/Properties/launchSettings.json
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/Telemedicine.API.deps.json
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/Telemedicine.API.runtimeconfig.json
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/Telemedicine.API.runtimeconfig.dev.json
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/Telemedicine.API.dll
+/Users/coogankoerts/Telemedicine/Telemedicine.API/bin/Release/netcoreapp2.2/Telemedicine.API.pdb
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.csprojAssemblyReference.cache
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.RazorAssemblyInfo.cache
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.RazorAssemblyInfo.cs
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.AssemblyInfoInputs.cache
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.AssemblyInfo.cs
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.RazorTargetAssemblyInfo.cache
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.dll
+/Users/coogankoerts/Telemedicine/Telemedicine.API/obj/Release/netcoreapp2.2/Telemedicine.API.pdb

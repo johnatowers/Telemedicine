@@ -1,0 +1,30 @@
+{
+    "deploy.reloaded": {
+        "packages": [
+            {
+                "name": "Version 1.0.0",
+                "description": "Package version 1.0.0",
+
+                "files": [
+                    "Telemedicine.API/bin/Release/netcoreapp2.2/publish/**"
+                ]
+            }
+        ],
+
+        "targets": [
+            {
+                "type": "sftp",
+                "name": "Linux",
+                "description": "SFTP folder",
+
+                "host": "45.55.38.135", "port": 22,
+                "user": "root", "password": "Redman is the tour1!",
+
+                "dir": "/var/telemedicine",
+                "mappings": {
+                    "Telemedicine.API/bin/Release/netcoreapp2.2/publish/**": "/"
+                }
+            }
+        ]
+    }
+}
