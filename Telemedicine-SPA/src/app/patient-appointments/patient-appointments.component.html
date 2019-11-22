@@ -64,11 +64,72 @@
   <p>Hello {{user.gender}} </p>
 </div> -->
 
+<!-- Add new appointment functionality -->
+<div class="container" *ngIf="newEvents.length > 0">
+  <h3>
+    New Appointment
+  </h3>
+
+  <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Doctor</th>
+            <th>Title</th>
+            <th>Primary color</th>
+            <th>Secondary color</th>
+            <th>Starts at</th>
+            <th>Ends at</th>
+            <th>Schedule</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr *ngFor="let event of newEvents">
+            <td>
+                <select [(ngModel)]="selectedDoctor">
+                  <option *ngFor="let d of doctors" [value]="d.id">{{d.firstName}} {{d.lastName}}</option>
+                </select>
+            </td>
+            <td>
+              <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()"/>
+            </td>
+            <td>
+              <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()"/>
+            </td>
+            <td>
+              <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()"/>
+            </td>
+            <td>
+              <input 
+                class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" 
+                (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+            </td>
+            <td>
+              <input
+                class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
+                (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="ScheduleEvent(event)"> <!-- add event method call here-->
+                Schedule
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+
+
+
 <!-- Edit Appointment Functionality -->
 <div class="container">
   <h3>
     Edit Appointments
-    <button class="btn btn-primary pull-right" (click)="addEvent()">
+    <button class="btn btn-primary pull-right" (click)="addNewEvent()">
       Add new
     </button>
     <div class="clearfix"></div>
@@ -79,6 +140,7 @@
     <table class="table table-bordered">
       <thead>
         <tr>
+          <th>Doctor</th>
           <th>Title</th>
           <th>Primary color</th>
           <th>Secondary color</th>
@@ -90,6 +152,11 @@
 
       <tbody>
         <tr *ngFor="let event of events">
+          <td>
+              <select [(ngModel)]="selectedDoctor">
+                <option *ngFor="let d of doctors" [value]="d.firstName + d.lastName">{{d.firstName}} {{d.lastName}}</option>
+              </select>
+          </td>
           <td>
             <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()"/>
           </td>

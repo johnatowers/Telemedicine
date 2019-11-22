@@ -23,6 +23,7 @@ import { DoctorSelecteesComponent } from './members/doctor-selectees/doctor-sele
 import { NavComponent } from './nav/nav.component';
 import { DocumentEditorComponent } from './members/document-editor/document-editor.component';
 import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
+import { GetMemberPatientsResolver } from './_resolvers/get-member-patients.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -35,7 +36,8 @@ export const appRoutes: Routes = [
                 resolve: { user: MemberEditResolver}},
             { path: 'patient-messages', component: PatientMessagesComponent, resolve: {messages: MessagesResolver}},
             { path: 'patient-appointments', component: PatientAppointmentsComponent,
-            resolve: { user: PatientAppointmentsResolver}},
+            resolve: { user: PatientAppointmentsResolver, appointments: GetMemberPatientsResolver,
+                doctors: PatientSelectorsResolver}},
             { path: 'patient-doctors', component: PatientDoctorsComponent, resolve: { users: PatientDoctorsResolver}},
             { path: 'members/:id', component: MemberDetailComponent,
                 resolve: { user: MemberDetailResolver}},

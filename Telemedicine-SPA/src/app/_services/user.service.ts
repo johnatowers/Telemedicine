@@ -6,6 +6,7 @@ import { User } from '../_models/user';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Message } from '../_models/message';
+import { Appointment } from '../_models/Appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,30 @@ export class UserService {
           return paginatedResult;
         })
       );
+  }
+
+  createAppointment(id: number, appointment: Appointment) {
+    return this.http.post(this.baseUrl + 'users/' + id +'/appointment/', appointment);
+  }
+
+  // get appointment paginated version
+  getAppointments(id: number, page?, itemsPerPage?) {
+    const paginatedResult: PaginatedResult<Appointment[]> = new PaginatedResult<Appointment[]>();
+    let params = new HttpParams();
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+    return this.http.get<Appointment[]>(this.baseUrl + 'users/' + id + '/appointment', {observe: 'response', params})
+    .pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
   }
 
   getMessageThread(id: number, recipientId: number) {

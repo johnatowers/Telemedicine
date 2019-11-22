@@ -22,7 +22,7 @@ namespace Telemedicine.API.Helpers
             CreateMap<MessageForCreationDto, Message>().ReverseMap();
             CreateMap<Message, MessageToReturnDto>();
             CreateMap<AppointmentForCreationDto, Appointment>().ReverseMap();
-            CreateMap<Message, MessageToReturnDto>();
+            CreateMap<Appointment, AppointmentToReturnDto>();
                 //.ForMember(m => m.SenderPhotoUrl, opt => opt.MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.IsMain).Url))
                 //.ForMember(m => m.RecipientPhotoUrl, opt => opt.MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url))
 

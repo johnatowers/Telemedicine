@@ -49,6 +49,7 @@ import { CalendarHeaderComponent } from './patient-appointments/patient-appointm
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
+import { GetMemberPatientsResolver } from './_resolvers/get-member-patients.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -128,7 +129,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       PreventUnsavedChanges,
       PatientSelectorsResolver,
       PatientSelecteesResolver,
-      MessagesResolver
+      MessagesResolver,
+      GetMemberPatientsResolver
    ],
    bootstrap: [
       AppComponent

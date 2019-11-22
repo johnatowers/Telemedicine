@@ -2,11 +2,14 @@ import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit } fr
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
+import { Appointment } from '../_models/Appointment';
+import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 const colors: any = {
   red: {
@@ -41,6 +44,16 @@ export class PatientAppointmentsComponent implements OnInit {
 
   user: User;
 
+  doctors: User[];
+  selectsParam: string;
+
+  // Retrieve from back end
+  appointments: Appointment[];
+  pagination: Pagination;
+  // Create appointment to add to DB
+  newAppointment: any = {};
+  selectedDoctor: number;
+
 
   // This will be the part that connects to the DB
   modalData: {
@@ -65,6 +78,8 @@ export class PatientAppointmentsComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
+
+  newEvents: CalendarEvent[] = [];
 
   // let event of events
   events: CalendarEvent[] = [{
@@ -174,9 +189,9 @@ export class PatientAppointmentsComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
+  addNewEvent(): void {
+    this.newEvents = [
+      ...this.newEvents,
       {
         title: 'New event',
         start: startOfDay(new Date()),
@@ -191,6 +206,54 @@ export class PatientAppointmentsComponent implements OnInit {
     ];
   }
 
+  ScheduleEvent(newEvent: CalendarEvent) {
+    // Add to calendar events
+    this.events = [
+      ... this.events,
+      {
+        title: newEvent.title,
+        start: new Date(newEvent.start),
+        end: new Date(newEvent.end),
+        color: newEvent.color,
+        draggable: true,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true
+        }
+      }
+    ];
+
+    // add to DB
+    this.newAppointment.title = newEvent.title;
+    this.newAppointment.startDate = new Date(newEvent.start);
+    this.newAppointment.endDate = new Date(newEvent.end);
+    this.newAppointment.primaryColor = newEvent.color.primary.toString;
+    this.newAppointment.doctorId = this.selectedDoctor;
+    // this.newAppointment.doctorId = 13;
+    this.createAppointment();
+
+    this.newEvents = this.newEvents.filter(event => event !== newEvent);
+  }
+
+  // addEvent(): void {
+  //   this.events = [
+  //     ...this.events,
+  //     {
+  //       title: 'New event',
+  //       start: startOfDay(new Date()),
+  //       end: endOfDay(new Date()),
+  //       color: colors.red,
+  //       draggable: true,
+  //       resizable: {
+  //         beforeStart: true,
+  //         afterEnd: true
+  //       }
+  //     }
+  //   ];
+
+    
+  // }
+
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter(event => event !== eventToDelete);
   }
@@ -203,14 +266,64 @@ export class PatientAppointmentsComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  constructor(private modal: NgbModal, private userService: UserService, private route: ActivatedRoute) {}
+  constructor(private modal: NgbModal, private userService: UserService,
+              private route: ActivatedRoute,
+              private authService: AuthService,
+              private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data['user'];
+      this.appointments = data['appointments'].result;
+      this.doctors = data['doctors'].result;
+      this.pagination = data['appointments'].pagination;
     });
-
+    this.selectsParam = 'Selectors';
+    // this.loadDoctors();
     console.log('This is: ' + this.user);
   }
+
+  // Database methods
+  loadAppointments() {
+    this.userService.getAppointments(this.authService.decodedToken.nameid).subscribe((res: PaginatedResult<Appointment[]>) => {
+      this.appointments = res.result;
+      this.pagination = res.pagination;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  loadDoctors() {
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.selectsParam)
+    .subscribe(
+      (res: PaginatedResult<User[]>) => {
+      this.doctors = res.result;
+      this.pagination = res.pagination;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+    pageChanged(event: any): void {
+      this.pagination.currentPage = event.page;
+      this.loadAppointments();
+    }
+
+    createAppointment() {
+      if (this.authService.decodedToken.role === 'Patient') {
+        this.newAppointment.patientId = this.user.id;
+      }
+      if (this.authService.decodedToken.role === 'Doctor') {
+        this.newAppointment.doctorId = this.user.id;
+      }
+      this.userService.createAppointment(this.authService.decodedToken.nameid, this.newAppointment)
+        .subscribe((appointment: Appointment) => {
+            this.appointments.unshift(appointment);
+            // this.newAppointment.title = 'added from ts';
+        }, error => {
+          this.alertify.error(error);
+        });
+    }
+
 
 }
