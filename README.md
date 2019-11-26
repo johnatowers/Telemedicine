@@ -19,13 +19,13 @@ You'll notice that the database looks different after adding the roles. Every ta
 
 -----
 # TO DO:
-- Video Chat
-- Appts back end
+- Video Chat (Vishal working on)
+- Appts back end (Macy working on)
 - Connect edit profile to front end chart
 - Highlighting selected buttons
-- Doctor profile page
+- Doctor profile page (Vishal creating, Macy will route)
 - Week view of appts on my chart
-- Member card component (make name bigger, configure buttons, bring page selection to the bottom)
+- Member card component (make name bigger, configure buttons)
 - Once in relationship with doctor/patient, make plus button disappear 
 - Add more of a variety of color rather than all light blue
 
