@@ -50,6 +50,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
 import { GetMemberPatientsResolver } from './_resolvers/get-member-patients.resolver';
+import { FlatpickrModule } from 'angularx-flatpickr';
+
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -102,6 +104,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
       FileUploadModule,
+      [FormsModule, FlatpickrModule.forRoot()],
       JwtModule.forRoot({
          config: {
             // tokenGetter: tokenGetter,

@@ -75,6 +75,8 @@ namespace Telemedicine.API.Controllers
             // }
 
             var appointment = _mapper.Map<Appointment>(apptForCreation);
+            appointment.Patient = await _repo.getUser(appointment.PatientId);
+            appointment.Doctor = await _repo.getUser(appointment.DoctorId);
             _repo.Add(appointment);
             
             if (await _repo.SaveAll()) {
@@ -102,6 +104,36 @@ namespace Telemedicine.API.Controllers
             apptsFromRepo.TotalCount, apptsFromRepo.TotalPages);
 
             return Ok(appts);
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DeleteAppointment(int id, int userId)
+        {
+            // if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            // {
+            //     return Unauthorized();
+            // }
+
+            var appointmentFromRepo = await _repo.GetAppointment(id);
+
+            if (!userId.Equals(appointmentFromRepo.PatientId) && !userId.Equals(appointmentFromRepo.DoctorId)) {
+                return Unauthorized();
+            }
+
+            // if (messageFromRepo.SenderId == userId)
+            //     messageFromRepo.SenderDeleted = true;
+
+            // if (messageFromRepo.RecipientId == userId)
+            //     messageFromRepo.RecipientDeleted = true;
+            
+            // Only actually delete message if both sides of the conversation delete it
+            // if (messageFromRepo.SenderDeleted && messageFromRepo.RecipientDeleted)
+            _repo.Delete(appointmentFromRepo);
+
+            if (await _repo.SaveAll()) 
+                return NoContent();
+            
+            throw new Exception("Error deleting the appointment");
         }
 
         

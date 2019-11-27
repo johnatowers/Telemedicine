@@ -53,6 +53,7 @@ export class PatientAppointmentsComponent implements OnInit {
   // Create appointment to add to DB
   newAppointment: any = {};
   selectedDoctor: number;
+  // addedAppointment: Appointment;
 
 
   // This will be the part that connects to the DB
@@ -82,38 +83,39 @@ export class PatientAppointmentsComponent implements OnInit {
   newEvents: CalendarEvent[] = [];
 
   // let event of events
-  events: CalendarEvent[] = [{
-    start: subDays(startOfDay(new Date()), 1),
-    end: addDays(new Date(), 1),
-    title: 'Begin 3 Day Fast For Blood Work',
-    color: colors.red,
-    actions: this.actions,
-    allDay: true,
-    resizable: {
-      beforeStart: true,
-      afterEnd: true
-    },
-    draggable: true
-  },
-  {
-    start: subDays(endOfMonth(new Date()), 3),
-    end: addDays(endOfMonth(new Date()), 3),
-    title: 'Check with Doctor if any side effects present',
-    color: colors.blue,
-    allDay: true
-  },
-  {
-    start: addHours(startOfDay(new Date()), 2),
-    end: new Date(),
-    title: 'Neurologist Appointment',
-    color: colors.yellow,
-    actions: this.actions,
-    resizable: {
-      beforeStart: true,
-      afterEnd: true
-    },
-    draggable: true
-    }];
+  events: CalendarEvent[] = [];
+  // events: CalendarEvent[] = [{
+  //   start: subDays(startOfDay(new Date()), 1),
+  //   end: addDays(new Date(), 1),
+  //   title: 'Begin 3 Day Fast For Blood Work',
+  //   color: colors.red,
+  //   actions: this.actions,
+  //   allDay: true,
+  //   resizable: {
+  //     beforeStart: true,
+  //     afterEnd: true
+  //   },
+  //   draggable: true
+  // },
+  // {
+  //   start: subDays(endOfMonth(new Date()), 3),
+  //   end: addDays(endOfMonth(new Date()), 3),
+  //   title: 'Check with Doctor if any side effects present',
+  //   color: colors.blue,
+  //   allDay: true
+  // },
+  // {
+  //   start: addHours(startOfDay(new Date()), 2),
+  //   end: new Date(),
+  //   title: 'Neurologist Appointment',
+  //   color: colors.yellow,
+  //   actions: this.actions,
+  //   resizable: {
+  //     beforeStart: true,
+  //     afterEnd: true
+  //   },
+  //   draggable: true
+  //   }];
 
   // {
   //   start: subDays(startOfDay(new Date()), 1),
@@ -207,32 +209,58 @@ export class PatientAppointmentsComponent implements OnInit {
   }
 
   ScheduleEvent(newEvent: CalendarEvent) {
-    // Add to calendar events
-    this.events = [
-      ... this.events,
-      {
-        title: newEvent.title,
-        start: new Date(newEvent.start),
-        end: new Date(newEvent.end),
-        color: newEvent.color,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
-      }
-    ];
 
     // add to DB
     this.newAppointment.title = newEvent.title;
     this.newAppointment.startDate = new Date(newEvent.start);
     this.newAppointment.endDate = new Date(newEvent.end);
-    this.newAppointment.primaryColor = newEvent.color.primary.toString;
+    this.newAppointment.primaryColor = newEvent.color.primary;
+    this.newAppointment.secondaryColor = newEvent.color.secondary;
     this.newAppointment.doctorId = this.selectedDoctor;
-    // this.newAppointment.doctorId = 13;
     this.createAppointment();
 
+    // add all appointments to events again
+    this.addAppointmentsToEvents();
+    // this.events = [
+    //     ... this.events,
+    //     {
+    //       title: this.addedAppointment.title,
+    //       start: new Date(this.addedAppointment.startDate),
+    //       end: new Date(this.addedAppointment.endDate),
+    //       color: {primary: this.addedAppointment.primaryColor, secondary: this.addedAppointment.secondaryColor},
+    //       draggable: true,
+    //       resizable: {
+    //         beforeStart: true,
+    //         afterEnd: true
+    //       },
+    //       id: this.addedAppointment.id
+    //     }
+    //   ];
+
     this.newEvents = this.newEvents.filter(event => event !== newEvent);
+    // this.addedAppointment = null;
+  }
+
+  addAppointmentsToEvents() {
+    this.events = [];
+
+    this.appointments.forEach(a => {
+      this.events = [
+        ... this.events,
+        {
+          title: a.title,
+          start: new Date(a.startDate),
+          end: new Date(a.endDate),
+          color: {primary: a.primaryColor, secondary: a.secondaryColor},
+          draggable: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          },
+          id: a.id
+        }
+      ];
+    });
   }
 
   // addEvent(): void {
@@ -250,13 +278,7 @@ export class PatientAppointmentsComponent implements OnInit {
   //       }
   //     }
   //   ];
-
-    
   // }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
 
   setView(view: CalendarView) {
     this.view = view;
@@ -280,7 +302,12 @@ export class PatientAppointmentsComponent implements OnInit {
     });
     this.selectsParam = 'Selectors';
     // this.loadDoctors();
+    this.addAppointmentsToEvents();
     console.log('This is: ' + this.user);
+
+    console.log('This is: ' + this.events.length);
+
+
   }
 
   // Database methods
@@ -318,11 +345,31 @@ export class PatientAppointmentsComponent implements OnInit {
       }
       this.userService.createAppointment(this.authService.decodedToken.nameid, this.newAppointment)
         .subscribe((appointment: Appointment) => {
-            this.appointments.unshift(appointment);
+            // this.appointments.unshift(appointment);
+            this.appointments.push(appointment);
             // this.newAppointment.title = 'added from ts';
+            this.alertify.success('Appointment scheduled');
         }, error => {
           this.alertify.error(error);
         });
+    }
+
+    // deleteEvent(eventToDelete: CalendarEvent) {
+    //   this.events = this.events.filter(event => event !== eventToDelete);
+    // }
+
+    deleteAppointment(id: number) {
+      // this.deleteEvent(this.events[id]);
+
+      this.alertify.confirm('Are you sure you want to delete this appointment?', () => {
+        this.userService.deleteAppointment(id, this.authService.decodedToken.nameid).subscribe(() => {
+          this.appointments.splice(this.appointments.findIndex(m => m.id === id), 1);
+          // find index of the message in the messages array that matches the id we're passing in, and we delete it
+          this.alertify.success('Appointment has been deleted');
+        }, error => {
+          this.alertify.error('Failed to delete this appointment');
+        });
+      });
     }
 
 

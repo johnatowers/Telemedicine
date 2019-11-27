@@ -103,12 +103,20 @@
             <td>
               <input 
                 class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" 
-                (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+                (ngModelChange)="refresh.next()" 
+                [altInput]="true" 
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
             </td>
             <td>
               <input
                 class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
-                (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+                (ngModelChange)="refresh.next()" 
+                [altInput]="true" 
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
             </td>
             <td>
               <button class="btn btn-danger" (click)="ScheduleEvent(event)"> <!-- add event method call here-->
@@ -151,33 +159,40 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let event of events">
+        <tr *ngFor="let apt of appointments">
           <td>
-              <select [(ngModel)]="selectedDoctor">
-                <option *ngFor="let d of doctors" [value]="d.firstName + d.lastName">{{d.firstName}} {{d.lastName}}</option>
-              </select>
+              {{apt.doctorFirstName}} {{apt.doctorLastName}}
           </td>
           <td>
-            <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()"/>
+            <input type="text" class="form-control" [(ngModel)]="apt.title" (keyup)="refresh.next()"/>
           </td>
           <td>
-            <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()"/>
+            <input type="color" [(ngModel)]="apt.primaryColor" (change)="refresh.next()"/>
           </td>
           <td>
-            <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()"/>
+            <input type="color" [(ngModel)]="apt.secondaryColor" (change)="refresh.next()"/>
           </td>
           <td>
             <input 
-              class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" 
-              (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+              class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.startDate" 
+              (ngModelChange)="refresh.next()" 
+              [altInput]="true" 
+                [convertModelValue]="true"
+                [enableTime]="true"
+                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
           </td>
           <td>
             <input
-              class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
-              (ngModelChange)="refresh.next()" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+              class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.endDate"
+              (ngModelChange)="refresh.next()" 
+              [altInput]="true" 
+                [convertModelValue]="true"
+                [enableTime]="true"
+              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
           </td>
           <td>
-            <button class="btn btn-danger" (click)="deleteEvent(event)">
+              <!-- must delete event too -->
+            <button class="btn btn-danger" (click)="deleteAppointment(apt.id)">  
               Delete
             </button>
           </td>

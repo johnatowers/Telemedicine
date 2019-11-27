@@ -86,7 +86,7 @@ export class UserService {
   }
 
   createAppointment(id: number, appointment: Appointment) {
-    return this.http.post(this.baseUrl + 'users/' + id +'/appointment/', appointment);
+    return this.http.post(this.baseUrl + 'users/' + id + '/appointment/', appointment);
   }
 
   // get appointment paginated version
@@ -107,6 +107,10 @@ export class UserService {
         return paginatedResult;
       })
     );
+  }
+
+  deleteAppointment(id: number, userId: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/appointment/' + id, {});
   }
 
   getMessageThread(id: number, recipientId: number) {
