@@ -59,11 +59,6 @@
 </div>
 
 <br /><br /><br />
-<!-- 
-<div>
-  <p>Hello {{user.gender}} </p>
-</div> -->
-
 <!-- Add new appointment functionality -->
 <div class="container" *ngIf="newEvents.length > 0">
   <h3>
@@ -143,7 +138,6 @@
     <div class="clearfix"></div>
   </h3>
 
-
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -164,31 +158,48 @@
               {{apt.doctorFirstName}} {{apt.doctorLastName}}
           </td>
           <td>
-            <input type="text" class="form-control" [(ngModel)]="apt.title" (keyup)="refresh.next()"/>
+            <!-- <input type="text" class="form-control" [(ngModel)]="apt.title" (keyup)="refresh.next()"/> -->
+            <textarea type="text" class="form-control" [(ngModel)]="apt.title" 
+            (keyup)="updateAppointment(apt.id, apt)" cols="10" rows="2"></textarea>
           </td>
           <td>
-            <input type="color" [(ngModel)]="apt.primaryColor" (change)="refresh.next()"/>
+            <input type="color" [(ngModel)]="apt.primaryColor" (change)="updateAppointment(apt.id, apt)"/>
           </td>
           <td>
-            <input type="color" [(ngModel)]="apt.secondaryColor" (change)="refresh.next()"/>
+            <input type="color" [(ngModel)]="apt.secondaryColor" (change)="updateAppointment(apt.id, apt)"/>
           </td>
           <td>
-            <input 
+              <input 
               class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.startDate" 
-              (ngModelChange)="refresh.next()" 
+              (ngModelChange)="updateAppointment(apt.id, apt)" 
               [altInput]="true" 
-                [convertModelValue]="true"
-                [enableTime]="true"
-                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+              <!-- <textarea 
+              class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.startDate" 
+              (ngModelChange)="updateAppointment(apt.id, apt)" 
+              [altInput]="true" 
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" 
+              cols="10" rows="2"></textarea> -->
           </td>
           <td>
             <input
               class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.endDate"
-              (ngModelChange)="refresh.next()" 
+              (ngModelChange)="updateAppointment(apt.id, apt)" 
               [altInput]="true" 
                 [convertModelValue]="true"
                 [enableTime]="true"
               dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
+              <!-- <textarea class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.endDate"
+              (ngModelChange)="updateAppointment(apt.id, apt)" 
+              [altInput]="true" 
+                [convertModelValue]="true"
+                [enableTime]="true"
+              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" 
+              cols="10" rows="2"></textarea> -->
           </td>
           <td>
               <!-- must delete event too -->

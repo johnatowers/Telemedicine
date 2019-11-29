@@ -80,7 +80,7 @@ namespace Telemedicine.API.Controllers
             _repo.Add(appointment);
             
             if (await _repo.SaveAll()) {
-                var apptToReturn = _mapper.Map<AppointmentForCreationDto>(appointment);
+                var apptToReturn = _mapper.Map<AppointmentToReturnDto>(appointment);
                 return CreatedAtRoute("GetAppointment", new {id = appointment.Id}, apptToReturn); //, messageToReturn);
             }
             throw new Exception("Creating the appointment failed on save");
@@ -136,6 +136,25 @@ namespace Telemedicine.API.Controllers
             throw new Exception("Error deleting the appointment");
         }
 
-        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAppointment(int id, int userId, AppointmentForUpdateDto apptForUpdateDto)
+        {
+            var appointmentFromRepo = await _repo.GetAppointment(id);
+
+            if (!userId.Equals(appointmentFromRepo.PatientId) && !userId.Equals(appointmentFromRepo.DoctorId)) {
+                return Unauthorized();
+            }
+            // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //     return Unauthorized();
+
+            // var userFromRepo = await _repo.getUser(id);
+
+            _mapper.Map(apptForUpdateDto, appointmentFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Update appointment {id} failed on save");       
+        }
     }
 }

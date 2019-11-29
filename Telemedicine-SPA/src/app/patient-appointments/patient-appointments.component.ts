@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit, HostListener } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -35,6 +35,11 @@ const colors: any = {
 export class PatientAppointmentsComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+
+  constructor(private modal: NgbModal, private userService: UserService,
+              private route: ActivatedRoute,
+              private authService: AuthService,
+              private alertify: AlertifyService) {}
 
   view: CalendarView = CalendarView.Month;
 
@@ -209,7 +214,6 @@ export class PatientAppointmentsComponent implements OnInit {
   }
 
   ScheduleEvent(newEvent: CalendarEvent) {
-
     // add to DB
     this.newAppointment.title = newEvent.title;
     this.newAppointment.startDate = new Date(newEvent.start);
@@ -221,24 +225,7 @@ export class PatientAppointmentsComponent implements OnInit {
 
     // add all appointments to events again
     this.addAppointmentsToEvents();
-    // this.events = [
-    //     ... this.events,
-    //     {
-    //       title: this.addedAppointment.title,
-    //       start: new Date(this.addedAppointment.startDate),
-    //       end: new Date(this.addedAppointment.endDate),
-    //       color: {primary: this.addedAppointment.primaryColor, secondary: this.addedAppointment.secondaryColor},
-    //       draggable: true,
-    //       resizable: {
-    //         beforeStart: true,
-    //         afterEnd: true
-    //       },
-    //       id: this.addedAppointment.id
-    //     }
-    //   ];
-
     this.newEvents = this.newEvents.filter(event => event !== newEvent);
-    // this.addedAppointment = null;
   }
 
   addAppointmentsToEvents() {
@@ -287,11 +274,6 @@ export class PatientAppointmentsComponent implements OnInit {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
-
-  constructor(private modal: NgbModal, private userService: UserService,
-              private route: ActivatedRoute,
-              private authService: AuthService,
-              private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -345,9 +327,8 @@ export class PatientAppointmentsComponent implements OnInit {
       }
       this.userService.createAppointment(this.authService.decodedToken.nameid, this.newAppointment)
         .subscribe((appointment: Appointment) => {
-            // this.appointments.unshift(appointment);
             this.appointments.push(appointment);
-            // this.newAppointment.title = 'added from ts';
+            this.refresh.next();
             this.alertify.success('Appointment scheduled');
         }, error => {
           this.alertify.error(error);
@@ -365,11 +346,22 @@ export class PatientAppointmentsComponent implements OnInit {
         this.userService.deleteAppointment(id, this.authService.decodedToken.nameid).subscribe(() => {
           this.appointments.splice(this.appointments.findIndex(m => m.id === id), 1);
           // find index of the message in the messages array that matches the id we're passing in, and we delete it
+          this.refresh.next();
           this.alertify.success('Appointment has been deleted');
         }, error => {
           this.alertify.error('Failed to delete this appointment');
         });
       });
+    }
+
+    updateAppointment(id: number, diffApt: Appointment) {
+      this.userService.updateAppointment(id, this.authService.decodedToken.nameid, diffApt)
+        .subscribe( next => {
+          this.alertify.success('Appointment updated');
+          this.ngOnInit();
+        }, error => {
+          this.alertify.error(error);
+        });
     }
 
 

@@ -109,6 +109,10 @@ export class UserService {
     );
   }
 
+  updateAppointment(id: number, userId: number, appt: Appointment) {
+    return this.http.put(this.baseUrl + 'users/' + userId + '/appointment/' + id, appt);
+  }
+
   deleteAppointment(id: number, userId: number) {
     return this.http.post(this.baseUrl + 'users/' + userId + '/appointment/' + id, {});
   }
