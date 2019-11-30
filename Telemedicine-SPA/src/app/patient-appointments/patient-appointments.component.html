@@ -74,7 +74,7 @@
             <th>Primary color</th>
             <th>Secondary color</th>
             <th>Starts at</th>
-            <th>Ends at</th>
+            <!-- <th>Ends at</th> -->
             <th>Schedule</th>
           </tr>
         </thead>
@@ -104,7 +104,7 @@
                 [enableTime]="true"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
             </td>
-            <td>
+            <!-- <td>
               <input
                 class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
                 (ngModelChange)="refresh.next()" 
@@ -112,7 +112,8 @@
                 [convertModelValue]="true"
                 [enableTime]="true"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
-            </td>
+                <label> {{apt.endDate | date: 'medium'}} </label>
+            </td> -->
             <td>
               <button class="btn btn-danger" (click)="ScheduleEvent(event)"> <!-- add event method call here-->
                 Schedule
@@ -123,9 +124,6 @@
       </table>
     </div>
 </div>
-
-
-
 
 
 <!-- Edit Appointment Functionality -->
@@ -169,37 +167,30 @@
             <input type="color" [(ngModel)]="apt.secondaryColor" (change)="updateAppointment(apt.id, apt)"/>
           </td>
           <td>
-              <input 
+
+            <button 
+            mwlFlatpickr [(ngModel)]="apt.startDate" 
+            (ngModelChange)="updateAppointment(apt.id, apt)" 
+            [convertModelValue]="true"
+
+            [enableTime]="true" 
+            minuteIncrement="30"
+            dateFormat="Y-m-dTH:i"
+            ><i class="fa fa-calendar"></i></button>
+
+              <!-- <input 
               class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.startDate" 
               (ngModelChange)="updateAppointment(apt.id, apt)" 
               [altInput]="true" 
               [convertModelValue]="true"
-              [enableTime]="true"
-              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
-              <!-- <textarea 
-              class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.startDate" 
-              (ngModelChange)="updateAppointment(apt.id, apt)" 
-              [altInput]="true" 
-              [convertModelValue]="true"
-              [enableTime]="true"
-              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" 
-              cols="10" rows="2"></textarea> -->
+              [enableTime]="true" minTime="8:00" maxTime="17:00" minuteIncrement="30"
+              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/> -->
+
+            <label> {{apt.startDate | date: 'medium'}} </label>
+
           </td>
           <td>
-            <input
-              class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.endDate"
-              (ngModelChange)="updateAppointment(apt.id, apt)" 
-              [altInput]="true" 
-                [convertModelValue]="true"
-                [enableTime]="true"
-              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
-              <!-- <textarea class="form-control" type="text" mwlFlatpickr [(ngModel)]="apt.endDate"
-              (ngModelChange)="updateAppointment(apt.id, apt)" 
-              [altInput]="true" 
-                [convertModelValue]="true"
-                [enableTime]="true"
-              dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" 
-              cols="10" rows="2"></textarea> -->
+            <label> {{apt.endDate | date: 'medium'}} </label>
           </td>
           <td>
               <!-- must delete event too -->

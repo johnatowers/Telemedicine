@@ -217,7 +217,7 @@ export class PatientAppointmentsComponent implements OnInit {
     // add to DB
     this.newAppointment.title = newEvent.title;
     this.newAppointment.startDate = new Date(newEvent.start);
-    this.newAppointment.endDate = new Date(newEvent.end);
+    this.newAppointment.endDate = new Date(new Date(newEvent.start).setMinutes(newEvent.start.getMinutes() + 30));
     this.newAppointment.primaryColor = newEvent.color.primary;
     this.newAppointment.secondaryColor = newEvent.color.secondary;
     this.newAppointment.doctorId = this.selectedDoctor;
@@ -335,9 +335,9 @@ export class PatientAppointmentsComponent implements OnInit {
         });
     }
 
-    // deleteEvent(eventToDelete: CalendarEvent) {
-    //   this.events = this.events.filter(event => event !== eventToDelete);
-    // }
+    deleteEvent(eventToDelete: CalendarEvent) {
+      this.events = this.events.filter(event => event !== eventToDelete);
+    }
 
     deleteAppointment(id: number) {
       // this.deleteEvent(this.events[id]);
@@ -346,7 +346,8 @@ export class PatientAppointmentsComponent implements OnInit {
         this.userService.deleteAppointment(id, this.authService.decodedToken.nameid).subscribe(() => {
           this.appointments.splice(this.appointments.findIndex(m => m.id === id), 1);
           // find index of the message in the messages array that matches the id we're passing in, and we delete it
-          this.refresh.next();
+          this.ngOnInit();
+          // this.refresh.next();
           this.alertify.success('Appointment has been deleted');
         }, error => {
           this.alertify.error('Failed to delete this appointment');
@@ -355,6 +356,8 @@ export class PatientAppointmentsComponent implements OnInit {
     }
 
     updateAppointment(id: number, diffApt: Appointment) {
+      diffApt.endDate = new Date(new Date(diffApt.startDate).setMinutes(diffApt.startDate.getMinutes() + 30));
+
       this.userService.updateAppointment(id, this.authService.decodedToken.nameid, diffApt)
         .subscribe( next => {
           this.alertify.success('Appointment updated');
