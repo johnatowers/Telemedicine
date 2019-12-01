@@ -18,9 +18,12 @@
         <li class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-messages']">Messages</a>
         </li>
-        <li class="nav-item ml-2 mr-2" routerLinkActive="active">
+        <li *appHasRole="['Patient']" class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-appointments']">Appointments</a>
         </li>
+        <li *appHasRole="['Doctor']" class="nav-item ml-2 mr-2" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/doctor-appointments']">Appointments</a>
+          </li>
       <li *appHasRole="['Admin']" class="nav-item ml-2 mr-2" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/admin']">Admin</a>
       </li>

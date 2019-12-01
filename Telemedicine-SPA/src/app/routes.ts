@@ -24,6 +24,7 @@ import { NavComponent } from './nav/nav.component';
 import { DocumentEditorComponent } from './members/document-editor/document-editor.component';
 import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
 import { GetMemberPatientsResolver } from './_resolvers/get-member-patients.resolver';
+import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -50,7 +51,10 @@ export const appRoutes: Routes = [
             {path: 'doctor-selectors', component: DoctorSelectorsComponent, resolve: {users: PatientSelectorsResolver}},
             {path: 'doctor-selectees', component: DoctorSelecteesComponent, resolve: {users: PatientSelecteesResolver}},
             {path: 'nav', component: NavComponent, resolve: {user: MemberEditResolver}},
-            {path: 'document-editor', component: DocumentEditorComponent, resolve: {user: MemberDetailResolver}}
+            {path: 'document-editor', component: DocumentEditorComponent, resolve: {user: MemberDetailResolver}},
+            { path: 'doctor-appointments', component: DoctorAppointmentsComponent,
+            resolve: { user: PatientAppointmentsResolver, appointments: GetMemberPatientsResolver,
+                patients: PatientSelecteesResolver}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'},

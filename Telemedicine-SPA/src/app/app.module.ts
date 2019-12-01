@@ -51,6 +51,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
 import { GetMemberPatientsResolver } from './_resolvers/get-member-patients.resolver';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
 
 
 export function tokenGetter() {
@@ -88,7 +89,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       DoctorPatientsComponent,
       DoctorSelecteesComponent,
       DoctorSelectorsComponent,
-      DoctorDetailComponent
+      DoctorDetailComponent,
+      DoctorAppointmentsComponent
    ],
    imports: [
       BrowserModule,
@@ -113,6 +115,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
       }),
+
       CalendarModule.forRoot({
          provide: DateAdapter,
          useFactory: adapterFactory

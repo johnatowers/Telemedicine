@@ -73,10 +73,34 @@ namespace Telemedicine.API.Controllers
             // if (recipient == null) {
             //     return BadRequest("Could not find user");
             // }
-
             var appointment = _mapper.Map<Appointment>(apptForCreation);
             appointment.Patient = await _repo.getUser(appointment.PatientId);
             appointment.Doctor = await _repo.getUser(appointment.DoctorId);
+
+
+            // CHECK IF APPOINTMENT ALREADY EXISTS ON THIS DATE
+            UserParams userParams = new UserParams();
+            userParams.UserId = appointment.PatientId;
+            var patientApptsGet = await _repo.GetAppointmentsForUser(userParams);
+            for (int i = 0; i < patientApptsGet.Count; i++) {
+                var appt = _mapper.Map<AppointmentToReturnDto>(appointment);
+                if (patientApptsGet[i].StartDate.CompareTo(appt.StartDate) == 0) {
+                    return BadRequest("This date is unavailable.");
+                }
+            }
+
+            userParams.UserId = appointment.DoctorId;
+            var doctorApptsGet = await _repo.GetAppointmentsForUser(userParams);
+            for (int i = 0; i < doctorApptsGet.Count; i++) {
+                var appt = _mapper.Map<AppointmentToReturnDto>(appointment);
+                if (doctorApptsGet[i].StartDate.CompareTo(appt.StartDate) == 0) {
+                    return BadRequest("This date is unavailable.");
+                }
+            }
+
+
+
+
             _repo.Add(appointment);
             
             if (await _repo.SaveAll()) {

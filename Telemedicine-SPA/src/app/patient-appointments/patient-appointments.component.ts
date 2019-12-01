@@ -216,16 +216,14 @@ export class PatientAppointmentsComponent implements OnInit {
   ScheduleEvent(newEvent: CalendarEvent) {
     // add to DB
     this.newAppointment.title = newEvent.title;
-    this.newAppointment.startDate = new Date(newEvent.start);
+    // this.newAppointment.startDate = new Date(newEvent.start);
+    this.newAppointment.startDate = new Date(newEvent.start).toLocaleString('en-US', {timeZone: 'America/New_York'});
+
     this.newAppointment.endDate = new Date(new Date(newEvent.start).setMinutes(newEvent.start.getMinutes() + 30));
     this.newAppointment.primaryColor = newEvent.color.primary;
     this.newAppointment.secondaryColor = newEvent.color.secondary;
     this.newAppointment.doctorId = this.selectedDoctor;
-    this.createAppointment();
-
-    // add all appointments to events again
-    this.addAppointmentsToEvents();
-    this.newEvents = this.newEvents.filter(event => event !== newEvent);
+    const result = this.createAppointment(newEvent);
   }
 
   addAppointmentsToEvents() {
@@ -283,13 +281,9 @@ export class PatientAppointmentsComponent implements OnInit {
       this.pagination = data['appointments'].pagination;
     });
     this.selectsParam = 'Selectors';
-    // this.loadDoctors();
     this.addAppointmentsToEvents();
     console.log('This is: ' + this.user);
-
     console.log('This is: ' + this.events.length);
-
-
   }
 
   // Database methods
@@ -318,7 +312,7 @@ export class PatientAppointmentsComponent implements OnInit {
       this.loadAppointments();
     }
 
-    createAppointment() {
+    createAppointment(newEvent: CalendarEvent) {
       if (this.authService.decodedToken.role === 'Patient') {
         this.newAppointment.patientId = this.user.id;
       }
@@ -328,6 +322,11 @@ export class PatientAppointmentsComponent implements OnInit {
       this.userService.createAppointment(this.authService.decodedToken.nameid, this.newAppointment)
         .subscribe((appointment: Appointment) => {
             this.appointments.push(appointment);
+
+            this.addAppointmentsToEvents();
+            this.newEvents = this.newEvents.filter(event => event !== newEvent);
+
+            this.ngOnInit();
             this.refresh.next();
             this.alertify.success('Appointment scheduled');
         }, error => {
@@ -347,7 +346,7 @@ export class PatientAppointmentsComponent implements OnInit {
           this.appointments.splice(this.appointments.findIndex(m => m.id === id), 1);
           // find index of the message in the messages array that matches the id we're passing in, and we delete it
           this.ngOnInit();
-          // this.refresh.next();
+          this.refresh.next();
           this.alertify.success('Appointment has been deleted');
         }, error => {
           this.alertify.error('Failed to delete this appointment');
@@ -355,17 +354,31 @@ export class PatientAppointmentsComponent implements OnInit {
       });
     }
 
-    updateAppointment(id: number, diffApt: Appointment) {
-      diffApt.endDate = new Date(new Date(diffApt.startDate).setMinutes(diffApt.startDate.getMinutes() + 30));
-
+    updateAppointmentTitle(id: number, diffApt: Appointment) {
       this.userService.updateAppointment(id, this.authService.decodedToken.nameid, diffApt)
         .subscribe( next => {
-          this.alertify.success('Appointment updated');
+          // this.alertify.success('Appointment updated');
           this.ngOnInit();
+          this.refresh.next();
+
         }, error => {
           this.alertify.error(error);
         });
     }
 
+    updateAppointment(id: number, diffApt: Appointment) {
+      const newEndDate = new Date(diffApt.startDate);
+      newEndDate.setMinutes(newEndDate.getMinutes() + 30);
+      diffApt.endDate = newEndDate;
 
+      this.userService.updateAppointment(id, this.authService.decodedToken.nameid, diffApt)
+        .subscribe( next => {
+          this.alertify.success('Appointment updated');
+          this.ngOnInit();
+          this.refresh.next();
+
+        }, error => {
+          this.alertify.error(error);
+        });
+    }
 }
