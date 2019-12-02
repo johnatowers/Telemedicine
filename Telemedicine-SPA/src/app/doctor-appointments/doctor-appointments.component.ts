@@ -219,7 +219,11 @@ export class DoctorAppointmentsComponent implements OnInit {
                 // this.newAppointment.startDate = new Date(newEvent.start);
                 this.newAppointment.startDate = new Date(newEvent.start).toLocaleString('en-US', {timeZone: 'America/New_York'});
 
-                this.newAppointment.endDate = new Date(new Date(newEvent.start).setMinutes(newEvent.start.getMinutes() + 30));
+                const startDate = new Date(this.newAppointment.startDate);
+                startDate.setMinutes(startDate.getMinutes() + 30);
+                this.newAppointment.endDate = startDate.toLocaleString('en-US', {timeZone: 'America/New_York'});
+
+                // this.newAppointment.endDate = new Date(new Date(newEvent.start).setMinutes(newEvent.start.getMinutes() + 30));
                 this.newAppointment.primaryColor = newEvent.color.primary;
                 this.newAppointment.secondaryColor = newEvent.color.secondary;
                 this.newAppointment.patientId = this.selectedDoctor;
