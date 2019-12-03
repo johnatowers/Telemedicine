@@ -5,6 +5,7 @@ import { Document } from './Document';
 export interface User {
     id: number;
     username: string;
+    deaId: string;
     role: string;
     age: string;
     gender: string;

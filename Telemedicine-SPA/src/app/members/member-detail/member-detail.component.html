@@ -49,7 +49,7 @@
     <div class="col-sm-8">
       <div class="tab-panel">
         <tabset class="member-tabset" #memberTabs>
-          <tab heading="About">
+          <tab *ngIf="user.deaId == '0'" heading="About">
               <div>
                   <h4>Health Conditions</h4>
                   <p>{{user?.healthConditions}}</p>
