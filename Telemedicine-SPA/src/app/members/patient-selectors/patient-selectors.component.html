@@ -5,10 +5,10 @@
 <div class="container mt-3">
 
   <div class="row">
-    <div class="btn-group">
-      <button class="btn btn-primary" btnRadio="Selectors" (click)="loadUsers()">My Doctors</button>
-      <button class="btn btn-primary" btnRadio="Selectees" [routerLink]="['/patient-selectees']">Doctors I've Requested</button>
-      <button class="btn btn-primary" btnRadio="All" [routerLink]="['/patient-doctors']">All Doctors</button>
+    <div class="btn-group-toggle">
+      <button type="button" class="btn btn-light" btnRadio="Selectors" (click)="loadUsers()">My Doctors</button>
+      <button type="button" class="btn btn-primary" btnRadio="Selectees" [routerLink]="['/patient-selectees']">Doctors I've Requested</button>
+      <button type="button" class="btn btn-primary" btnRadio="All" [routerLink]="['/patient-doctors']">All Doctors</button>
     </div>
   </div>
   
