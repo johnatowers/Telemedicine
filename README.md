@@ -1,5 +1,19 @@
 # Telemedicine
 -----
+# if this branch isn't working
+Check the patient-appointments or doctor-appointments component to see if there are calendar components that you need to install. google them to find the npm install statements to run under Telemedicine-SPA/
+
+It could also be a database problem due to adding the Appointments table. if you think this is the case, first try: 
+1. under Telemedicine.API/, run: dotnet ef database drop
+2. dotnet watch run
+
+if the errror still occurs, try:
+1. under Telemedicine.API/, run: dotnet ef database drop
+2. delete the entire migrations folder under Telemedicine.API/
+3. under Telemedicine.API/, run: dotnet ef migrations add AppointmentAddMigration
+4. under Telemedicine.API/, run: dotnet watch run
+
+-----
 # User Role Information
 Our user class contains a new field, UserRole of type UserRole. The UserRole class itself contains a field for a Role of type Role and a User of type User. The Role class contains a field called UserRoles which is a collection of type UserRole. This isn't super important information but shows the structure. The database relationship (one-to-one, one-to-many, whatever) is defined in the datacontext. if you should need to know that stuff.
 
@@ -20,7 +34,6 @@ You'll notice that the database looks different after adding the roles. Every ta
 -----
 # TO DO:
 - Video Chat (Vishal working on)
-- Appts back end (Macy working on)
 - Connect edit profile to front end chart
 - Highlighting selected buttons
 - Doctor profile page (Vishal creating, Macy will route)
