@@ -81,18 +81,26 @@ namespace Telemedicine.API.Controllers
 
             var file = docForCreationDto.File; 
 
-            var uploadResult = new ImageUploadResult(); 
+            // var uploadResult = new ImageUploadResult(); 
+            var uploadResult = new RawUploadResult(); 
+
 
             if (file.Length > 0)
             {
                 using (var stream = file.OpenReadStream())
                 {
-                    var uploadParams = new ImageUploadParams()
-                    {
+                    // var uploadParams = new ImageUploadParams()
+                    // {
+                    //     File = new FileDescription(file.Name, stream),
+                    //     Transformation = new Transformation()
+                    //       .Width(500).Height(500).Crop("fill").Gravity("face")
+                    // }; 
+
+                    var uploadParams = new RawUploadParams() {
                         File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation()
-                          .Width(500).Height(500).Crop("fill").Gravity("face")
-                    }; 
+                        // Transformation = new Transformation()
+                        //   .Width(500).Height(500).Crop("fill").Gravity("face")
+                    };
 
                     uploadResult = _cloudinary.Upload(uploadParams); 
                 }
