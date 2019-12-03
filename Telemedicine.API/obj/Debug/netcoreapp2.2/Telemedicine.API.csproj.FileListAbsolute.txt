@@ -12,3 +12,17 @@
 /Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.RazorTargetAssemblyInfo.cache
 /Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.dll
 /Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.pdb
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\bin\Debug\netcoreapp2.2\Telemedicine.API.deps.json
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\bin\Debug\netcoreapp2.2\Telemedicine.API.runtimeconfig.json
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\bin\Debug\netcoreapp2.2\Telemedicine.API.runtimeconfig.dev.json
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\bin\Debug\netcoreapp2.2\Telemedicine.API.dll
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\bin\Debug\netcoreapp2.2\Telemedicine.API.pdb
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.csprojAssemblyReference.cache
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.csproj.CoreCompileInputs.cache
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.RazorAssemblyInfo.cache
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.RazorAssemblyInfo.cs
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.AssemblyInfoInputs.cache
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.AssemblyInfo.cs
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.RazorTargetAssemblyInfo.cache
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.dll
+C:\Users\greg giles\SeniorProject\Telemedicine-1\Telemedicine\Telemedicine.API\obj\Debug\netcoreapp2.2\Telemedicine.API.pdb
