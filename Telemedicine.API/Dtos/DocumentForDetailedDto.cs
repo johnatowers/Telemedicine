@@ -12,6 +12,8 @@ namespace Telemedicine.API.Dtos
 
         public DateTime DateAdded {get; set;}
 
+        public string Type { get; set; }
+
         public bool IsMain {get; set;}
     }
 }

@@ -62,7 +62,8 @@ export class DocumentEditorComponent implements OnInit {
             url: res.url,
             dateAdded: res.dateAdded,
             description: res.description,
-            isMain: res.isMain
+            isMain: res.isMain,
+            type: res.type
           };
           this.documents.push(document);
         }

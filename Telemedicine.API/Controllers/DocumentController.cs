@@ -81,33 +81,54 @@ namespace Telemedicine.API.Controllers
 
             var file = docForCreationDto.File; 
 
-            // var uploadResult = new ImageUploadResult(); 
-            var uploadResult = new RawUploadResult(); 
+            var imageUploadResult = new ImageUploadResult(); 
+            var videoUploadResult = new VideoUploadResult();
+            // var uploadResult = new RawUploadResult(); 
 
 
             if (file.Length > 0)
             {
                 using (var stream = file.OpenReadStream())
                 {
-                    // var uploadParams = new ImageUploadParams()
-                    // {
+                    if (file.ContentType.Contains("image")) {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.Name, stream),
+                            Transformation = new Transformation()
+                            .Width(500).Height(500).Crop("fill").Gravity("face")
+                        };
+                        imageUploadResult = _cloudinary.Upload(uploadParams); 
+                        docForCreationDto.Url = imageUploadResult.Uri.ToString(); 
+                        docForCreationDto.PublicId = imageUploadResult.PublicId;
+                    } 
+                    if (file.ContentType.Contains("video")) {
+                        var uploadParams = new VideoUploadParams()
+                        {
+                            File = new FileDescription(file.Name, stream),
+                            EagerTransforms = new List<Transformation>(){
+                                new Transformation().Width(300).Height(300)
+                                .Crop("pad").AudioCodec("none"),
+                                new Transformation().Width(160).Height(100)
+                                .Crop("crop").Gravity("south").AudioCodec("none")}
+                        };
+                        videoUploadResult = _cloudinary.Upload(uploadParams); 
+                        docForCreationDto.Url = videoUploadResult.Uri.ToString(); 
+                        docForCreationDto.PublicId = videoUploadResult.PublicId;
+                    }
+
+                    // var uploadParams = new RawUploadParams() {
                     //     File = new FileDescription(file.Name, stream),
-                    //     Transformation = new Transformation()
-                    //       .Width(500).Height(500).Crop("fill").Gravity("face")
-                    // }; 
+                    //     // Transformation = new Transformation()
+                    //     //   .Width(500).Height(500).Crop("fill").Gravity("face")
+                    // };
 
-                    var uploadParams = new RawUploadParams() {
-                        File = new FileDescription(file.Name, stream),
-                        // Transformation = new Transformation()
-                        //   .Width(500).Height(500).Crop("fill").Gravity("face")
-                    };
-
-                    uploadResult = _cloudinary.Upload(uploadParams); 
+                    // uploadResult = _cloudinary.Upload(uploadParams); 
                 }
             }
 
-            docForCreationDto.Url = uploadResult.Uri.ToString(); 
-            docForCreationDto.PublicId = uploadResult.PublicId; 
+            // docForCreationDto.Url = uploadResult.Uri.ToString(); 
+            // docForCreationDto.PublicId = uploadResult.PublicId;
+            docForCreationDto.Type = file.ContentType;
 
             var document = _mapper.Map<Document>(docForCreationDto); 
 

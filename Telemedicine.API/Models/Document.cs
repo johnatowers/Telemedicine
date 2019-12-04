@@ -19,5 +19,7 @@ namespace Telemedicine.API.Models
         public User User {get; set;}
 
         public int UserId {get; set;}
+
+        public string Type { get; set; }
     }
 }

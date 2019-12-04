@@ -4,4 +4,5 @@ export interface Document {
     description: string;
     dateAdded: Date;
     isMain: boolean;
+    type: string;
 }
