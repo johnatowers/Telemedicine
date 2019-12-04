@@ -15,6 +15,8 @@ namespace Telemedicine.API.Dtos
 
         public string PublicId {get; set;}
 
+        public string Type { get; set; }
+
         public DocumentForCreationDto(){
             DateAdded = DateTime.Now; 
         }

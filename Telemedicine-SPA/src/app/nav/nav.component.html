@@ -9,6 +9,9 @@
         <li *appHasRole="['Patient']" class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-chart']">My Chart</a>
         </li>
+        <li *appHasRole="['Doctor']" class="nav-item ml-2 mr-2" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/patient-chart']">Profile</a>
+          </li>
         <li *appHasRole="['Patient']" class="nav-item ml-2 mr-2" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/patient-selectees']">My Doctors</a>
         </li>
@@ -40,7 +43,9 @@
         Welome {{authService.decodedToken?.unique_name | titlecase}}
       </a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" [routerLink]="['/member/edit']">
+          <a *appHasRole="['Doctor']" class="dropdown-item" [routerLink]="['/doctor-edit']">
+            <i class="fa fa-user"></i>Edit Profile</a>
+        <a *appHasRole="['Patient']" class="dropdown-item" [routerLink]="['/member/edit']">
           <i class="fa fa-user"></i>Edit Profile</a>
         <div class="dropdown divider"></div>
         <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>

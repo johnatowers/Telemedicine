@@ -52,6 +52,7 @@ import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.r
 import { GetMemberPatientsResolver } from './_resolvers/get-member-patients.resolver';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
+import { DoctorEditComponent } from './members/doctor-edit/doctor-edit.component';
 
 
 export function tokenGetter() {
@@ -90,7 +91,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       DoctorSelecteesComponent,
       DoctorSelectorsComponent,
       DoctorDetailComponent,
-      DoctorAppointmentsComponent
+      DoctorAppointmentsComponent,
+      DoctorEditComponent
    ],
    imports: [
       BrowserModule,

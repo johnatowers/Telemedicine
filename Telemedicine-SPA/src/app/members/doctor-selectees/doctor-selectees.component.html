@@ -4,9 +4,9 @@
 
 <div class="container mt-5">
   <div class="row d-flex justify-content-center">
-    <div class="btn-group">
+    <div class="btn-group-toggle">
       <button class="btn btn-primary" btnRadio="Selectors" [routerLink]="['/doctor-selectors']">Patient Requests</button>
-      <button class="btn btn-primary" btnRadio="Selectees" (click)="loadUsers()">My Patients</button>
+      <button class="btn btn-light" btnRadio="Selectees" (click)="loadUsers()">My Patients</button>
       <button class="btn btn-primary" btnRadio="All" [routerLink]="['/doctor-patients']">All Doctors</button>
     </div>
   </div>

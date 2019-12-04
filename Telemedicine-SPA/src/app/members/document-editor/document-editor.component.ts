@@ -42,7 +42,7 @@ export class DocumentEditorComponent implements OnInit {
       url: this.baseUrl + 'users/' + this.user.id + '/documents',
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
-      allowedFileType: ['image'],
+      allowedFileType: ['image', 'video'],
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 20 * 1024 * 1024
@@ -62,7 +62,8 @@ export class DocumentEditorComponent implements OnInit {
             url: res.url,
             dateAdded: res.dateAdded,
             description: res.description,
-            isMain: res.isMain
+            isMain: res.isMain,
+            type: res.type
           };
           this.documents.push(document);
         }

@@ -15,5 +15,7 @@ namespace Telemedicine.API.Dtos
         public bool IsMain {get; set;}
 
         public string PublicId {get; set;}
+
+        public string Type { get; set; }
     }
 }
