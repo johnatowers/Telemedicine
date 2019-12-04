@@ -1,6 +1,9 @@
 <div class="container mt-4">
-    <div>
+    <div *ngIf="user.deaId == '0'">
         <h1>{{user?.firstName}} {{user?.lastName}}'s Chart</h1>
+    </div>
+    <div *ngIf="user.deaId != '0'">
+        <h1>{{user?.firstName}} {{user?.lastName}}'s Doctor Profile</h1>
     </div>
   <div class="row">
     <div class="col-sm-4">
@@ -49,38 +52,41 @@
     <div class="col-sm-8">
       <div class="tab-panel">
         <tabset class="member-tabset" #memberTabs>
-          <tab heading="About">
-              <div>
-                  <h4>Health Conditions</h4>
-                  <p>{{user?.healthConditions}}</p>
-                </div>
+            <tab heading="Upload Reports">
+                <app-document-editor [documents]="user.documents"></app-document-editor>
+              </tab>
+              <tab heading="Messages">
+                  <app-member-messages [recipientId]="user.id"></app-member-messages>
+                </tab>
+
+            <tab *ngIf="user.deaId == '0'" heading="About">
                 <div>
-                  <h4>Allergies</h4>
-                  <p>{{user?.allergies}}</p>
-                </div>
-                <div>
-                  <h4>Medications</h4>
-                  <p>{{user?.medications}}</p>
-                </div>
-          </tab>
-          <tab heading="Upload Reports">
-            <app-document-editor [documents]="user.documents"></app-document-editor>
-          </tab>
-          <tab heading="Reports">
-              <!-- <div class ="col-sm-2" *ngFor="let doc of user.documents">
-                  <a [href]="doc.url">
-                      <img [src]="doc.url" class="img-thumbnail p-1" alt="">
-                 </a>
-                 <div class = "text-center">
-                    <p>Click document to enlarge</p>   
-                 </div>
-                </div> -->
-            <!-- Photo gallery code added here but commented out since now photos are present -->
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-          </tab>
-          <tab heading="Messages">
-            <app-member-messages [recipientId]="user.id"></app-member-messages>
-          </tab>
+                    <h4>Health Conditions</h4>
+                    <p>{{user?.healthConditions}}</p>
+                  </div>
+                  <div>
+                    <h4>Allergies</h4>
+                    <p>{{user?.allergies}}</p>
+                  </div>
+                  <div>
+                    <h4>Medications</h4>
+                    <p>{{user?.medications}}</p>
+                  </div>
+            </tab>
+          
+            <tab *ngIf="user.deaId == '0'" heading="Reports">
+                <!-- <div class ="col-sm-2" *ngFor="let doc of user.documents">
+                    <a [href]="doc.url">
+                        <img [src]="doc.url" class="img-thumbnail p-1" alt="">
+                  </a>
+                  <div class = "text-center">
+                      <p>Click document to enlarge</p>   
+                  </div>
+                  </div> -->
+              <!-- Photo gallery code added here but commented out since now photos are present -->
+              <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </tab>
+          
         </tabset>  
       </div>
     </div>
