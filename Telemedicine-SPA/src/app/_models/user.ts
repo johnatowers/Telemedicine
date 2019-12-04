@@ -9,6 +9,7 @@ export interface User {
     middleName: string;
     lastName: string;
     suffix: string;
+    deaId: string;
     role: string;
     age: string;
     gender: string;

@@ -57,5 +57,9 @@ namespace Telemedicine.API.Models
         public ICollection<Message> MessagesSent { get; set; }
 
         public ICollection<Message> MessagesReceived { get; set; }
+
+        public ICollection<Appointment> PatientAppointments { get; set; }
+
+        public ICollection<Appointment> DoctorAppointments { get; set; }
     }
 }

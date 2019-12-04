@@ -1,3 +1,4 @@
+
 <link href="https://unpkg.com/bootstrap-css-only@4.3.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.css" rel="stylesheet">
 <link href="https://unpkg.com/angular-calendar@0.27.20/css/angular-calendar.css" rel="stylesheet">
@@ -5,7 +6,7 @@
 
 <br /><br />
 
-<div class="container mt-2">
+<div class="container">
   <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -69,7 +70,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Doctor</th>
+            <th>Patient</th>
             <th>Title</th>
             <th>Primary color</th>
             <th>Secondary color</th>
@@ -83,7 +84,7 @@
           <tr *ngFor="let event of newEvents">
             <td>
                 <select [(ngModel)]="selectedDoctor">
-                  <option *ngFor="let d of doctors" [value]="d.id">{{d.firstName}} {{d.lastName}}</option>
+                  <option *ngFor="let d of patients" [value]="d.id">{{d.firstName}} {{d.lastName}}</option>
                 </select>
             </td>
             <td>
@@ -152,7 +153,7 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Doctor</th>
+          <th>Patient</th>
           <th>Title</th>
           <th>Primary color</th>
           <th>Secondary color</th>
@@ -165,7 +166,7 @@
       <tbody>
         <tr *ngFor="let apt of appointments">
           <td>
-              {{apt.doctorFirstName}} {{apt.doctorLastName}}
+              {{apt.patientFirstName}} {{apt.patientLastName}}
           </td>
           <td> 
             <input id="titleInput" type="text" class="form-control" [(ngModel)]="apt.title" 
@@ -238,5 +239,3 @@
     </button>
   </div>
 </ng-template>
-
-

@@ -39,6 +39,11 @@ namespace Telemedicine.API.Dtos
 
         public string Country { get; set; }
 
+        public string DeaId { get; set; }
+
+        public string healthConditions { get; set; }
+        public string allergies { get; set; }
+        public string medications { get; set; }
         public ICollection<DocumentForDetailedDto> Documents { get; set; }
     }
 }

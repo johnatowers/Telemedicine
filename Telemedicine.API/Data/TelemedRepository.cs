@@ -136,5 +136,20 @@ namespace Telemedicine.API.Data
             
             return messages;
         }
+
+        public async Task<Appointment> GetAppointment(int id)
+        {
+            return await _context.Appointments.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<PagedList<Appointment>> GetAppointmentsForUser(UserParams userParams)
+        {
+            var appointments = _context.Appointments.Include(u => u.Patient) //.ThenInclude(p => p.Photos)
+            .Include(u => u.Doctor) //.ThenInclude(p => p.Photos)
+            .AsQueryable();
+
+            appointments = appointments.Where(u => u.PatientId == userParams.UserId || u.DoctorId == userParams.UserId);
+            return await PagedList<Appointment>.CreateAsync(appointments, userParams.PageNumber, userParams.PageSize);
+        }
     }
 }
