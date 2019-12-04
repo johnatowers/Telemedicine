@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Telemedicine.API.Migrations
@@ -12,7 +13,9 @@ namespace Telemedicine.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    .Annotation("MySql:ValueGenerationStrategy", 
+                    MySqlValueGenerationStrategy.IdentityColumn)
+                    .Annotation("Sqlite:Autoincrement", true),
                     PatientId = table.Column<int>(nullable: false),
                     DoctorId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),
