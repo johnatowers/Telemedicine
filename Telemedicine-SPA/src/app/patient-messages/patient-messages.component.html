@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="row d-flex justify-content-center">
-    <div class="btn-group">
+    <div class="btn-group" >
       <button class="btn btn-primary" [(ngModel)]="messageContainer" btnRadio="Unread" (click)="loadMessages()">
         <i class="fa fa-envelope"></i> Unread
       </button>
@@ -13,6 +13,7 @@
     </div>
   </div>
 
+  
   
   <div class="row d-flex justify-content-center" *ngIf="messages.length == 0">
     <h3 class="mt-5">No messages</h3>
@@ -27,7 +28,7 @@
         <th style="width: 20%"></th>
       </tr>
       <tr *ngFor="let message of messages" [routerLink]="['/members', messageContainer == 'Outbox' ? message.recipientId : message.senderId]"
-        [queryParams]="{tab: 3}">
+        [queryParams]="{tab: 1}">
         <td>{{message.content}}</td>
         <td>
           <div *ngIf="messageContainer != 'Outbox'">
@@ -63,3 +64,5 @@
       lastText="&raquo;">
   </pagination>
 </div>
+
+

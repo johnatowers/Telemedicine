@@ -54,3 +54,5 @@ export class PatientMessagesComponent implements OnInit {
     this.loadMessages();
   }
 }
+
+
