@@ -1,11 +1,17 @@
 # Telemedicine
 -----
-This branch includes sections 1-13 and 21 completed.
------
+# if this branch isn't working
+Check the patient-appointments or doctor-appointments component to see if there are calendar components that you need to install. google them to find the npm install statements to run under Telemedicine-SPA/
 
-One library has been added, the "timeAgo" which presents the Last Active time in a user readable way. to install, go to the terminal in your project and cd to the Telemedicine-SPA/ directory and run this command:
-'npm install time-ago-pipe --save' (no quotes)
-and you should be good. if not he shows how its added in video 134 (section 13) so you can reference that
+It could also be a database problem due to adding the Appointments table. if you think this is the case, first try: 
+1. under Telemedicine.API/, run: dotnet ef database drop
+2. dotnet watch run
+
+if the errror still occurs, try:
+1. under Telemedicine.API/, run: dotnet ef database drop
+2. delete the entire migrations folder under Telemedicine.API/
+3. under Telemedicine.API/, run: dotnet ef migrations add AppointmentAddMigration
+4. under Telemedicine.API/, run: dotnet watch run
 
 -----
 # User Role Information
@@ -26,8 +32,15 @@ The only part of this I have implemented so far is if you login as the admin you
 You'll notice that the database looks different after adding the roles. Every table as "AspNet" before it and there are a lot of extra ones. the important ones are "AspNetUserRoles" which shows the userId and the Id of the their role. and "AspNetUsers" which is the usual user table. 
 
 -----
-
-Video 211: not adding MySql Annotations to migration file (only SqlServer annotations added). MySql may be added if we publish the website
+# TO DO:
+- Video Chat (Vishal working on)
+- Connect edit profile to front end chart
+- Highlighting selected buttons
+- Doctor profile page (Vishal creating, Macy will route)
+- Week view of appts on my chart
+- Member card component (make name bigger, configure buttons)
+- Once in relationship with doctor/patient, make plus button disappear 
+- Add more of a variety of color rather than all light blue
 
 
 

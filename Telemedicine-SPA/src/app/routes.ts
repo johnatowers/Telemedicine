@@ -12,6 +12,20 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { PatientSelectorsComponent } from './members/patient-selectors/patient-selectors.component';
+import { PatientSelectorsResolver } from './_resolvers/PatientSelectors.resolver';
+import { PatientSelecteesComponent } from './members/patient-selectees/patient-selectees.component';
+import { PatientSelecteesResolver } from './_resolvers/PatientSelectees.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { DoctorPatientsComponent } from './members/doctor-patients/doctor-patients.component';
+import { DoctorSelectorsComponent } from './members/doctor-selectors/doctor-selectors.component';
+import { DoctorSelecteesComponent } from './members/doctor-selectees/doctor-selectees.component';
+import { NavComponent } from './nav/nav.component';
+import { DocumentEditorComponent } from './members/document-editor/document-editor.component';
+import { PatientAppointmentsResolver } from './_resolvers/patient-appointments.resolver';
+import { GetMemberPatientsResolver } from './_resolvers/get-member-patients.resolver';
+import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
+import { DoctorEditComponent } from './members/doctor-edit/doctor-edit.component';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -20,15 +34,29 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'patient-chart', component: PatientChartComponent},
-            { path: 'patient-messages', component: PatientMessagesComponent},
-            { path: 'patient-appointments', component: PatientAppointmentsComponent},
+            { path: 'patient-chart', component: PatientChartComponent,
+                resolve: { user: MemberEditResolver}},
+            { path: 'patient-messages', component: PatientMessagesComponent, resolve: {messages: MessagesResolver}},
+            { path: 'patient-appointments', component: PatientAppointmentsComponent,
+            resolve: { user: PatientAppointmentsResolver, appointments: GetMemberPatientsResolver,
+                doctors: PatientSelectorsResolver}},
             { path: 'patient-doctors', component: PatientDoctorsComponent, resolve: { users: PatientDoctorsResolver}},
             { path: 'members/:id', component: MemberDetailComponent,
                 resolve: { user: MemberDetailResolver}},
             { path: 'member/edit', component: MemberEditComponent,
                 resolve: { user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
-            {path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin']}}
+            {path: 'admin', component: AdminPanelComponent, data: {roles: ['Admin']}},
+            {path: 'patient-selectors', component: PatientSelectorsComponent, resolve: {users: PatientSelectorsResolver}},
+            {path: 'patient-selectees', component: PatientSelecteesComponent, resolve: {users: PatientSelecteesResolver}},
+            {path: 'doctor-patients', component: DoctorPatientsComponent, resolve: {users: PatientDoctorsResolver}},
+            {path: 'doctor-selectors', component: DoctorSelectorsComponent, resolve: {users: PatientSelectorsResolver}},
+            {path: 'doctor-selectees', component: DoctorSelecteesComponent, resolve: {users: PatientSelecteesResolver}},
+            {path: 'nav', component: NavComponent, resolve: {user: MemberEditResolver}},
+            {path: 'document-editor', component: DocumentEditorComponent, resolve: {user: MemberDetailResolver}},
+            { path: 'doctor-appointments', component: DoctorAppointmentsComponent,
+            resolve: { user: PatientAppointmentsResolver, appointments: GetMemberPatientsResolver,
+                patients: PatientSelecteesResolver}},
+            {path: 'doctor-edit', component: DoctorEditComponent, resolve: { user: MemberEditResolver}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'},

@@ -21,6 +21,8 @@ namespace Telemedicine.API.Dtos
          // Section 9 properties
         public string Gender { get; set; }
 
+        public DateTime DateOfBirth {get; set;}
+
         public int Age { get; set; }
 
         public DateTime Created { get; set; }
@@ -34,5 +36,10 @@ namespace Telemedicine.API.Dtos
         public string State { get; set; }
 
         public string Country { get; set; }
+
+        public string DeaId { get; set; }
+
+        public string PhotoUrl { get; set; }
+
     }
 }

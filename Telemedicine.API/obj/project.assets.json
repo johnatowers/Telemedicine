@@ -12505,30 +12505,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\visha\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/Users/macy/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\Telemedicine.API.csproj",
+      "projectUniqueName": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
       "projectName": "Telemedicine.API",
-      "projectPath": "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\Telemedicine.API.csproj",
-      "packagesPath": "C:\\Users\\visha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\visha\\Desktop\\sp3\\Telemedicine\\Telemedicine.API\\obj\\",
+      "projectPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/Telemedicine.API.csproj",
+      "packagesPath": "/Users/macy/.nuget/packages/",
+      "outputPath": "/Users/macy/Desktop/Senior Project/Telemedicine/Telemedicine.API/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\visha\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/macy/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

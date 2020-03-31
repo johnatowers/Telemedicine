@@ -3,16 +3,21 @@
     <!-- Took out the images for right now, we can always add in later. -->
     <!-- <img class="card-img-top" src="{{user.photoUrl}}" alt="{{user.username}}"> -->
     <ul class="list-inline member-icons animate text-center">
-      <li class="list-inline-item"><button class="btn btn-primary" 
-          [routerLink]="['/members/', user.id]"><i class="fa fa-user-md"></i></button></li>
-      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-user-plus"></i></button></li>
-      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
+      <li class="list-inline-item">
+        <button class="btn btn-primary" [routerLink]="['/members/', user.id]">
+          <i class="fa fa-user-md">
+
+          </i>
+        </button>
+      </li>
+      <li class="list-inline-item"><button class="btn btn-primary" (click)="sendSelect(user.id)"><i class="fa fa-user-plus"></i></button></li>
+      <li class="list-inline-item"><button class="btn btn-primary" [routerLink]="['/members/', user.id]" [queryParams]="{tab: 3}" ><i class="fa fa-envelope"></i></button></li>
     </ul>
   </div>
   <div class="card-body-p-1">
     <h6 class="card-title text-center mb-1"><i class="fa fa-user"></i>
-    {{user.username}}, {{user.age}}
+    {{user.firstName}} {{user.lastName}}
     </h6>
-    <p class="card-text text-muted text-center">{{user.role}}</p>
+    <!-- <p class="card-text text-muted text-center">{{user.role}}</p> -->
   </div>
 </div>

@@ -30,9 +30,6 @@ namespace Telemedicine.API.Models
 
         public string Country { get; set; }
 
-        public ICollection<Photo> Documents {get; set;}
-        
-
         // When registering a user of type patient or admin, we'll enter default value null
         public string DeaId { get; set; }
 
@@ -51,5 +48,18 @@ namespace Telemedicine.API.Models
         // When registering a user of type doctor or admin, we'll enter default value null
         public string Medications { get; set; }
         public virtual UserRole UserRole { get; set; }
+        public ICollection<Document> Documents {get; set;}
+
+        public ICollection<Select> Selectors {get; set;}
+
+        public ICollection<Select> Selectees {get; set;}
+        
+        public ICollection<Message> MessagesSent { get; set; }
+
+        public ICollection<Message> MessagesReceived { get; set; }
+
+        public ICollection<Appointment> PatientAppointments { get; set; }
+
+        public ICollection<Appointment> DoctorAppointments { get; set; }
     }
 }

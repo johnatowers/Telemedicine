@@ -16,28 +16,6 @@ namespace Telemedicine.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
-            modelBuilder.Entity("Telemedicine.API.Models.Photo", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<string>("Description");
-
-                    b.Property<bool>("IsMain");
-
-                    b.Property<string>("PubilicId");
-
-                    b.Property<string>("Url");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Documents");
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -106,6 +84,88 @@ namespace Telemedicine.API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Telemedicine.API.Models.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("DoctorId");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<int>("PatientId");
+
+                    b.Property<string>("PrimaryColor");
+
+                    b.Property<string>("SecondaryColor");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("PublicId");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime?>("DateRead");
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<DateTime>("MessageSent");
+
+                    b.Property<bool>("RecipientDeleted");
+
+                    b.Property<int>("RecipientId");
+
+                    b.Property<bool>("SenderDeleted");
+
+                    b.Property<int>("SenderId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Telemedicine.API.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -127,6 +187,19 @@ namespace Telemedicine.API.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Select", b =>
+                {
+                    b.Property<int>("SelectorId");
+
+                    b.Property<int>("SelecteeId");
+
+                    b.HasKey("SelectorId", "SelecteeId");
+
+                    b.HasIndex("SelecteeId");
+
+                    b.ToTable("Relationships");
                 });
 
             modelBuilder.Entity("Telemedicine.API.Models.User", b =>
@@ -243,13 +316,6 @@ namespace Telemedicine.API.Migrations
                     b.ToTable("Values");
                 });
 
-            modelBuilder.Entity("Telemedicine.API.Models.Photo", b =>
-                {
-                    b.HasOne("Telemedicine.API.Models.User", "User")
-                        .WithMany("Documents")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Telemedicine.API.Models.Role")
@@ -282,6 +348,53 @@ namespace Telemedicine.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Telemedicine.API.Models.Appointment", b =>
+                {
+                    b.HasOne("Telemedicine.API.Models.User", "Doctor")
+                        .WithMany("DoctorAppointments")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Telemedicine.API.Models.User", "Patient")
+                        .WithMany("PatientAppointments")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Document", b =>
+                {
+                    b.HasOne("Telemedicine.API.Models.User", "User")
+                        .WithMany("Documents")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Message", b =>
+                {
+                    b.HasOne("Telemedicine.API.Models.User", "Recipient")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Telemedicine.API.Models.User", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Telemedicine.API.Models.Select", b =>
+                {
+                    b.HasOne("Telemedicine.API.Models.User", "Selectee")
+                        .WithMany("Selectors")
+                        .HasForeignKey("SelecteeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Telemedicine.API.Models.User", "Selector")
+                        .WithMany("Selectees")
+                        .HasForeignKey("SelectorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Telemedicine.API.Models.UserRole", b =>
                 {
                     b.HasOne("Telemedicine.API.Models.Role", "Role")
@@ -295,7 +408,6 @@ namespace Telemedicine.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
-        });
+        }
     }
-}
 }

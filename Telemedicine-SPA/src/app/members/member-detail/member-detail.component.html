@@ -1,20 +1,39 @@
 <div class="container mt-4">
+    <div *ngIf="user.deaId == '0'">
+        <h1>{{user?.firstName}} {{user?.lastName}}'s Chart</h1>
+    </div>
+    <div *ngIf="user.deaId != '0'">
+        <h1>{{user?.firstName}} {{user?.lastName}}'s Doctor Profile</h1>
+    </div>
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
         <!-- Again, i commented out the image because it looks ugly without a photo. -->
         <!-- <img class="card-img-top img-thumbnail" src="{{user?.photoUrl}}" alt="{{user.username}}"> -->
+        
         <div class="card-body">
+          <div>
+            <strong>Full Name:</strong>
+            <p>{{user?.firstName}} {{user?.middleName}} {{user?.lastName}} {{user?.suffix}}</p>
+          </div>
           <div>
             <strong>Location:</strong>
             <p>{{user?.city}}, {{user?.country}}</p>
+          </div>
+          <div>
+              <strong>Gender:</strong>
+              <p>{{user?.gender}}</p>
+            </div>
+          <div>
+              <strong>Date of Birth:</strong>
+              <p>{{user?.dateOfBirth | date: 'mediumDate'}}</p>
           </div>
           <div>
             <strong>Age:</strong>
             <p>{{user?.age}}</p>
           </div>
           <div>
-            <strong>Last Actice:</strong>
+            <strong>Last Active:</strong>
             <p> {{user?.lastActive | timeAgo}}</p>
           </div>
           <div>
@@ -24,7 +43,7 @@
           <div class="card-footer">
             <div class="btn-group d-flex">
               <button class="btn btn-primary w-100">Request</button>
-              <button class="btn btn-success w-100">Message</button>
+              <button class="btn btn-success w-100" (click)="selectTab(3)">Message</button>
             </div>
           </div>
         </div>
@@ -32,25 +51,42 @@
     </div>
     <div class="col-sm-8">
       <div class="tab-panel">
-        <tabset class="member-tabset">
-          <tab heading="About {{user?.role}}">
-            <h4>Description</h4>
-            <p>{{user?.introduction}}</p>
-            <h4>Looking For</h4>
-            <p>{{user?.lookingFor}}</p>
-          </tab>
-          <tab heading="Interests">
-            <h4>Interests</h4>
-            <p>{{user?.interests}}</p>
-          </tab>
-          <tab heading="Achievements">
-            <h4>Achievements will go here</h4>
-            <!-- Photo gallery code added here but commented out since now photos are present -->
-            <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
-          </tab>
-          <tab heading="Messages">
-            <h4>Messages will go here</h4>
-          </tab>
+        <tabset class="member-tabset" #memberTabs>
+            <tab heading="Upload Reports">
+                <app-document-editor [documents]="user.documents"></app-document-editor>
+              </tab>
+              <tab heading="Messages">
+                  <app-member-messages [recipientId]="user.id"></app-member-messages>
+                </tab>
+
+            <tab *ngIf="user.deaId == '0'" heading="About">
+                <div>
+                    <h4>Health Conditions</h4>
+                    <p>{{user?.healthConditions}}</p>
+                  </div>
+                  <div>
+                    <h4>Allergies</h4>
+                    <p>{{user?.allergies}}</p>
+                  </div>
+                  <div>
+                    <h4>Medications</h4>
+                    <p>{{user?.medications}}</p>
+                  </div>
+            </tab>
+          
+            <tab *ngIf="user.deaId == '0'" heading="Reports">
+                <!-- <div class ="col-sm-2" *ngFor="let doc of user.documents">
+                    <a [href]="doc.url">
+                        <img [src]="doc.url" class="img-thumbnail p-1" alt="">
+                  </a>
+                  <div class = "text-center">
+                      <p>Click document to enlarge</p>   
+                  </div>
+                  </div> -->
+              <!-- Photo gallery code added here but commented out since now photos are present -->
+              <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </tab>
+          
         </tabset>  
       </div>
     </div>

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System;
 using Telemedicine.API.Helpers;
+using Telemedicine.API.Models;
 
 namespace Telemedicine.API.Controllers
 {
@@ -25,10 +26,14 @@ namespace Telemedicine.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _repo.GetUsers();
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            userParams.UserId = currentUserId;
+
+            var users = await _repo.GetUsers(userParams);
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
             return Ok(usersToReturn);
         }
 
@@ -54,6 +59,51 @@ namespace Telemedicine.API.Controllers
                 return NoContent();
 
             throw new Exception($"Update user {id} failed on save");       
+        }
+
+        [HttpPost("{id}/select/{recipientId}")]
+        public async Task<IActionResult> SelectUser(int id, int recipientId)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var select = await _repo.GetSelect(id, recipientId);
+
+            if (select != null) {
+                return BadRequest("You've already selected this user");
+            }
+
+            if (await _repo.getUser(recipientId) == null) {
+                return NotFound();
+            }
+
+            var checkIfPatientFirstSelect = await _repo.GetSelect(recipientId, id);
+            var SelectorUser = await _repo.getUser(id);
+            var SelecteeUser = await _repo.getUser(recipientId);
+            // Check if a patient is trying to select a patient
+            if (SelectorUser.UserRole.RoleId.Equals(1) && SelecteeUser.UserRole.RoleId.Equals(1))
+                return BadRequest("You can't select another patient");
+
+            // Check if a doctor is trying to select a patient
+            if (SelectorUser.UserRole.RoleId.Equals(3) && SelecteeUser.UserRole.RoleId.Equals(1))
+                // Check if patient has selected the doctor first
+                // If patient has not selected the doctor, then the doctor cannot select the patient
+                if (checkIfPatientFirstSelect == null)
+                    return BadRequest("You can't select a patient first");
+
+            select = new Select
+            {
+                SelectorId = id,
+                SelecteeId = recipientId
+            };
+
+            _repo.Add<Select>(select);
+
+            if (await _repo.SaveAll())
+                return Ok();
+            
+            return BadRequest("Failed to select user");
+            
         }
     }
 }

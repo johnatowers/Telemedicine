@@ -1,11 +1,11 @@
 <div class="container mt-4">
     <div class="row">
       <div class="col-sm-4">
-          <h1>Your Profile</h1>
+          <h1>Your Chart</h1>
       </div>
       <div class="col-sm-8">
         <div *ngIf="editForm.dirty" class="alert alert-info">
-          <p><strong>Information</strong> You have made changes. Any unsaved changes will be lost!</p>
+          <strong>Information</strong> You have made changes. Any unsaved changes will be lost!
         </div>
       </div>
     </div>
@@ -15,22 +15,26 @@
           <!-- Again, i commented out the image because it looks ugly without a photo. -->
           <!-- <img class="card-img-top img-thumbnail" src="{{user?.photoUrl}}" alt="{{user.username}}"> -->
           <div class="card-body">
-            <div>
-              <strong>Location:</strong>
-              <p>{{user?.city}}, {{user?.country}}</p>
-            </div>
-            <div>
-              <strong>Age:</strong>
-              <p>{{user?.age}}</p>
-            </div>
-            <div>
-              <strong>Last Actice:</strong>
-              <p> {{user?.lastActive | timeAgo}}</p>
-            </div>
-            <div>
-              <strong>Member Since:</strong>
-              <p> {{user?.created | date: 'mediumDate'}}</p>
-            </div>
+              <div>
+                  <strong>Full Name:</strong>
+                  <p>{{user?.firstName}} {{user?.middleName}} {{user?.lastName}} {{user?.suffix}}</p>
+                </div>
+                <div>
+                  <strong>Location:</strong>
+                  <p>{{user?.city}}, {{user?.country}}</p>
+                </div>
+                <div>
+                    <strong>Gender:</strong>
+                    <p>{{user?.gender}}</p>
+                  </div>
+                <div>
+                    <strong>Date of Birth:</strong>
+                    <p>{{user?.dateOfBirth | date: 'mediumDate'}}</p>
+                </div>
+                <div>
+                  <strong>Age:</strong>
+                  <p>{{user?.age}}</p>
+                </div>
             <div class="card-footer">
               <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Changes</button>
             </div>
@@ -40,29 +44,28 @@
       <div class="col-sm-8">
         <div class="tab-panel">
           <tabset class="member-tabset">
-            <tab heading="Edit Profile">
+            <tab heading="Edit Health Information">
               <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
                 <h4>Health Conditions</h4>
-                <textarea name="conditions" rows="6" class="form-control"
-                  [(ngModel)]="user.username"></textarea>
+                <textarea name="healthConditions" rows="6" class="form-control" 
+                  [(ngModel)]="user.healthConditions"></textarea>
                 <h4>Allergies</h4>
-                <textarea name="allergies" rows="6" class="form-control"
-                  [(ngModel)]="user.username"></textarea>
+                <textarea name="allergies" rows="6" class="form-control" 
+                  [(ngModel)]="user.allergies"></textarea>
                 <h4>Medications</h4>
-                <textarea name="allergies" rows="6" class="form-control"
-                  [(ngModel)]="user.username"></textarea>
-                <h4>Location Details:</h4>
+                <textarea name="medications" rows="6" class="form-control" 
+                  [(ngModel)]="user.medications"></textarea>
+                <h4>Location Details:</h4>   
                 <div class="form-inline">
                   <label for="city">City</label>
                   <input class="form-control" type="text" name="city" [(ngModel)]="user.city">
-                  <label for="city">Country</label>
+                  <label for="country">Country</label>
                   <input class="form-control" type="text" name="country" [(ngModel)]="user.country">
                 </div>
               </form>
             </tab>
-            <tab heading="Edit Health Information">
-               <app-photo-editor [photos]="user.photos"
-                (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
+            <tab heading="Upload Reports">
+               <app-document-editor [documents]="user.documents"></app-document-editor>
             </tab>
           </tabset>
         </div>

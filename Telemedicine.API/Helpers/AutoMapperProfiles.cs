@@ -15,9 +15,18 @@ namespace Telemedicine.API.Helpers
             .ForMember(dest => dest.Age, opt => 
             opt.MapFrom(src => src.DateofBirth.CalculateAge()));
             CreateMap<UserForUpdateDto, User>();
-            CreateMap<Photo, PhotosForReturnDto>(); 
-            CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<Document, DocumentForReturnDto>(); 
+            CreateMap<DocumentForCreationDto, Document>();
+            CreateMap<Document, DocumentForDetailedDto>();
+            CreateMap<MessageForCreationDto, Message>().ReverseMap();
+            CreateMap<Message, MessageToReturnDto>();
+            CreateMap<AppointmentForCreationDto, Appointment>().ReverseMap();
+            CreateMap<Appointment, AppointmentToReturnDto>();
+            CreateMap<AppointmentForUpdateDto, Appointment>();
+                //.ForMember(m => m.SenderPhotoUrl, opt => opt.MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.IsMain).Url))
+                //.ForMember(m => m.RecipientPhotoUrl, opt => opt.MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url))
+
         }
     }
 }

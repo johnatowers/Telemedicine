@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-nav',
@@ -10,9 +11,10 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  user: User;
 
   constructor(public authService: AuthService, private alertify: AlertifyService,
-    private router: Router) { }
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -23,7 +25,13 @@ export class NavComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     }, () => {
-      this.router.navigate(['/patient-chart']);
+      if (this.authService.decodedToken.role === 'Patient') {
+        this.router.navigate(['/patient-chart']);
+      } else if (this.authService.decodedToken.role === 'Doctor') {
+        this.router.navigate(['/doctor-selectors']);
+      } else if (this.authService.decodedToken.role === 'Admin') {
+        this.router.navigate(['/admin']);
+      }
     });
   }
 
@@ -33,11 +41,11 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    // localStorage.removeItem('user');
     this.authService.decodedToken = null;
-    this.authService.currentUser = null;
+    // this.authService.currentUser = null;
     this.alertify.message('Logged out');
-    this.router.navigate(['/home'])
+    this.router.navigate(['/home']);
   }
 
 }

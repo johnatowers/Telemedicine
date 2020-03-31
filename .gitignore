@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.pdb
-Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.deps.json
-Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.dll
-Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.pdb
-Telemedicine.API/bin/Debug/netcoreapp2.2/Telemedicine.API.runtimeconfig.dev.json
-Telemedicine.API/obj/project.assets.json
-Telemedicine.API/obj/Telemedicine.API.csproj.nuget.cache
-Telemedicine.API/obj/Telemedicine.API.csproj.nuget.dgspec.json
-Telemedicine.API/obj/Telemedicine.API.csproj.nuget.g.props
-Telemedicine.API/obj/Debug/netcoreapp2.2/project.razor.json
-Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.assets.cache
-Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.csproj.CoreCompileInputs.cache
-Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.csproj.FileListAbsolute.txt
-Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.csprojAssemblyReference.cache
-Telemedicine.API/obj/Debug/netcoreapp2.2/Telemedicine.API.dll
-=======
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -62,4 +45,3 @@ testem.log
 .DS_Store
 Thumbs.db
 
->>>>>>> a672f1bda20c521d4e5893637bebd645edbb5ad0
